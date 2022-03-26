@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import axios from "axios";
 import ProgramList from "./components/ProgramList";
-import {useEffect, useState} from 'react';
+
+const API_URL = "http://localhost:3000/api/v1/programs";
+
 
 const App = () => {
-  const [programs, setPrograms] = useState([]);
+  const [programs, setPrograms] = useState([{id:0,name:"",description:"",duration_days:0}]);
   const fetchPrograms = () => {
-    axios.get("/api/v1/programs")
-    .then (res => setPrograms(res.data));
+    axios.get(API_URL)
+    .then (res => {
+      setPrograms(res.data)})
+    .catch(res => console.log(res.message));
   };
   useEffect(fetchPrograms,[]);
+
   return (
     <div className="App">
-      <ProgramList programs = {programs}/>
+      <ProgramList programs={programs}/>
     </div>
   );
 };

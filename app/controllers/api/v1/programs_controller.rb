@@ -4,7 +4,6 @@ class Api::V1::ProgramsController < ApplicationController
   # GET /programs
   def index
     @programs = Program.all
-
     render json: @programs
   end
 
