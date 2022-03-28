@@ -14,23 +14,41 @@ const ProgramList = () => {
   };
 
   const deleteProgram =  (id) => {
-    const program_delete_url = `http://localhost:3000/api/v1/programs/${id}`
-    axios.delete(program_delete_url)
-    .then (res => {
-      setPrograms(res.data)})
-    .catch(res => console.log(res.message))
-  };
+    const dataDeleted = () => {
+      const program_delete_url = `http://localhost:3000/api/v1/programs/${id}`
+      axios.delete(program_delete_url)
+      .then (res => {
+        console.log(res.data);
+        setPrograms(res.data)})
+      .catch(res => console.log(res.message))
+    };
+
+    alert(
+      "Program Deletion",
+      "Are you sure?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: {dataDeleted}}
+      ]
+    );
+    
+    }
+   
 
   useEffect(fetchPrograms,[]);
+  console.log('programs', programs);
   return (
     <div>
       <h1> Here is the list of all current programs </h1>
       <button onClick={()=>console.log("Add a new program")}>
         Add a new program
       </button>
-      {programs.map(program => {
-      return (
-        <div key={program.id}>
+      {programs.map((program) => {
+        return (<div key={program.id}>
           <h2> Name: {program.name} </h2>
           <p> Description: {program.description} </p>
           <p> Duration: {program.duration_days} days </p>
