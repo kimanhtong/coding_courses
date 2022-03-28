@@ -22,20 +22,7 @@ const ProgramList = () => {
         setPrograms(res.data)})
       .catch(res => console.log(res.message))
     };
-
-    alert(
-      "Program Deletion",
-      "Are you sure?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: {dataDeleted}}
-      ]
-    );
-    
+    dataDeleted();
     }
    
 
