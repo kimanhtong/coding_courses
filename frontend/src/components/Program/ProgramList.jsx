@@ -1,7 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
+import Confirm from "../Modal/Confirm";
 
+const navigate = useNavigate();
 const ProgramList = () => {
   const { programs, setPrograms } = useContext(ProgramsContext);
   ;
@@ -19,11 +22,19 @@ const ProgramList = () => {
       axios.delete(program_delete_url)
       .then (res => {
         console.log(res.data);
-        setPrograms(res.data)})
-      .catch(res => console.log(res.message))
+        setPrograms(res.data);
+        navigate("/");
+      })
+      .catch(res => {
+        console.log(res.message);
+        navigate("/");
+      })
     };
     dataDeleted();
-    }
+    return (
+      <Confirm isOpen={true} message={'Are you sure you want to delete the Program?'} onOK={dataDeleted} onCancel={navigate("/")} />
+    );
+    };
    
 
   useEffect(fetchPrograms,[]);

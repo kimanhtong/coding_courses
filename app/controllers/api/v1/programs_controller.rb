@@ -35,6 +35,8 @@ class Api::V1::ProgramsController < ApplicationController
   # DELETE /programs/1
   def destroy
     @program.destroy
+    @programs = Program.all
+    render json: @programs
   end
 
   private
