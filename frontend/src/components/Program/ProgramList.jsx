@@ -75,28 +75,27 @@ const ProgramList = () => {
         isOpen={isOpen}
         onRequestClose={toggleModal}
         contentLabel="My dialog"
-        overlayClassName={
-          "ReactModal__Overlay"
-        /* String className to be applied to the overlay.
-           See the `Styles` section for more details. */}
-           className={
-            "ReactModal__Content"
-          /* String className to be applied to the modal content.
-             See the `Styles` section for more details. */}
-             bodyOpenClassName={
-              "ReactModal__Body--open"
-            /* String className to be applied to the document.body
-               (must be a constant string).
-               This attribute when set as `null` doesn't add any class
-               to document.body.
-               See the `Styles` section for more details. */}
-          
-            htmlOpenClassName={
-              "ReactModal__Html--open"
-            /* String className to be applied to the document.html
-               (must be a constant string).
-               This attribute is `null` by default.
-               See the `Styles` section for more details. */}
+        ariaHideApp={false}
+        shouldFocusAfterRender={true}
+        className={"ReactModal__Content"}
+        style={{
+          overlay: { position: 'fixed', 
+            top: 100,left: 80,right: 0,bottom: 0,
+            backgroundColor: 'rgba(255, 255, 255, 0.75)'
+          },
+          content: {
+            position: 'absolute',
+            top: '80px', left: '100px', right: '200px', bottom: '400px',
+            border: '2px solid #ccc',
+            background: '#fff',
+            // overflow: 'auto',
+            // WebkitOverflowScrolling: 'touch',
+            borderRadius: '4px',
+            // outline: 'none',
+            padding: '20px'
+          }
+        }}
+            
       >
         <div>Are you sure?</div>
         <button onClick={() => {
