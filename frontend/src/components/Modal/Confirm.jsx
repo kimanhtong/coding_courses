@@ -23,15 +23,8 @@ const Confirm = (props) => {
   return (
     <div>
       <p>{props.message}</p>
-      <button onClick={()=>{
-        props.onOK();
-        
-      }}> OK </button>
-      <button onClick={()=>{
-        props.onCancel();
-        // isOpen = false;
-      }}> Cancel </button>
-
+      <button onClick={props.onOK}> OK </button>
+      <button onClick={props.onCancel}> Cancel </button>
     </div>
   )};
   export default Confirm;
