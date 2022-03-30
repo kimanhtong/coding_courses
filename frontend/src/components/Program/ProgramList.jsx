@@ -4,10 +4,9 @@ import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
 import Confirm from "../Modal/Confirm";
 
-const navigate = useNavigate();
 const ProgramList = () => {
   const { programs, setPrograms } = useContext(ProgramsContext);
-  ;
+  const navigate = useNavigate();
   const fetchPrograms = () => {
     const program_list_url = "http://localhost:3000/api/v1/programs"
     axios.get(program_list_url)
@@ -17,8 +16,8 @@ const ProgramList = () => {
   };
 
   const deleteProgram =  (id) => {
-    const dataDeleted = () => {
-      const program_delete_url = `http://localhost:3000/api/v1/programs/${id}`
+    const dataDeleted = (i) => {
+      const program_delete_url = `http://localhost:3000/api/v1/programs/${i}`
       axios.delete(program_delete_url)
       .then (res => {
         console.log(res.data);
@@ -30,9 +29,8 @@ const ProgramList = () => {
         navigate("/");
       })
     };
-    dataDeleted();
     return (
-      <Confirm isOpen={true} message={'Are you sure you want to delete the Program?'} onOK={dataDeleted} onCancel={navigate("/")} />
+      <Confirm isOpen={true} message={'Are you sure you want to delete the Program?'} onOK={()=>{dataDeleted(id)}} onCancel={navigate("/")} />
     );
     };
    
