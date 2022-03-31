@@ -31,32 +31,30 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <div key={program.id} className="col-md-6 col-lg-4">
-      <div className="card mb-4">
-        <img
-          src={"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"}
-          className="card-img-top"
-          alt={program.name}
-        />
-        <div className="card-body">
-          <h5 className="card-title">Course: {program.name}</h5>
-          <div className="card-actions col-sm-12 col-lg-2" style={{ margin: 50 }} >
-            <button type="button" className="btn btn-primary" 
-              onClick={()=>navigate(`/program/view/${program.id}`)}>
-              View
-            </button>
-            <button type="button" className="btn btn-secondary" 
-              onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              Edit
-            </button>
-            <button type="button" className="btn btn-danger"
-              onClick={() => {
-                setCurrentProgram(program);
-                toggleModal();
-                }}>
-              Delete
-            </button>
-          </div>
+    <div key={program.id} className="col-sm-4">
+      <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
+      <img
+        src={"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"}
+        className="card-img"
+        alt={program.name}
+      />
+      <div className="card-body">
+        <div className="card-actions" style={{ marginBottom: 20 }} >
+          <button type="button" className="btn btn-primary" 
+            onClick={()=>navigate(`/program/view/${program.id}`)}>
+            View
+          </button>
+          <button type="button" className="btn btn-secondary" 
+            onClick={()=>navigate(`/program/edit/${program.id}`)}>
+            Edit
+          </button>
+          <button type="button" className="btn btn-danger"
+            onClick={() => {
+              setCurrentProgram(program);
+              toggleModal();
+          }}>
+            Delete
+          </button>
         </div>
       </div>
     </div>
@@ -87,13 +85,11 @@ const ProgramList = () => {
       <button onClick={()=>console.log("Add a new program")}>
         Add a new program
       </button>
-        <div className="py-5">
-          <main className="container">
-            <div className="row">
-              {programs.length > 0 ? allPrograms : noProgram}
-            </div>
-          </main>
-        </div>
+      {/* <div className="container"> */}
+        {/* <div className="row"> */}
+          {programs.length > 0 ? allPrograms : noProgram}
+        {/* </div> */}
+      {/* </div> */}
 
      <Modal
         isOpen={isOpen}
