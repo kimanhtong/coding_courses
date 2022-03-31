@@ -16,6 +16,7 @@ const AppRouter = () => {
             <Routes>
               <Route element={<ProgramList/>} path="/program"/>
               <Route element={<ProgramForm/>} path="/program/edit/:id"/>
+              <Route element={<ProgramForm/>} path="/program/new"/>
               <Route element={<ProgramView/>} path="/program/view/:id"/>
               <Route element={() => <Link to="/program" />} />
             </Routes>
