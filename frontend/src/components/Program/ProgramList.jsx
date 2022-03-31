@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Modal from 'react-modal';
 import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
-//import DeleteProgram from './Delete';
-//import Confirm from "../Modal/Confirm";
-import Modal from 'react-modal';
+
 
 Modal.setAppElement("#root");
 
@@ -12,7 +13,7 @@ const ProgramList = () => {
   const { programs, setPrograms } = useContext(ProgramsContext);
   const [ currentProgram, setCurrentProgram ] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const programRoot = "/";
+  const programRoot = "/program";
   const navigate = useNavigate();
 
   const toggleModal = () => {
@@ -42,68 +43,72 @@ const ProgramList = () => {
     };
     fetchPrograms();
   },[]);
-  console.log('programs', programs);
+
   return (
     <div>
       <h1> Here is the list of all current programs </h1>
-      <button onClick={()=>console.log("Add a new program")}>
+      <Button onClick={()=>console.log("Add a new program")}>
         Add a new program
-      </button>
+      </Button>
       {programs.map(program => {
         return (
-          <div key={program.id}>
-            <h2> Name: {program.name} </h2>
-            <h3> Program ID: {program.id} </h3>
-            <p> Description: {program.description} </p>
-            <p> Duration: {program.duration_days} days </p>
-            <div>
-              <button onClick={()=>setCurrentProgram(program)}>
+          <Card key={program.id} style={{ width: '18rem' }}>
+            <Card.Img 
+              variant="top" 
+              src="https://res.cloudinary.com/de6puygvt/image/upload/v1643845598/samples/food/fish-vegetables.jpg/" 
+              className="img-fluid position-absolute"/>
+
+            <Card.Body>
+              <Card.Title>Name: {program.name}</Card.Title>
+              <Card.Text>
+                Description: {program.description}
+                Duration: {program.duration_days} days
+              </Card.Text>
+              <Button variant="primary" 
+                onClick={()=>navigate(`/program/edit/${program.id}`)}>
                 Edit the program
-              </button>
-              <button onClick={() => {
+              </Button>
+              <Button onClick={() => {
                 setCurrentProgram(program);
                 toggleModal();
                 }}>
                 Delete the program
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Card.Body>
+            </Card>
         )}
       )}
      
      <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
-        contentLabel="My dialog"
+        contentLabel="Confirm Deletion"
         ariaHideApp={false}
         shouldFocusAfterRender={true}
         className={"ReactModal__Content"}
         style={{
           overlay: { position: 'fixed', 
-            top: 100,left: 80,right: 0,bottom: 0,
+            top: 0,left: 0,right: 0,bottom: 0,
             backgroundColor: 'rgba(255, 255, 255, 0.75)'
           },
           content: {
             position: 'absolute',
-            top: '80px', left: '100px', right: '200px', bottom: '400px',
+            top: '180px', left: '180px', right: '200px', bottom: '400px',
             border: '2px solid #ccc',
             background: '#fff',
-            // overflow: 'auto',
-            // WebkitOverflowScrolling: 'touch',
             borderRadius: '4px',
-            // outline: 'none',
             padding: '20px'
           }
         }}
             
       >
         <div>Are you sure?</div>
-        <button onClick={() => {
+        <Button onClick={() => {
           console.log('current program id:', currentProgram.id);
           deleteProgram(currentProgram);
           toggleModal();
-        }}>Yes</button>
-        <button onClick={toggleModal}>No</button>
+        }}>Yes</Button>
+        <Button onClick={toggleModal}>No</Button>
       </Modal>
     </div>
   )
