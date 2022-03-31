@@ -1,7 +1,46 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import Modal from 'react-modal';
+import axios from "axios";
+import ProgramsContext from '../../context/ProgramsContext';
 
-const ProgramDetail = (props) => {
-  const [program, setProgram] = useState({});
+const ProgramDetail = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { programs, setPrograms } = useContext(ProgramsContext);
+  const [program, setProgram] = useState(programs[id] || {});
+  const createDBLink = `http://localhost:3000/api/v1/programs`;
+  const programRoot = '/program'
+
+  const saveProgram = () => {
+    if (id) {
+      const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
+      const programView = `/program/view/${id}`;
+      axios
+      .put(editDBLink, program)
+      .then(res => {
+        console.log(res.data);
+        navigate(programView);
+      })
+      .catch(err => {
+        console.log(err.message);
+        navigate(programRoot);
+      });
+    } else {
+      axios
+      .post(createDBLink, program)
+      .then(res => {
+        console.log(res.data);
+        const programView = `/program/view/${res.data.id}`;
+        navigate(programView);
+      })
+      .catch(err => {
+        console.log(err.message);
+        navigate(programRoot);
+      });
+    }
+  }
+
   return (
     <div> 
       <h1> Edit or Create a new Program </h1>
