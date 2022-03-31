@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from "axios";
@@ -8,9 +8,10 @@ const ProgramDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { programs, setPrograms } = useContext(ProgramsContext);
-  const [program, setProgram] = useState(programs[id] || {});
+  const [program, setProgram] = useState({});
   const createDBLink = `http://localhost:3000/api/v1/programs`;
-  const programRoot = '/program'
+  const programRoot = '/program';
+
 
   const saveProgram = () => {
     if (id) {
@@ -53,7 +54,13 @@ const ProgramDetail = () => {
     console.log(program);
   }
 
-  console.log(`existing program??? `, program);
+  useEffect(() => {
+    console.log(`all programs: `, programs);
+    const initProgram = id ? programs.filter(program => program.id === id) : {};
+    console.log(`init program: `, initProgram);
+    setProgram(initProgram);
+    console.log(`program: `, program);
+  },[]);
 
   return (
     <div> 
