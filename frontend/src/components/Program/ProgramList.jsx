@@ -1,11 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
-
 
 Modal.setAppElement("#root");
 
@@ -32,6 +29,46 @@ const ProgramList = () => {
       console.log(res.message);
     })
   };
+
+  const allPrograms = programs.map(program => (
+    <div key={program.id} className="col-md-6 col-lg-4">
+      <div className="card mb-4">
+        <img
+          src={"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"}
+          className="card-img-top"
+          alt={program.name}
+        />
+        <div className="card-body">
+          <h5 className="card-title">Course: {program.name}</h5>
+          <div className="card-actions col-sm-12 col-lg-2" style={{ margin: 50 }} >
+            <button type="button" className="btn btn-primary" 
+              onClick={()=>navigate(`/program/view/${program.id}`)}>
+              View
+            </button>
+            <button type="button" className="btn btn-secondary" 
+              onClick={()=>navigate(`/program/edit/${program.id}`)}>
+              Edit
+            </button>
+            <button type="button" className="btn btn-danger"
+              onClick={() => {
+                setCurrentProgram(program);
+                toggleModal();
+                }}>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
+  const noProgram = (
+    <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+      <h4>
+        No programs yet. Why not <Link to={programRoot}>create one?</Link>
+      </h4>
+    </div>
+  );
   
   useEffect(()=>{
     const fetchPrograms = () => {
@@ -47,38 +84,17 @@ const ProgramList = () => {
   return (
     <div>
       <h1> Here is the list of all current programs </h1>
-      <Button onClick={()=>console.log("Add a new program")}>
+      <button onClick={()=>console.log("Add a new program")}>
         Add a new program
-      </Button>
-      {programs.map(program => {
-        return (
-          <Card key={program.id} style={{ width: '18rem' }}>
-            <Card.Img 
-              variant="top" 
-              src="https://res.cloudinary.com/de6puygvt/image/upload/v1643845598/samples/food/fish-vegetables.jpg/" 
-              className="img-fluid position-absolute"/>
+      </button>
+        <div className="py-5">
+          <main className="container">
+            <div className="row">
+              {programs.length > 0 ? allPrograms : noProgram}
+            </div>
+          </main>
+        </div>
 
-            <Card.Body>
-              <Card.Title>Name: {program.name}</Card.Title>
-              <Card.Text>
-                Description: {program.description}
-                Duration: {program.duration_days} days
-              </Card.Text>
-              <Button variant="primary" 
-                onClick={()=>navigate(`/program/edit/${program.id}`)}>
-                Edit the program
-              </Button>
-              <Button onClick={() => {
-                setCurrentProgram(program);
-                toggleModal();
-                }}>
-                Delete the program
-              </Button>
-            </Card.Body>
-            </Card>
-        )}
-      )}
-     
      <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
@@ -103,12 +119,12 @@ const ProgramList = () => {
             
       >
         <div>Are you sure?</div>
-        <Button onClick={() => {
+        <button onClick={() => {
           console.log('current program id:', currentProgram.id);
           deleteProgram(currentProgram);
           toggleModal();
-        }}>Yes</Button>
-        <Button onClick={toggleModal}>No</Button>
+        }}>Yes</button>
+        <button onClick={toggleModal}>No</button>
       </Modal>
     </div>
   )
