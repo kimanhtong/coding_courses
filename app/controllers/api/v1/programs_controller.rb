@@ -17,7 +17,7 @@ class Api::V1::ProgramsController < ApplicationController
     @program = Program.new(program_params)
 
     if @program.save
-      render json: @program, status: :created, location: @program
+      render json: @program
     else
       render json: @program.errors, status: :unprocessable_entity
     end
@@ -47,6 +47,6 @@ class Api::V1::ProgramsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def program_params
-      params.require(:program).permit(:name, :description, :duration_days)
+      params.require(:program).permit(:id, :name, :description, :duration_days, :created_at, :updated_at)
     end
 end

@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import Modal from 'react-modal';
+import { useNavigate, useParams } from 'react-router-dom';
+// import Modal from 'react-modal';
 import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
 
@@ -55,10 +55,9 @@ const ProgramDetail = () => {
   }
 
   useEffect(() => {
-    console.log(`all programs: `, programs);
-    const initProgram = id ? programs.filter(program => program.id === id) : {};
-    console.log(`init program: `, initProgram);
-    setProgram(initProgram);
+    const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+    console.log(`init program: `, initProgram[0]);
+    setProgram(initProgram[0]);
     console.log(`program: `, program);
   },[]);
 
@@ -66,7 +65,7 @@ const ProgramDetail = () => {
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
       <h1> {!id && `Create a new Program`} </h1>
-      <form>
+      <form onSubmit={saveProgram}>
         <div className="form-group">
           <label>Program Name:</label>
           <input type="text" className="form-control" placeholder="Enter the program name" name="name"
@@ -82,7 +81,7 @@ const ProgramDetail = () => {
           <input type="text" className="form-control" placeholder="Enter the program duration in days" name="duration_days"
             onChange={handleChange}/>
         </div>
-        <button onClick={saveProgram} className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
         <button type="reset" className="btn btn-secondary">Reset</button>
         <button onClick={()=>navigate(programRoot)} className="btn btn-secondary">Cancel</button>
       </form>
