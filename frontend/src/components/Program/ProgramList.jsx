@@ -63,19 +63,20 @@ const ProgramList = () => {
   const noProgram = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
-        No programs yet. Why not <Link to={programRoot}>create one?</Link>
+        No programs yet. Why not <Link to={"/program/new"}>create one?</Link>
       </h4>
     </div>
   );
   
+  const fetchPrograms = () => {
+    const program_list_url = "http://localhost:3000/api/v1/programs"
+    axios.get(program_list_url)
+    .then (res => {
+      setPrograms(res.data)})
+    .catch(res => console.log(res.message));
+  };
+
   useEffect(()=>{
-    const fetchPrograms = () => {
-      const program_list_url = "http://localhost:3000/api/v1/programs"
-      axios.get(program_list_url)
-      .then (res => {
-        setPrograms(res.data)})
-      .catch(res => console.log(res.message));
-    };
     fetchPrograms();
   },[]);
 

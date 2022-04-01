@@ -8,7 +8,8 @@ const ProgramDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { programs, setPrograms } = useContext(ProgramsContext);
-  const [program, setProgram] = useState({});
+  const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  const [program, setProgram] = useState(initProgram[0] || {});
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
 
@@ -54,13 +55,6 @@ const ProgramDetail = () => {
     console.log(program);
   }
 
-  useEffect(() => {
-    const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
-    console.log(`init program: `, initProgram[0]);
-    setProgram(initProgram[0]);
-    console.log(`program: `, program);
-  },[]);
-
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
@@ -68,18 +62,18 @@ const ProgramDetail = () => {
       <form onSubmit={saveProgram}>
         <div className="form-group">
           <label>Program Name:</label>
-          <input type="text" className="form-control" placeholder="Enter the program name" name="name"
-            onChange={handleChange}/>
+          <input type="text" className="form-control" value={program.name ? program.name : ''} name="name"
+            onChange={handleChange} placeholder='Enter the Name'/>
         </div>
         <div className="form-group">
           <label>Program Description</label>
-          <input type="text" className="form-control" placeholder="Enter the program description" name="description"
-            onChange={handleChange}/>
+          <input type="text" className="form-control" value={program.description ? program.description : ''} name="description"
+            onChange={handleChange} placeholder='Enter the Description'/>
         </div>
         <div className="form-group">
           <label>Duration in Days</label>
-          <input type="text" className="form-control" placeholder="Enter the program duration in days" name="duration_days"
-            onChange={handleChange}/>
+          <input type="text" className="form-control" value={program.duration_days ? program.duration_days : ''} name="duration_days"
+            onChange={handleChange} placeholder='Enter the Duration in Days'/>
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
         <button type="reset" className="btn btn-secondary">Reset</button>
