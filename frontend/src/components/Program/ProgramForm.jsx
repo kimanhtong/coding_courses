@@ -12,6 +12,7 @@ const ProgramDetail = () => {
   const [program, setProgram] = useState(initProgram[0] || {});
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
+  const programView = id ? `/program/view/${id}` : '';
 
 
   const saveProgram = () => {
@@ -77,7 +78,9 @@ const ProgramDetail = () => {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
         <button type="reset" className="btn btn-secondary">Reset</button>
-        <button onClick={()=>navigate(programRoot)} className="btn btn-secondary">Cancel</button>
+        <button onClick={()=>navigate(programRoot)} className="btn btn-secondary">All Programs</button>
+        {id ? <button onClick={()=>navigate(programView)} className="btn btn-secondary">Program Detail</button> : null}
+
       </form>
     </div>
   )
