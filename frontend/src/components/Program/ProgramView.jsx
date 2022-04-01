@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import ProgramsContext from '../../context/ProgramsContext';
 import Modal from 'react-modal';
@@ -12,8 +12,7 @@ const ProgramView = () => {
   const navigate = useNavigate();
   const {programs, setPrograms} = useContext(ProgramsContext);
   const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
-  const [program, setProgram] = useState(initProgram[0] || {});
-  console.log(program);
+  const program = initProgram[0] || {};
   const programRoot = '/program';
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => {
@@ -64,7 +63,6 @@ return (
       }}>
       <div>Are you sure?</div>
       <button onClick={() => {
-        console.log('current program id:', program.id);
         toggleModal();
         deleteProgram(program);
       }}>Yes</button>

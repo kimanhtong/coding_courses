@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 // import Modal from 'react-modal';
 import axios from "axios";
@@ -78,8 +78,8 @@ const ProgramDetail = () => {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
         <button type="reset" className="btn btn-secondary">Reset</button>
-        <button onClick={()=>navigate(programRoot)} className="btn btn-secondary">All Programs</button>
-        {id ? <button onClick={()=>navigate(programView)} className="btn btn-secondary">Program Detail</button> : null}
+        <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">All Programs</button>
+        {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Program Detail</button> : null}
 
       </form>
     </div>
