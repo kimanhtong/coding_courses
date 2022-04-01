@@ -17,13 +17,14 @@ const ProgramForm = () => {
   const saveProgram = () => {
     if (id) {
       const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
-      console.log(program);
       axios
       .put(editDBLink, program)
       .then(res => {
-        console.log(res.data)
         setProgram(res.data);
-        setPrograms([...programs], program);
+        console.log(program);
+        let newPrograms = programs.filter(p => p.id !== parseInt(id)).push(program);
+        console.log(newPrograms);
+        setPrograms(newPrograms);
         console.log(programs);
         navigate(programView);
       })
