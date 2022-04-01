@@ -34,8 +34,7 @@ const ProgramForm = () => {
       .post(createDBLink, program)
       .then(res => {
         program.id = res.data.id;
-        let newPrograms = programs.push(program);
-        setPrograms(newPrograms);
+        programs.push(program);
         console.log('program with id: ', program);
         console.log('programs updated with the new program:', programs);
         programView = `/program/view/${program.id}`;
