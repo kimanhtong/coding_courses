@@ -11,7 +11,7 @@ const ProgramView = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const {programs, setPrograms} = useContext(ProgramsContext);
-  const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
   const program = initProgram[0] || {};
   const programRoot = '/program';
   const [isOpen, setIsOpen] = useState(false);

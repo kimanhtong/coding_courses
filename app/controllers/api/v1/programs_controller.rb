@@ -17,6 +17,7 @@ class Api::V1::ProgramsController < ApplicationController
     @program = Program.new(program_params)
 
     if @program.save
+      @programs = Program.all
       render json: @program
     else
       render json: @program.errors, status: :unprocessable_entity
@@ -26,6 +27,7 @@ class Api::V1::ProgramsController < ApplicationController
   # PATCH/PUT /programs/1
   def update
     if @program.update(program_params)
+      @programs = Program.all
       render json: @program
     else
       render json: @program.errors, status: :unprocessable_entity

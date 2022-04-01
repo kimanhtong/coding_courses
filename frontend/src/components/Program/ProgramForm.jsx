@@ -4,43 +4,41 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
 
-const ProgramDetail = () => {
+const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { programs, setPrograms } = useContext(ProgramsContext);
-  const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
   const [program, setProgram] = useState(initProgram[0] || {});
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
-  const programView = id ? `/program/view/${id}` : '';
-
+  let programView = id ? `/program/view/${id}` : '';
 
   const saveProgram = () => {
     if (id) {
       const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
-      const programView = `/program/view/${id}`;
       console.log(program);
       axios
       .put(editDBLink, program)
       .then(res => {
-        console.log(res.data);
+        console.log(res.data)
         setProgram(res.data);
-        console.log(program);
-        setPrograms(...programs, program);
+        setPrograms([...programs], program);
+        console.log(programs);
         navigate(programView);
       })
       .catch(err => {
         console.log(err.message);
-        navigate(programRoot);
       });
     } else {
       axios
       .post(createDBLink, program)
       .then(res => {
         console.log(res.data);
-        setProgram(res.data)
-        setPrograms(...programs, program);
-        const programView = `/program/view/${res.data.id}`;
+        setProgram(res.data);
+        setPrograms([...programs], program);
+        console.log(programs);
+        programView = `/program/view/${program.id}`;
         navigate(programView);
       })
       .catch(err => {
@@ -60,7 +58,7 @@ const ProgramDetail = () => {
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
       <h1> {!id && `Create a new Program`} </h1>
-      <form onSubmit={saveProgram}>
+      <form>
         <div className="form-group">
           <label>Program Name:</label>
           <input type="text" className="form-control" value={program.name ? program.name : ''} name="name"
@@ -76,13 +74,12 @@ const ProgramDetail = () => {
           <input type="text" className="form-control" value={program.duration_days ? program.duration_days : ''} name="duration_days"
             onChange={handleChange} placeholder='Enter the Duration in Days'/>
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <button type="reset" className="btn btn-secondary">Reset</button>
-        <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">All Programs</button>
-        {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Program Detail</button> : null}
-
+        <button type="button" onClick={saveProgram} className="btn btn-primary">Submit</button>
+        <button type="button" onClick={()=>setProgram(initProgram[0]||{})} className="btn btn-secondary">Reset</button>
+        <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
+        {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}
       </form>
     </div>
-  )
-};
-export default ProgramDetail;
+)};
+
+export default ProgramForm;
