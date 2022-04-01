@@ -36,7 +36,7 @@ return (
       <h3> Welcome to the program {program.name} </h3>
       <p> We are {program.description}</p>
       <p> We take {program.duration_days} days to complete</p>
-      <button onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
+      <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
       <button type="button" onClick={toggleModal}> Delete </button>
     </form>
     <Link to={programRoot}> Back to All Programs </Link>
@@ -62,11 +62,11 @@ return (
         }
       }}>
       <div>Are you sure?</div>
-      <button onClick={() => {
+      <button type="button" onClick={() => {
         toggleModal();
         deleteProgram(program);
       }}>Yes</button>
-      <button onClick={toggleModal}>No</button>
+      <button type="button" onClick={toggleModal}>No</button>
     </Modal>
   </div>
 )};

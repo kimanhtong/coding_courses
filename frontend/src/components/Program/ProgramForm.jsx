@@ -34,10 +34,11 @@ const ProgramForm = () => {
       axios
       .post(createDBLink, program)
       .then(res => {
-        console.log(res.data);
-        setProgram(res.data);
-        setPrograms([...programs], program);
-        console.log(programs);
+        program.id = res.data.id;
+        let newPrograms = programs.push(program);
+        setPrograms(newPrograms);
+        console.log('program with id: ', program);
+        console.log('programs updated with the new program:', programs);
         programView = `/program/view/${program.id}`;
         navigate(programView);
       })
