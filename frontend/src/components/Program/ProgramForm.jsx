@@ -21,11 +21,9 @@ const ProgramForm = () => {
       .put(editDBLink, program)
       .then(res => {
         setProgram(res.data);
-        console.log(program);
-        let newPrograms = programs.filter(p => p.id !== parseInt(id)).push(program);
-        console.log(newPrograms);
+        let newPrograms = programs.filter(p => p.id !== parseInt(id));
+        newPrograms.push(program);
         setPrograms(newPrograms);
-        console.log(programs);
         navigate(programView);
       })
       .catch(err => {
