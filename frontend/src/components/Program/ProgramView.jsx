@@ -11,7 +11,6 @@ const ProgramView = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const {programs, setPrograms} = useContext(ProgramsContext);
-  console.log(programs);
   const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
   const program = initProgram[0] || {};
   const programRoot = '/program';
@@ -23,7 +22,6 @@ const ProgramView = () => {
     const program_delete_url = `http://localhost:3000/api/v1/programs/${p.id}`
     axios.delete(program_delete_url)
     .then (res => {
-      console.log(res.data);
       setPrograms(res.data);
       navigate(programRoot);
     })

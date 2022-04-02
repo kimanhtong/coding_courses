@@ -35,8 +35,6 @@ const ProgramForm = () => {
       .then(res => {
         program.id = res.data.id;
         programs.push(program);
-        console.log('program with id: ', program);
-        console.log('programs updated with the new program:', programs);
         programView = `/program/view/${program.id}`;
         navigate(programView);
       })
@@ -50,7 +48,6 @@ const ProgramForm = () => {
   const handleChange = (event) => {
     let newProgram = {...program,[event.target.name]:event.target.value};
     setProgram(newProgram);
-    console.log(program);
   }
 
   return (

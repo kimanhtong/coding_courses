@@ -21,7 +21,6 @@ const ProgramList = () => {
     const program_delete_url = `http://localhost:3000/api/v1/programs/${p.id}`
     axios.delete(program_delete_url)
     .then (res => {
-      console.log(res.data);
       setPrograms(res.data);
       navigate(programRoot);
     })
@@ -117,7 +116,6 @@ const ProgramList = () => {
       >
         <div>Are you sure?</div>
         <button onClick={() => {
-          console.log('current program id:', currentProgram.id);
           deleteProgram(currentProgram);
           toggleModal();
         }}>Yes</button>
