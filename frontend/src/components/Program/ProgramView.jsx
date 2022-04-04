@@ -39,7 +39,7 @@ return (
         src={program.img_url}
         className="card-img"
         alt={program.name}
-        style={{ maxWidth: 30, maxHeight: 30 }}
+        style={{ maxWidth: 350, maxHeight: 350 }}
       />
       <div>
         <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>

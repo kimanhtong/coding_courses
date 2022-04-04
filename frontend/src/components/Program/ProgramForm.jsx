@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// import Modal from 'react-modal';
 import axios from "axios";
 import ProgramsContext from '../../context/ProgramsContext';
 
@@ -10,6 +9,7 @@ const ProgramForm = () => {
   const { programs, setPrograms } = useContext(ProgramsContext);
   const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
   const [program, setProgram] = useState(initProgram[0] || {});
+  const {image, setImage} = useState(program ? program.img_url ? program.img_url : null : null);
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
@@ -50,6 +50,11 @@ const ProgramForm = () => {
     setProgram(newProgram);
   }
 
+  const handleImageUpload = (event) => {
+    let newProgram = {...program, img_url: image};
+    setProgram(newProgram);
+  }
+
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
@@ -69,6 +74,30 @@ const ProgramForm = () => {
           <label>Duration in Days</label>
           <input type="text" className="form-control" value={program.duration_days ? program.duration_days : ''} name="duration_days"
             onChange={handleChange} placeholder='Enter the Duration in Days'/>
+        </div>
+        <div className="form-control">
+          <h1>Upload and Display Image usign React Hook's</h1>
+          {image && (
+            <div>
+              <img alt="cannot load!" width={"250px"} src={URL.createObjectURL(image)} name="img_url"/>
+              <br />
+              <button onClick={()=>setImage(null)}>Remove</button>
+            </div>
+          )}
+          <br />
+          <br />
+          <div className="form-control">
+            <input
+              type="file"
+              name="img_url"
+              placeholder='Enter the path to your image'
+              onChange={(event) => {
+                console.log(event.target.files[0]);
+                setImage(event.target.files[0]);
+              }}
+            />
+            <button onClick={handleImageUpload} />
+          </div> 
         </div>
         <button type="button" onClick={saveProgram} className="btn btn-primary">Submit</button>
         <button type="button" onClick={()=>setProgram(initProgram[0]||{})} className="btn btn-secondary">Reset</button>
