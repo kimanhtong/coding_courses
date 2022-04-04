@@ -9,7 +9,7 @@ const ProgramForm = () => {
   const { programs, setPrograms } = useContext(ProgramsContext);
   const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
   const [program, setProgram] = useState(initProgram[0] || {});
-  const {image, setImage} = useState(program ? program.img_url ? program.img_url : null : null);
+  const [image, setImage] = useState(program ? program.img_url ? program.img_url : null : null);
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
@@ -50,9 +50,23 @@ const ProgramForm = () => {
     setProgram(newProgram);
   }
 
-  const handleImageUpload = (event) => {
-    let newProgram = {...program, img_url: image};
-    setProgram(newProgram);
+  const handleImageUpload = (pic) => {
+    console.log(pic);
+    if (pic) {
+      const formData = new FormData();
+      formData.append("file",pic);
+      formData.append("upload_preset", "anhtest");
+      console.log(formData);
+      axios.post(
+        "https://api.cloudinary.com/v1_1/de6puygvt/image/upload"
+        ,formData
+      ).then((response)=>{
+        console.log(response.data.url);
+        setImage(response.data.url);
+        let newProgram = {...program, img_url: image};
+        setProgram(newProgram);
+      });
+    }
   }
 
   return (
@@ -90,13 +104,12 @@ const ProgramForm = () => {
             <input
               type="file"
               name="img_url"
-              placeholder='Enter the path to your image'
               onChange={(event) => {
                 console.log(event.target.files[0]);
                 setImage(event.target.files[0]);
               }}
             />
-            <button onClick={handleImageUpload} />
+            <button onClick={()=>handleImageUpload(image)}> Upload </button>
           </div> 
         </div>
         <button type="button" onClick={saveProgram} className="btn btn-primary">Submit</button>
