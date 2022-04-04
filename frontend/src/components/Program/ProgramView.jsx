@@ -32,9 +32,16 @@ const ProgramView = () => {
 return (
   <div>
     <form>
-      <h3> Welcome to the program {program.name} </h3>
-      <p> We are {program.description}</p>
-      <p> We take {program.duration_days} days to complete</p>
+      <h3> Welcome to the program: {program.name}! </h3>
+      <p> Description: {program.description}</p>
+      <p> Duration (days): {program.duration_days}</p>
+      <img
+        src={program.img_url}
+        className="card-img"
+        alt={program.name}
+        width="96"
+        height="65"
+      />
       <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
       <button type="button" onClick={toggleModal}> Delete </button>
     </form>

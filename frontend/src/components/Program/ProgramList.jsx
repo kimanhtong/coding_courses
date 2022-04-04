@@ -33,7 +33,7 @@ const ProgramList = () => {
     <div key={program.id} className="col-sm-4">
       <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
       <img
-        src={"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"}
+        src={program.img_url}
         className="card-img"
         alt={program.name}
       />
