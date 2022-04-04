@@ -34,16 +34,17 @@ return (
     <form>
       <h3> Welcome to the program: {program.name}! </h3>
       <p> Description: {program.description}</p>
-      <p> Duration (days): {program.duration_days}</p>
+      <p> Duration: {program.duration_days} days.</p>
       <img
         src={program.img_url}
         className="card-img"
         alt={program.name}
-        width="96"
-        height="65"
+        style={{ maxWidth: 30, maxHeight: 30 }}
       />
-      <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
-      <button type="button" onClick={toggleModal}> Delete </button>
+      <div>
+        <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
+        <button type="button" onClick={toggleModal}> Delete </button>
+      </div>
     </form>
     <Link to={programRoot}> Back to All Programs </Link>
     <Modal
