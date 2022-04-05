@@ -1,18 +1,19 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-import ProgramsContext from '../../context/ProgramsContext';
+// import ProgramsContext from '../../context/ProgramsContext';
 
 const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { programs, setPrograms } = useContext(ProgramsContext);
-  const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
-  const [program, setProgram] = useState(initProgram[0] || {});
+  // const { programs, setPrograms } = useContext(ProgramsContext);
+  const [programs, setPrograms] = useState([]);
+  const [program, setProgram] = useState({});
   const [image, setImage] = useState(program ? program.img_url ? program.img_url : null : null);
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
+  let initProgram = [{}];
 
   const saveProgram = () => {
     if (id) {
@@ -24,6 +25,7 @@ const ProgramForm = () => {
         let newPrograms = programs.filter(p => p.id !== parseInt(id));
         newPrograms.push(program);
         setPrograms(newPrograms);
+        localStorage.setItem('programs', JSON.stringify(programs));
         navigate(programView);
       })
       .catch(err => {
@@ -35,6 +37,7 @@ const ProgramForm = () => {
       .then(res => {
         program.id = res.data.id;
         programs.push(program);
+        localStorage.setItem('programs', JSON.stringify(programs));
         programView = `/program/view/${program.id}`;
         navigate(programView);
       })
@@ -66,6 +69,18 @@ const ProgramForm = () => {
       .catch (err => console.log(err));
     }
   }
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('programs'));
+    if (items) {
+     setPrograms(items);
+    }
+  }, []);
+
+  useEffect(() => {
+    initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
+    setProgram(initProgram[0]);
+  }, programs);
 
   return (
     <div> 

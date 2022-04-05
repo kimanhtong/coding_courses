@@ -2,16 +2,18 @@ import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from "axios";
-import ProgramsContext from '../../context/ProgramsContext';
+//import ProgramsContext from '../../context/ProgramsContext';
 
 Modal.setAppElement("#root");
 
 const ProgramList = () => {
-  const { programs, setPrograms } = useContext(ProgramsContext);
+  // const { programs, setPrograms } = useContext(ProgramsContext);
+  const [programs, setPrograms] = useState([]);
   const [ currentProgram, setCurrentProgram ] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const programRoot = "/program";
   const navigate = useNavigate();
+  //const [items, setItems] = useState([]);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -22,6 +24,7 @@ const ProgramList = () => {
     axios.delete(program_delete_url)
     .then (res => {
       setPrograms(res.data);
+      localStorage.setItem('programs', JSON.stringify(programs));
       navigate(programRoot);
     })
     .catch(res => {
@@ -74,7 +77,8 @@ const ProgramList = () => {
     const program_list_url = "http://localhost:3000/api/v1/programs"
     axios.get(program_list_url)
     .then (res => {
-      setPrograms(res.data)})
+      setPrograms(res.data)
+      localStorage.setItem('programs', JSON.stringify(programs))})
     .catch(res => console.log(res.message));
   };
 
