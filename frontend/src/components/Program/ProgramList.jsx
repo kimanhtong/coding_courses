@@ -82,7 +82,7 @@ const ProgramList = () => {
 
   return (
     <div>
-      <h1> Here is the list of all current programs </h1>
+      <h1> Here is the list of all the current programs </h1>
       <button onClick={()=>navigate("/program/new")}>
         Add a new program
       </button>

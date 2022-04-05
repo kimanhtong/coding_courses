@@ -50,11 +50,11 @@ const ProgramForm = () => {
     setProgram(newProgram);
   }
 
-  const handleImageUpload = (pic) => {
-    console.log(pic);
-    if (pic) {
+  const handleImageUpload = () => {
+    console.log(image);
+    if (image) {
       const formData = new FormData();
-      formData.append("file",pic);
+      formData.append("file",image);
       formData.append("upload_preset", "anhtest");
       console.log(formData);
       axios.post(
@@ -62,8 +62,9 @@ const ProgramForm = () => {
         ,formData
       ).then((response)=>{
         console.log(response.data.url);
-        setImage(response.data.url);
-        let newProgram = {...program, img_url: image};
+        console.log(response.data);
+        //setImage(response.data.url);
+        let newProgram = {...program, img_url: response.data.url};
         setProgram(newProgram);
       });
     }
@@ -90,10 +91,11 @@ const ProgramForm = () => {
             onChange={handleChange} placeholder='Enter the Duration in Days'/>
         </div>
         <div className="form-control">
-          <h1>Upload and Display Image usign React Hook's</h1>
           {image && (
             <div>
-              <img alt="cannot load!" width={"250px"} src={URL.createObjectURL(image)} name="img_url"/>
+              {/* <img alt="cannot load!" width={"250px"} src={URL.createObjectURL(image)} name="img_url"/> */}
+              {/* <img src={recipe.image_url} alt="" width={500} height={300} mode='fit'/> */}
+              <img alt="cannot load!" width={"250px"} src={image}/>
               <br />
               <button onClick={()=>setImage(null)}>Remove</button>
             </div>
@@ -109,7 +111,7 @@ const ProgramForm = () => {
                 setImage(event.target.files[0]);
               }}
             />
-            <button onClick={()=>handleImageUpload(image)}> Upload </button>
+            <button onClick={handleImageUpload}> Upload </button>
           </div> 
         </div>
         <button type="button" onClick={saveProgram} className="btn btn-primary">Submit</button>
