@@ -52,21 +52,19 @@ const ProgramForm = () => {
 
   const handleImageUpload = (evt) => {
     evt.preventDefault();
-    console.log(image);
     if (image) {
       const formData = new FormData();
       formData.append("file",image);
       formData.append("upload_preset", "anhtest");
-      console.log(formData);
       axios.post(
         "https://api.cloudinary.com/v1_1/de6puygvt/image/upload"
         ,formData
       ).then((response)=>{
-        console.log(response.data.url);
-        console.log(response.data);
         setImage(response.data.url);
         let newProgram = {...program, img_url: response.data.url};
-        setProgram(newProgram);
+        console.log('new program: ', newProgram);
+        setProgram({...program, img_url: response.data.url});
+        console.log('program: ', program);
       })
       .catch (err => console.log(err));
     }
@@ -95,8 +93,6 @@ const ProgramForm = () => {
         <div className="form-control">
           {program.img_url && (
             <div>
-              {/* <img alt="cannot load!" width={"250px"} src={URL.createObjectURL(image)} name="img_url"/> */}
-              {/* <img src={recipe.image_url} alt="" width={500} height={300} mode='fit'/> */}
               <img src={program.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
             </div>
           )}
@@ -105,7 +101,7 @@ const ProgramForm = () => {
           <div className="form-control">
             <input
               type="file"
-              // name="img_url"
+              name="img_url"
               onChange={(event) => {
                 console.log(event.target.files[0]);
                 setImage(event.target.files[0]);

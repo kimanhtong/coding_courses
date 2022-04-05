@@ -39,9 +39,9 @@ return (
         src={program.img_url}
         className="card-img"
         alt={program.name}
-        // style={{ maxWidth: 350, maxHeight: 350 }}
-        width={"250px"}
-        mode={"fit"}
+        style={{ maxWidth: 350, maxHeight: 350 }}
+        // width={"250px"}
+        // mode={"fit"}
       />
       <div>
         <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>

@@ -36,9 +36,9 @@ const ProgramList = () => {
         src={program.img_url}
         className="card-img"
         alt={program.name}
-        // style={{ maxWidth: 350, maxHeight: 350 }}
-        width={"250px"}
-        mode={"fit"}
+        style={{ maxWidth: 350, maxHeight: 350 }}
+        // width={"250px"}
+        // mode={"fit"}
       />
       <div className="card-body">
         <div className="card-actions" style={{ marginBottom: 20 }} >
