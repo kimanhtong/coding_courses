@@ -61,10 +61,7 @@ const ProgramForm = () => {
         ,formData
       ).then((response)=>{
         setImage(response.data.url);
-        let newProgram = {...program, img_url: response.data.url};
-        console.log('new program: ', newProgram);
         setProgram({...program, img_url: response.data.url});
-        console.log('program: ', program);
       })
       .catch (err => console.log(err));
     }
@@ -101,9 +98,7 @@ const ProgramForm = () => {
           <div className="form-control">
             <input
               type="file"
-              name="img_url"
               onChange={(event) => {
-                console.log(event.target.files[0]);
                 setImage(event.target.files[0]);
               }}
             />
