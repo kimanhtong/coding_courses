@@ -7,7 +7,7 @@ import ProgramView from '../components/Program/ProgramView';
 
 
 const AppRouter = () => {
-  const [programs, setPrograms] = useState([]);
+  // const [programs, setPrograms] = useState([]);
   return (
     <BrowserRouter>
       <div>

@@ -24,7 +24,7 @@ const ProgramList = () => {
     axios.delete(program_delete_url)
     .then (res => {
       setPrograms(res.data);
-      localStorage.setItem('programs', JSON.stringify(programs));
+      localStorage.setItem('programs', JSON.stringify(res.data));
       navigate(programRoot);
     })
     .catch(res => {
@@ -77,8 +77,10 @@ const ProgramList = () => {
     const program_list_url = "http://localhost:3000/api/v1/programs"
     axios.get(program_list_url)
     .then (res => {
-      setPrograms(res.data)
-      localStorage.setItem('programs', JSON.stringify(programs))})
+      setPrograms(res.data);
+      localStorage.setItem('programs', JSON.stringify(res.data));
+      console.log(JSON.parse(localStorage.getItem('programs')))
+    })
     .catch(res => console.log(res.message));
   };
 

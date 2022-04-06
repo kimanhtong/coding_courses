@@ -25,7 +25,7 @@ const ProgramForm = () => {
         let newPrograms = programs.filter(p => p.id !== parseInt(id));
         newPrograms.push(program);
         setPrograms(newPrograms);
-        localStorage.setItem('programs', JSON.stringify(programs));
+        localStorage.setItem('programs', JSON.stringify(newPrograms));
         navigate(programView);
       })
       .catch(err => {
@@ -73,14 +73,11 @@ const ProgramForm = () => {
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('programs'));
     if (items) {
-     setPrograms(items);
+    setPrograms(items);
+    initProgram = id ? items.filter(p => p.id === parseInt(id)) : [{}];
+    setProgram(initProgram[0]);
     }
   }, []);
-
-  useEffect(() => {
-    initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
-    setProgram(initProgram[0]);
-  }, programs);
 
   return (
     <div> 

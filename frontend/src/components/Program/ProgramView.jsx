@@ -11,8 +11,8 @@ const ProgramView = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   // const {programs, setPrograms} = useContext(ProgramsContext);
-  const [programs, setPrograms] = useState([]);
-  let program = {};
+  const [program, setProgram] = useState({});
+  let programs = [];
   const programRoot = '/program';
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => {
@@ -22,8 +22,7 @@ const ProgramView = () => {
     const program_delete_url = `http://localhost:3000/api/v1/programs/${p.id}`
     axios.delete(program_delete_url)
     .then (res => {
-      setPrograms(res.data);
-      localStorage.setItem('programs', JSON.stringify(programs));
+      localStorage.setItem('programs', JSON.stringify(res.data));
       navigate(programRoot);
     })
     .catch(res => {
@@ -32,16 +31,21 @@ const ProgramView = () => {
   };
 
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('programs'));
-    if (items) {
-    setPrograms(items);
-    const initProgram = id ? programs ? programs.filter(p => p.id === parseInt(id)) : [{}] : [{}];
-    program = initProgram[0];
+    //const items = JSON.parse(localStorage.getItem('programs'));
+    programs = JSON.parse(localStorage.getItem('programs'));
+    if (programs) {
+    //setPrograms(items);
+      console.log(programs);
+      const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+      console.log(initProgram);
+      setProgram(initProgram[0]);
+      console.log(program);
     }
   }, []);
 
   return (
     <div>
+      {program.name}
       <form>
         <h3> Welcome to the program: {program.name}! </h3>
         <p> Description: {program.description}</p>
