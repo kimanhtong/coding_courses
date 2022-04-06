@@ -1,6 +1,5 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-//import ProgramsContext from '../../context/ProgramsContext';
 import Modal from 'react-modal';
 import axios from 'axios';
 
@@ -10,7 +9,6 @@ Modal.setAppElement("#root");
 const ProgramView = () => {
   const {id} = useParams();
   const navigate = useNavigate();
-  // const {programs, setPrograms} = useContext(ProgramsContext);
   const [program, setProgram] = useState({});
   let programs = [];
   const programRoot = '/program';
@@ -31,21 +29,15 @@ const ProgramView = () => {
   };
 
   useEffect(() => {
-    //const items = JSON.parse(localStorage.getItem('programs'));
     programs = JSON.parse(localStorage.getItem('programs'));
     if (programs) {
-    //setPrograms(items);
-      console.log(programs);
       const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
-      console.log(initProgram);
       setProgram(initProgram[0]);
-      console.log(program);
     }
   }, []);
 
   return (
     <div>
-      {program.name}
       <form>
         <h3> Welcome to the program: {program.name}! </h3>
         <p> Description: {program.description}</p>
@@ -54,9 +46,9 @@ const ProgramView = () => {
           src={program.img_url}
           className="card-img"
           alt={program.name}
-          style={{ maxWidth: 350, maxHeight: 350 }}
-          // width={"250px"}
-          // mode={"fit"}
+          // style={{ maxWidth: 350, maxHeight: 350 }}
+          width={"250px"}
+          mode={"fit"}
         />
         <div>
           <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>

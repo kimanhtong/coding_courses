@@ -1,31 +1,30 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-// import ProgramsContext from '../../context/ProgramsContext';
 
 const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const { programs, setPrograms } = useContext(ProgramsContext);
-  const [programs, setPrograms] = useState([]);
-  const [program, setProgram] = useState({});
-  const [image, setImage] = useState(program ? program.img_url ? program.img_url : null : null);
+  let programs = JSON.parse(localStorage.getItem('programs'));
+  let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  const [program, setProgram] = useState(initProgram ? initProgram[0] : {});
+  const [image, setImage] = useState(initProgram[0] ? initProgram[0].img_url : null);
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
-  let initProgram = [{}];
 
   const saveProgram = () => {
     if (id) {
       const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
+      console.log(programs);
       axios
       .put(editDBLink, program)
       .then(res => {
-        setProgram(res.data);
-        let newPrograms = programs.filter(p => p.id !== parseInt(id));
-        newPrograms.push(program);
-        setPrograms(newPrograms);
-        localStorage.setItem('programs', JSON.stringify(newPrograms));
+        let index = programs.indexOf(program);
+        console.log(index);
+        programs.splice(index, 1, res.data);
+        console.log(programs);
+        localStorage.setItem('programs', JSON.stringify(programs));
         navigate(programView);
       })
       .catch(err => {
@@ -35,10 +34,10 @@ const ProgramForm = () => {
       axios
       .post(createDBLink, program)
       .then(res => {
-        program.id = res.data.id;
-        programs.push(program);
+        //program.id = res.data.id;
+        programs.push(res.data);
         localStorage.setItem('programs', JSON.stringify(programs));
-        programView = `/program/view/${program.id}`;
+        programView = `/program/view/${res.data.id}`;
         navigate(programView);
       })
       .catch(err => {
@@ -69,15 +68,6 @@ const ProgramForm = () => {
       .catch (err => console.log(err));
     }
   }
-
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('programs'));
-    if (items) {
-    setPrograms(items);
-    initProgram = id ? items.filter(p => p.id === parseInt(id)) : [{}];
-    setProgram(initProgram[0]);
-    }
-  }, []);
 
   return (
     <div> 

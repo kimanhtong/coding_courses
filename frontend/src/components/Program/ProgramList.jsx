@@ -1,19 +1,16 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from "axios";
-//import ProgramsContext from '../../context/ProgramsContext';
 
 Modal.setAppElement("#root");
 
 const ProgramList = () => {
-  // const { programs, setPrograms } = useContext(ProgramsContext);
   const [programs, setPrograms] = useState([]);
   const [ currentProgram, setCurrentProgram ] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const programRoot = "/program";
   const navigate = useNavigate();
-  //const [items, setItems] = useState([]);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -39,9 +36,9 @@ const ProgramList = () => {
         src={program.img_url}
         className="card-img"
         alt={program.name}
-        style={{ maxWidth: 350, maxHeight: 350 }}
-        // width={"250px"}
-        // mode={"fit"}
+        // style={{ maxWidth: 350, maxHeight: 350 }}
+        width={"250px"}
+        mode={"fit"}
       />
       <div className="card-body">
         <div className="card-actions" style={{ marginBottom: 20 }} >
@@ -94,12 +91,7 @@ const ProgramList = () => {
       <button onClick={()=>navigate("/program/new")}>
         Add a new program
       </button>
-      {/* <div className="container"> */}
-        {/* <div className="row"> */}
-          {programs.length > 0 ? allPrograms : noProgram}
-        {/* </div> */}
-      {/* </div> */}
-
+        {programs.length > 0 ? allPrograms : noProgram}
      <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
