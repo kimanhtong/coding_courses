@@ -9,8 +9,9 @@ Modal.setAppElement("#root");
 const ProgramView = () => {
   const {id} = useParams();
   const navigate = useNavigate();
-  const [program, setProgram] = useState({});
-  let programs = [];
+  let programs = JSON.parse(localStorage.getItem('programs'));
+  const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  const program = initProgram[0] ? initProgram[0] : {};
   const programRoot = '/program';
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => {
@@ -27,14 +28,6 @@ const ProgramView = () => {
       console.log(res.message);
     })
   };
-
-  useEffect(() => {
-    programs = JSON.parse(localStorage.getItem('programs'));
-    if (programs) {
-      const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
-      setProgram(initProgram[0]);
-    }
-  }, []);
 
   return (
     <div>

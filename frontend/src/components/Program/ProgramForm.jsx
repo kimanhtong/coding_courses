@@ -7,6 +7,7 @@ const ProgramForm = () => {
   const navigate = useNavigate();
   let programs = JSON.parse(localStorage.getItem('programs'));
   let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  let index = id ? programs.indexOf(initProgram[0]) : -1;
   const [program, setProgram] = useState(initProgram ? initProgram[0] : {});
   const [image, setImage] = useState(initProgram[0] ? initProgram[0].img_url : null);
   const createDBLink = `http://localhost:3000/api/v1/programs`;
@@ -16,12 +17,10 @@ const ProgramForm = () => {
   const saveProgram = () => {
     if (id) {
       const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
-      console.log(programs);
       axios
       .put(editDBLink, program)
       .then(res => {
-        let index = programs.indexOf(program);
-        console.log(index);
+        console.log('index: ', index);
         programs.splice(index, 1, res.data);
         console.log(programs);
         localStorage.setItem('programs', JSON.stringify(programs));
@@ -34,7 +33,6 @@ const ProgramForm = () => {
       axios
       .post(createDBLink, program)
       .then(res => {
-        //program.id = res.data.id;
         programs.push(res.data);
         localStorage.setItem('programs', JSON.stringify(programs));
         programView = `/program/view/${res.data.id}`;
