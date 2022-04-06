@@ -36,7 +36,6 @@ const ProgramList = () => {
         src={program.img_url}
         className="card-img"
         alt={program.name}
-        // style={{ maxWidth: 350, maxHeight: 350 }}
         width={"250px"}
         mode={"fit"}
       />
@@ -76,7 +75,6 @@ const ProgramList = () => {
     .then (res => {
       setPrograms(res.data);
       localStorage.setItem('programs', JSON.stringify(res.data));
-      console.log(JSON.parse(localStorage.getItem('programs')))
     })
     .catch(res => console.log(res.message));
   };

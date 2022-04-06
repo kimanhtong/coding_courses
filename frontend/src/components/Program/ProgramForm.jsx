@@ -20,9 +20,7 @@ const ProgramForm = () => {
       axios
       .put(editDBLink, program)
       .then(res => {
-        console.log('index: ', index);
         programs.splice(index, 1, res.data);
-        console.log(programs);
         localStorage.setItem('programs', JSON.stringify(programs));
         navigate(programView);
       })

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -39,9 +39,7 @@ const ProgramView = () => {
           src={program.img_url}
           className="card-img"
           alt={program.name}
-          // style={{ maxWidth: 350, maxHeight: 350 }}
-          width={"250px"}
-          mode={"fit"}
+          style={{ maxWidth: 350, maxHeight: 350 }}
         />
         <div>
           <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
