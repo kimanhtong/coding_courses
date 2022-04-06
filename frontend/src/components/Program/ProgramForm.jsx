@@ -72,18 +72,30 @@ const ProgramForm = () => {
       <form>
         <div className="form-group">
           <label>Program Name:</label>
-          <input type="text" className="form-control" value={program.name ? program.name : ''} name="name"
-            onChange={handleChange} placeholder='Enter the Name'/>
+          <input type="text" className="form-control"
+            placeholder='Enter the Name'
+            name="name"
+            required
+            value={program.name ? program.name : ''}
+            onChange={handleChange}/>
         </div>
         <div className="form-group">
           <label>Program Description</label>
-          <input type="text" className="form-control" value={program.description ? program.description : ''} name="description"
-            onChange={handleChange} placeholder='Enter the Description'/>
+          <input type="text" className="form-control"
+            placeholder='Enter the Description'
+            name="description"
+            required
+            value={program.description ? program.description : ''} 
+            onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Duration in Days</label>
-          <input type="text" className="form-control" value={program.duration_days ? program.duration_days : ''} name="duration_days"
-            onChange={handleChange} placeholder='Enter the Duration in Days'/>
+          <input type="text" className="form-control"
+            placeholder='Enter the Duration in Days'
+            name="duration_days"
+            required
+            value={program.duration_days ? program.duration_days : ''}
+            onChange={handleChange} />
         </div>
         <div className="form-control">
           {program.img_url && (
@@ -96,6 +108,7 @@ const ProgramForm = () => {
           <div className="form-control">
             <input
               type="file"
+              required
               onChange={(event) => {
                 setImage(event.target.files[0]);
               }}
