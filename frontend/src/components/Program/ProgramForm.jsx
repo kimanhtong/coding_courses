@@ -11,15 +11,15 @@ const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   let programs = JSON.parse(localStorage.getItem('programs'));
-  let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{name: '', description: '', duration_days: 0, img_url: ''}];
   let index = id ? programs.indexOf(initProgram[0]) : -1;
   // const [program, setProgram] = useState(initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0});
-  const [image, setImage] = useState(initProgram[0] ? initProgram[0].img_url : '');
+  const [image, setImage] = useState(initProgram[0].img_url);
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
 
-  const initialState = initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0, img_url: ''};
+  const initialState = initProgram[0];
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({description}) => isRequired(description) || {description: 'Description is required'},
@@ -62,8 +62,8 @@ const ProgramForm = () => {
   //   setProgram(newProgram);
   // }
 
-  const handleImageUpload = (evt) => {
-    evt.preventDefault();
+  const handleImageUpload = () => {
+    //evt.preventDefault();
     if (image) {
       const formData = new FormData();
       formData.append("file",image);
@@ -78,8 +78,6 @@ const ProgramForm = () => {
       .catch (err => console.log(err));
     }
   }
-  console.log('errors: ', errors);
-  console.log('touched: ', touched);
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
@@ -129,11 +127,14 @@ const ProgramForm = () => {
                 setImage(event.target.files[0]);
               }}
             />
-            <button onClick={handleImageUpload}> Upload </button>
+            <button onClick={(evt) => { 
+              evt.preventDefault();
+              handleImageUpload();
+            }}> Upload </button>
           </div> 
         </div>
-        <button type="button" disabled={isValid} onClick={submitHandler} className="btn btn-primary">Submit</button>
-        <button type="button" onClick={()=>resetHandler(initProgram[0]||{})} className="btn btn-secondary">Reset</button>
+        <button type="button" disabled={!isValid} onClick={submitHandler} className="btn btn-primary">Submit</button>
+        <button type="button" onClick={()=>resetHandler(initProgram[0])} className="btn btn-secondary">Reset</button>
         <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
         {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}
       </form>
