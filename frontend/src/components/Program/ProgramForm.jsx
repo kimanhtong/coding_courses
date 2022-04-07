@@ -57,7 +57,7 @@ const ProgramForm = () => {
     }
   };
 
-  const {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, saveProgram);
+  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, saveProgram);
 
   const handleImageUpload = (evt) => {
     evt.preventDefault();
@@ -129,7 +129,7 @@ const ProgramForm = () => {
             <button onClick={handleImageUpload}> Upload </button>
           </div> 
         </div>
-        <button type="button" disabled={!isValid} onClick={submitHandler} className="btn btn-primary">Submit</button>
+        <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
         <button type="button" onClick={()=>resetHandler(initProgram[0])} className="btn btn-secondary">Reset</button>
         <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
         {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}

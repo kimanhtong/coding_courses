@@ -25,7 +25,16 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
   }; 
   const submitHandler = event => {
     event.preventDefault();
-    onSubmit(values);
+    const {isValid, errors} = validate(validations, values);
+    setValid(isValid);
+    setErrors(errors);
+    console.log('isValid: ', isValid);
+    if (isValid) {
+      onSubmit(values)
+    } else {
+      console.log('errors: ', errors);
+      console.log('isValid: ', isValid);
+    };
   };
   const resetHandler = (vals) => {
     setValues(vals);
