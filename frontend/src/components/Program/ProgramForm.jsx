@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from '../../hooks/useForm';
@@ -57,7 +57,7 @@ const ProgramForm = () => {
     }
   };
 
-  const {values, setValues, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, saveProgram);
+  const {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, saveProgram);
 
   const handleImageUpload = (evt) => {
     evt.preventDefault();
@@ -75,8 +75,6 @@ const ProgramForm = () => {
       .catch (err => console.log(err));
     }
   }
-
-  //useEffect(setValues,[values]);
 
   return (
     <div> 
