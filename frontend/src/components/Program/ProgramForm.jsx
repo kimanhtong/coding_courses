@@ -13,7 +13,7 @@ const ProgramForm = () => {
   let programs = JSON.parse(localStorage.getItem('programs'));
   let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
   let index = id ? programs.indexOf(initProgram[0]) : -1;
-  const [program, setProgram] = useState(initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0});
+  // const [program, setProgram] = useState(initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0});
   const [image, setImage] = useState(initProgram[0] ? initProgram[0].img_url : '');
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
@@ -23,13 +23,10 @@ const ProgramForm = () => {
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({description}) => isRequired(description) || {description: 'Password is required'},
-    ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
-    ({img_url}) => isRequired(img_url) || {img_url: 'Image is required'},
+    // ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'}
   ];
-  const {values, changeHandler} = useForm(initialState, validations);
 
-
-  const saveProgram = () => {
+  const saveProgram = (program) => {
     if (id) {
       const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
       axios
@@ -58,10 +55,12 @@ const ProgramForm = () => {
     }
   };
 
-  const handleChange = (event) => {
-    let newProgram = {...program,[event.target.name]:event.target.value};
-    setProgram(newProgram);
-  }
+  const {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler} = useForm(initialState, validations, saveProgram);
+
+  // const handleChange = (event) => {
+  //   let newProgram = {...program,[event.target.name]:event.target.value};
+  //   setProgram(newProgram);
+  // }
 
   const handleImageUpload = (evt) => {
     evt.preventDefault();
@@ -74,12 +73,13 @@ const ProgramForm = () => {
         ,formData
       ).then((response)=>{
         setImage(response.data.url);
-        setProgram({...program, img_url: response.data.url});
+        values.img_url = response.data.url;
       })
       .catch (err => console.log(err));
     }
   }
-
+  console.log('errors: ', errors);
+  console.log('touched: ', touched);
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
@@ -93,6 +93,7 @@ const ProgramForm = () => {
             value={values.name}
             onChange={changeHandler}/>
         </div>
+        {touched.name && errors.name && <p className="error">{errors.name}</p>} 
         <div className="form-group">
           <label>Program Description</label>
           <input type="text" className="form-control"
@@ -101,6 +102,7 @@ const ProgramForm = () => {
             required
             value={values.description} 
             onChange={changeHandler} />
+            {touched.description && errors.description && <p className="error">{errors.description}</p>} 
         </div>
         <div className="form-group">
           <label>Duration in Days</label>
@@ -109,12 +111,12 @@ const ProgramForm = () => {
             name="duration_days"
             value={values.duration_days}
             onChange={changeHandler} />
-          {touched.duration_days && errors.duration_days && <p className="error">{errors.duration_days}</p>} 
+          
         </div>
         <div className="form-control">
-          {program.img_url && (
+          {values.img_url && (
             <div>
-              <img src={program.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
+              <img src={values.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
             </div>
           )}
           <br />
@@ -129,8 +131,8 @@ const ProgramForm = () => {
             <button onClick={handleImageUpload}> Upload </button>
           </div> 
         </div>
-        <button type="button" onClick={saveProgram} className="btn btn-primary">Submit</button>
-        <button type="button" onClick={()=>setProgram(initProgram[0]||{})} className="btn btn-secondary">Reset</button>
+        <button type="button" disabled={isValid} onClick={submitHandler} className="btn btn-primary">Submit</button>
+        <button type="button" onClick={()=>resetHandler(initProgram[0]||{})} className="btn btn-secondary">Reset</button>
         <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
         {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}
       </form>

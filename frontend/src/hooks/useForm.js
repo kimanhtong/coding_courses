@@ -27,7 +27,10 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     event.preventDefault();
     onSubmit(values);
   }
-  return {values, changeHandler, isValid, errors, touched, submitHandler};
+  const resetHandler = (vals) => {
+    setValues(vals);
+  }
+  return {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler};
 };
 
-export default useForm;
+export {useForm};
