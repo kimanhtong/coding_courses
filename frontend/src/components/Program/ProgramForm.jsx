@@ -23,7 +23,9 @@ const ProgramForm = () => {
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({description}) => isRequired(description) || {description: 'Description is required'},
+    ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
     // ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'}
+
   ];
 
   const saveProgram = (program) => {
