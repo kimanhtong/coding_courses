@@ -22,7 +22,7 @@ const ProgramForm = () => {
   const initialState = initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0, img_url: ''};
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
-    ({description}) => isRequired(description) || {description: 'Password is required'},
+    ({description}) => isRequired(description) || {description: 'Description is required'},
     // ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'}
   ];
 
@@ -91,9 +91,10 @@ const ProgramForm = () => {
             placeholder='Enter the Name'
             name="name"
             value={values.name}
-            onChange={changeHandler}/>
+            onChange={changeHandler}
+          />
+          {touched.name && errors.name && <p className="error">{errors.name}</p>} 
         </div>
-        {touched.name && errors.name && <p className="error">{errors.name}</p>} 
         <div className="form-group">
           <label>Program Description</label>
           <input type="text" className="form-control"

@@ -2,10 +2,13 @@ import { useState } from "react";
 
 // https://dimitr.im/form-validation-react-hooks
 
-const validate = (validations, values) => {
+const validate = (evt, validations, values) => {
+  evt.preventDefault();
   const errors = validations
     .map(validation => validation(values))
     .filter(validation => typeof validation === 'object');
+  console.log('errors.length: ', errors.length);
+  // return {isValid: errors.length === 0, errors: errors.reduce((errors, error) => ({...errors, ...error}), {})};
   return {isValid: errors.length === 0, errors: errors.reduce((errors, error) => ({...errors, ...error}), {})};
 };
 
