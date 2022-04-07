@@ -28,13 +28,11 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     const {isValid, errors} = validate(validations, values);
     setValid(isValid);
     setErrors(errors);
-    console.log('isValid: ', isValid);
-    if (isValid) {
-      onSubmit(values)
-    } else {
-      console.log('errors: ', errors);
-      console.log('isValid: ', isValid);
-    };
+    let fieldNames = Object.keys(values);
+    let newTouched = {};
+    fieldNames.forEach(val => newTouched[val]=true);
+    setTouched(newTouched);
+    if (isValid) onSubmit(values);
   };
   const resetHandler = (vals) => {
     setValues(vals);
