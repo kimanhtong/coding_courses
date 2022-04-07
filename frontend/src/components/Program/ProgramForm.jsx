@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from '../../hooks/useForm';
 import { useValidations } from '../../hooks/useValidations';
+import '../styles/program.css';
 
 
 const ProgramForm = () => {
@@ -125,8 +126,8 @@ const ProgramForm = () => {
                 setImage(event.target.files[0]);
               }}
             />
-            {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
             <button onClick={handleImageUpload}> Upload </button>
+            {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
           </div> 
         </div>
         <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
