@@ -22,16 +22,23 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     setValid(isValid);
     setErrors(errors);
     setTouched({...touched, [event.target.name]: true});
-    console.log('validations from changeHandler: ', validations);
   }; 
   const submitHandler = event => {
     event.preventDefault();
     onSubmit(values);
-  }
+  };
   const resetHandler = (vals) => {
     setValues(vals);
-  }
-  return {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler};
+  };
+  const updateImageURL = val => {
+    const newValues = {...values, img_url: val};
+    const {isValid, errors} = validate(validations, newValues);
+    setValues(newValues);
+    setValid(isValid);
+    setErrors(errors);
+    setTouched({...touched, img_url: true});
+  };
+  return {values, setValues, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL};
 };
 
-export {useForm};
+export { useForm };

@@ -1,23 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-import { useForm } from '../../hooks/useForm'
+import { useForm } from '../../hooks/useForm';
+import { useValidations } from '../../hooks/useValidations';
 
-const isRequired = (val) => {
-  console.log('isRequired?: ', val, val !== null && val.toString().trim().length > 0);
-  return val !== null && val.toString().trim().length > 0;
-};
-
-const isNotExisted = (vals, val) => {
-  let pro = vals.filter(p => p.name === val.trim());
-  console.log('isNotExisted? ', vals, pro);
-  return pro.length === 0;
-}
-
-const isGreaterThan0 = (val) => {
-  console.log('isGreaterThan0: ', parseInt(val) > 0);
-  return parseInt(val) > 0;
-}
 
 const ProgramForm = () => {
   const { id } = useParams();
@@ -30,13 +16,14 @@ const ProgramForm = () => {
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
+  const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
 
   const initialState = initProgram[0];
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
     ({description}) => isRequired(description) || {description: 'Description is required'},
-    // ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
+    ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
     ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
     ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
   ];
@@ -70,15 +57,10 @@ const ProgramForm = () => {
     }
   };
 
-  const {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler} = useForm(initialState, validations, saveProgram);
+  const {values, setValues, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, saveProgram);
 
-  // const handleChange = (event) => {
-  //   let newProgram = {...program,[event.target.name]:event.target.value};
-  //   setProgram(newProgram);
-  // }
-
-  const handleImageUpload = () => {
-    //evt.preventDefault();
+  const handleImageUpload = (evt) => {
+    evt.preventDefault();
     if (image) {
       const formData = new FormData();
       formData.append("file",image);
@@ -88,11 +70,14 @@ const ProgramForm = () => {
         ,formData
       ).then((response)=>{
         setImage(response.data.url);
-        values.img_url = response.data.url;
+        updateImageURL(response.data.url);
       })
       .catch (err => console.log(err));
     }
   }
+
+  //useEffect(setValues,[values]);
+
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
@@ -143,10 +128,7 @@ const ProgramForm = () => {
               }}
             />
             {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
-            <button onClick={(evt) => { 
-              evt.preventDefault();
-              handleImageUpload();
-            }}> Upload </button>
+            <button onClick={handleImageUpload}> Upload </button>
           </div> 
         </div>
         <button type="button" disabled={!isValid} onClick={submitHandler} className="btn btn-primary">Submit</button>
