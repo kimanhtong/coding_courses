@@ -3,9 +3,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from '../../hooks/useForm'
 
-const isRequired = (value) => {
-  return value != null && value.trim().length > 0;
+const isRequired = (val) => {
+  console.log('isRequired?: ', val, val !== null && val.toString().trim().length > 0);
+  return val !== null && val.toString().trim().length > 0;
 };
+
+const isNotExisted = (vals, val) => {
+  let pro = vals.filter(p => p.name === val.trim());
+  console.log('isNotExisted? ', vals, pro);
+  return pro.length === 0;
+}
+
+const isGreaterThan0 = (val) => {
+  console.log('isGreaterThan0: ', parseInt(val) > 0);
+  return parseInt(val) > 0;
+}
 
 const ProgramForm = () => {
   const { id } = useParams();
@@ -22,10 +34,11 @@ const ProgramForm = () => {
   const initialState = initProgram[0];
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
+    ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
     ({description}) => isRequired(description) || {description: 'Description is required'},
-    ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
-    // ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'}
-
+    // ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
+    ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
+    ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
   ];
 
   const saveProgram = (program) => {
@@ -112,7 +125,7 @@ const ProgramForm = () => {
             name="duration_days"
             value={values.duration_days}
             onChange={changeHandler} />
-          
+          {touched.duration_days && errors.duration_days && <p className="error">{errors.duration_days}</p>} 
         </div>
         <div className="form-control">
           {values.img_url && (
@@ -129,6 +142,7 @@ const ProgramForm = () => {
                 setImage(event.target.files[0]);
               }}
             />
+            {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
             <button onClick={(evt) => { 
               evt.preventDefault();
               handleImageUpload();
