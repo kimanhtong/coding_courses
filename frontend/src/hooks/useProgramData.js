@@ -13,7 +13,7 @@ const useProgramData = () => {
     axios.get(programListDB)
     .then (res => {
       setPrograms(res.data);
-      localStorage.setItem('programs', JSON.stringify(res.data));
+      // localStorage.setItem('programs', JSON.stringify(res.data));
     })
     .catch(res => console.log(res.message));
   };
@@ -29,7 +29,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.splice(index, 1);
       setPrograms(newPrograms);
-      localStorage.setItem('programs', JSON.stringify(newPrograms));
+      // localStorage.setItem('programs', JSON.stringify(newPrograms));
       navigate(programRoot);
     })
     .catch(res => {
@@ -48,7 +48,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.splice(index, 1, res.data);
       setPrograms(newPrograms);
-      localStorage.setItem('programs', JSON.stringify(newPrograms));
+      // localStorage.setItem('programs', JSON.stringify(newPrograms));
       navigate(programView);
     })
     .catch(err => {
@@ -63,7 +63,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.push(res.data);
       setPrograms(newPrograms);
-      localStorage.setItem('programs', JSON.stringify(newPrograms));
+      // localStorage.setItem('programs', JSON.stringify(newPrograms));
       const programView = `/program/view/${res.data.id}`;
       navigate(programView);
     })

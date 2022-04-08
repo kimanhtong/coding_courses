@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from 'axios';
-import { programs, fetchPrograms, deleteProgram, editProgram, createProgram } from '../../hooks/useProgramData';
+import { useProgramData } from '../../hooks/useProgramData';
 
 Modal.setAppElement("#root");
 
@@ -14,6 +14,9 @@ const ProgramView = () => {
   const program = initProgram[0] ? initProgram[0] : {};
   const programRoot = '/program';
   const [isOpen, setIsOpen] = useState(false);
+
+  const { programs, fetchPrograms, deleteProgram, editProgram, createProgram } = useProgramData();
+
   const toggleModal = () => {
     setIsOpen(!isOpen);
   }
