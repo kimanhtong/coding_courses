@@ -9,28 +9,15 @@ Modal.setAppElement("#root");
 const ProgramView = () => {
   const {id} = useParams();
   const navigate = useNavigate();
-  let programs = JSON.parse(localStorage.getItem('programs'));
+  const [isOpen, setIsOpen] = useState(false);
+  const { programs, deleteProgram } = useProgramData();
   const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
   const program = initProgram[0] ? initProgram[0] : {};
   const programRoot = '/program';
-  const [isOpen, setIsOpen] = useState(false);
-
-  const { programs, fetchPrograms, deleteProgram, editProgram, createProgram } = useProgramData();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   }
-  const deleteProgram = (p) => {
-    const program_delete_url = `http://localhost:3000/api/v1/programs/${p.id}`
-    axios.delete(program_delete_url)
-    .then (res => {
-      localStorage.setItem('programs', JSON.stringify(res.data));
-      navigate(programRoot);
-    })
-    .catch(res => {
-      console.log(res.message);
-    })
-  };
 
   return (
     <div>

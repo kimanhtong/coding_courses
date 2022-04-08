@@ -3,22 +3,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from '../../hooks/useForm';
 import { useValidations } from '../../hooks/useValidations';
+import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/program.css';
 
 
 const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  let programs = JSON.parse(localStorage.getItem('programs'));
+  const { programs, saveProgram} = useProgramData();
+  const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
+  // let programs = JSON.parse(localStorage.getItem('programs'));
   let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{name: '', description: '', duration_days: 0, img_url: ''}];
-  let index = id ? programs.indexOf(initProgram[0]) : -1;
-  // const [program, setProgram] = useState(initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0});
   const [image, setImage] = useState(initProgram[0].img_url);
+  // let index = id ? programs.indexOf(initProgram[0]) : -1;
+  // const [program, setProgram] = useState(initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0});
   const createDBLink = `http://localhost:3000/api/v1/programs`;
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
-  const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
-
   const initialState = initProgram[0];
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
@@ -28,38 +29,8 @@ const ProgramForm = () => {
     ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
     ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
   ];
-
-  const saveProgram = (program) => {
-    if (id) {
-      const editDBLink = `http://localhost:3000/api/v1/programs/${id}`;
-      axios
-      .put(editDBLink, program)
-      .then(res => {
-        programs.splice(index, 1, res.data);
-        localStorage.setItem('programs', JSON.stringify(programs));
-        navigate(programView);
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-    } else {
-      axios
-      .post(createDBLink, program)
-      .then(res => {
-        programs.push(res.data);
-        localStorage.setItem('programs', JSON.stringify(programs));
-        programView = `/program/view/${res.data.id}`;
-        navigate(programView);
-      })
-      .catch(err => {
-        console.log(err.message);
-        navigate(programRoot);
-      });
-    }
-  };
-
-  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, saveProgram);
-
+  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, ()=>saveProgram(values, id));
+  
   const handleImageUpload = (evt) => {
     evt.preventDefault();
     if (image) {

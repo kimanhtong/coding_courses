@@ -72,7 +72,15 @@ const useProgramData = () => {
       navigate(programRoot);
     });
   };
-  return { programs, fetchPrograms, deleteProgram, editProgram, createProgram };
+
+  const saveProgram = (program, id) => {
+    if (id) {
+      editProgram(id, program);
+    } else {
+      createProgram(program);
+  }};
+
+  return { programs, fetchPrograms, deleteProgram, saveProgram };
 };
 
 export { useProgramData };
