@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 const useProgramData = () => {
-  const [programs, setPrograms] = useState([]);
+  const [programs, setPrograms] = useState(JSON.parse(localStorage.getItem('programs'))||[]);
   const programRoot = "/program";
   const programListDB = "http://localhost:3000/api/v1/programs"
   const newProgramDB = `http://localhost:3000/api/v1/programs`;
@@ -13,7 +13,7 @@ const useProgramData = () => {
     axios.get(programListDB)
     .then (res => {
       setPrograms(res.data);
-      // localStorage.setItem('programs', JSON.stringify(res.data));
+      localStorage.setItem('programs', JSON.stringify(res.data));
     })
     .catch(res => console.log(res.message));
   };
@@ -29,7 +29,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.splice(index, 1);
       setPrograms(newPrograms);
-      // localStorage.setItem('programs', JSON.stringify(newPrograms));
+      localStorage.setItem('programs', JSON.stringify(newPrograms));
       navigate(programRoot);
     })
     .catch(res => {
@@ -48,7 +48,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.splice(index, 1, res.data);
       setPrograms(newPrograms);
-      // localStorage.setItem('programs', JSON.stringify(newPrograms));
+      localStorage.setItem('programs', JSON.stringify(newPrograms));
       navigate(programView);
     })
     .catch(err => {
@@ -63,7 +63,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.push(res.data);
       setPrograms(newPrograms);
-      // localStorage.setItem('programs', JSON.stringify(newPrograms));
+      localStorage.setItem('programs', JSON.stringify(newPrograms));
       const programView = `/program/view/${res.data.id}`;
       navigate(programView);
     })

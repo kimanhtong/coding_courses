@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
-import axios from 'axios';
 import { useProgramData } from '../../hooks/useProgramData';
 
 Modal.setAppElement("#root");
@@ -12,12 +11,14 @@ const ProgramView = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { programs, deleteProgram } = useProgramData();
   const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
-  const program = initProgram[0] ? initProgram[0] : {};
+  const program = initProgram[0];
   const programRoot = '/program';
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   }
+
+  console.log(programs);
 
   return (
     <div>
