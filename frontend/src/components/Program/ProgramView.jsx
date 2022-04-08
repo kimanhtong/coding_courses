@@ -3,7 +3,6 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from 'axios';
 
-
 Modal.setAppElement("#root");
 
 const ProgramView = () => {

@@ -38,7 +38,7 @@ class Api::V1::ProgramsController < ApplicationController
   def destroy
     @program.destroy
     @programs = Program.all
-    render json: @programs
+    render body: nil, status: :no_content
   end
 
   private

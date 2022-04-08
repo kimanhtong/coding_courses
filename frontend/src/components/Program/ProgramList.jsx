@@ -1,32 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import axios from "axios";
+import { programs, fetchPrograms, deleteProgram } from '../../hooks/useProgramData';
 
 Modal.setAppElement("#root");
 
 const ProgramList = () => {
-  const [programs, setPrograms] = useState([]);
   const [ currentProgram, setCurrentProgram ] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const programRoot = "/program";
   const navigate = useNavigate();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
-  }
-
-  const deleteProgram = (p) => {
-    const program_delete_url = `http://localhost:3000/api/v1/programs/${p.id}`
-    axios.delete(program_delete_url)
-    .then (res => {
-      setPrograms(res.data);
-      localStorage.setItem('programs', JSON.stringify(res.data));
-      navigate(programRoot);
-    })
-    .catch(res => {
-      console.log(res.message);
-    })
   };
 
   const allPrograms = programs.map(program => (
@@ -68,16 +53,6 @@ const ProgramList = () => {
       </h4>
     </div>
   );
-  
-  const fetchPrograms = () => {
-    const program_list_url = "http://localhost:3000/api/v1/programs"
-    axios.get(program_list_url)
-    .then (res => {
-      setPrograms(res.data);
-      localStorage.setItem('programs', JSON.stringify(res.data));
-    })
-    .catch(res => console.log(res.message));
-  };
 
   useEffect(()=>{
     fetchPrograms();
@@ -111,7 +86,6 @@ const ProgramList = () => {
             padding: '20px'
           }
         }}
-            
       >
         <div>Are you sure?</div>
         <button onClick={() => {
