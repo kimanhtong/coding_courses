@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import { programs, fetchPrograms, deleteProgram } from '../../hooks/useProgramData';
+import { useProgramData } from '../../hooks/useProgramData';
 
 Modal.setAppElement("#root");
 
@@ -9,6 +9,7 @@ const ProgramList = () => {
   const [ currentProgram, setCurrentProgram ] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { programs, fetchPrograms, deleteProgram } = useProgramData();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -89,7 +90,7 @@ const ProgramList = () => {
       >
         <div>Are you sure?</div>
         <button onClick={() => {
-          deleteProgram(currentProgram);
+          deleteProgram(currentProgram.id);
           toggleModal();
         }}>Yes</button>
         <button onClick={toggleModal}>No</button>

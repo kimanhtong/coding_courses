@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from 'axios';
+import { programs, fetchPrograms, deleteProgram, editProgram, createProgram } from '../../hooks/useProgramData';
 
 Modal.setAppElement("#root");
 
@@ -70,7 +71,7 @@ const ProgramView = () => {
         <div>Are you sure?</div>
         <button type="button" onClick={() => {
           toggleModal();
-          deleteProgram(program);
+          deleteProgram(program.id);
         }}>Yes</button>
         <button type="button" onClick={toggleModal}>No</button>
       </Modal>
@@ -78,5 +79,3 @@ const ProgramView = () => {
 )};
 
 export default ProgramView;
-
-
