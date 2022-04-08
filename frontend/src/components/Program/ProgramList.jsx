@@ -28,11 +28,11 @@ const ProgramList = () => {
       <div className="card-body">
         <div className="card-actions" style={{ marginBottom: 20 }} >
           <button type="button" className="btn btn-primary" 
-            onClick={()=>navigate(`/program/view/${program.id}`)}>
+            onClick={()=>navigate(`/program/view/${program.id}`, {state: program})}>
             View
           </button>
           <button type="button" className="btn btn-secondary" 
-            onClick={()=>navigate(`/program/edit/${program.id}`)}>
+            onClick={()=>navigate(`/program/edit/${program.id}`, {state: program})}>
             Edit
           </button>
           <button type="button" className="btn btn-danger"

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useNavigate, Link, useParams, useLocation } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 
@@ -10,8 +10,10 @@ const ProgramView = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { programs, deleteProgram } = useProgramData();
-  const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
-  const program = initProgram[0];
+  // const initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{}];
+  // const program = initProgram[0];
+  const state = useLocation();
+  const program = state;
   const programRoot = '/program';
 
   const toggleModal = () => {
@@ -33,7 +35,7 @@ const ProgramView = () => {
           style={{ maxWidth: 350, maxHeight: 350 }}
         />
         <div>
-          <button type="button" onClick={()=>navigate(`/program/edit/${id}`)}> Edit </button>
+          <button type="button" onClick={()=>navigate(`/program/edit/${id}`, {state: program})}> Edit </button>
           <button type="button" onClick={toggleModal}> Delete </button>
         </div>
       </form>
