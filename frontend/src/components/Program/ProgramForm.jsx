@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from '../../hooks/useForm';
@@ -6,21 +6,14 @@ import { useValidations } from '../../hooks/useValidations';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/program.css';
 
-
 const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { programs, saveProgram} = useProgramData();
+  const { programs, fetchPrograms, program, fetchProgram, saveProgram } = useProgramData();
   const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
-  // let programs = JSON.parse(localStorage.getItem('programs'));
-  let initProgram = id ? programs.filter(p => p.id === parseInt(id)) : [{name: '', description: '', duration_days: 0, img_url: ''}];
-  const [image, setImage] = useState(initProgram[0].img_url);
-  // let index = id ? programs.indexOf(initProgram[0]) : -1;
-  // const [program, setProgram] = useState(initProgram ? initProgram[0] : {name: '', description: '', duration_days: 0});
-  const createDBLink = `http://localhost:3000/api/v1/programs`;
+  const [image, setImage] = useState(program ? program.img_url : '');
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
-  const initialState = initProgram[0];
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
@@ -29,7 +22,8 @@ const ProgramForm = () => {
     ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
     ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
   ];
-  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initialState, validations, ()=>saveProgram(values, id));
+  // const initValues = program !== {} ? program :  {name: '', description: '', duration_days: 0};
+  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(program, validations, ()=>saveProgram(values, id ? id : null));
   
   const handleImageUpload = (evt) => {
     evt.preventDefault();
@@ -47,6 +41,16 @@ const ProgramForm = () => {
       .catch (err => console.log(err));
     }
   }
+
+  useEffect (() => {
+    fetchPrograms();
+    if (id) {
+      fetchProgram(id);
+    }
+  }, []);
+  
+
+  console.log(programs);
 
   return (
     <div> 
@@ -102,7 +106,7 @@ const ProgramForm = () => {
           </div> 
         </div>
         <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
-        <button type="button" onClick={()=>resetHandler(initProgram[0])} className="btn btn-secondary">Reset</button>
+        <button type="button" onClick={()=>resetHandler(program)} className="btn btn-secondary">Reset</button>
         <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
         {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}
       </form>
