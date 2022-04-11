@@ -28,7 +28,8 @@ const useProgramData = () => {
     axios
     .delete(existingProgramDB)
     .then (() => {
-      let newPrograms = programs.splice(index, 1);
+      let newPrograms = [...programs];
+      newPrograms.splice(index, 1);
       setPrograms(newPrograms);
       navigate(programRoot);
     })
