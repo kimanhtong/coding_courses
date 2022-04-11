@@ -15,30 +15,18 @@ const useProgramData = () => {
     axios.get(programListDB)
     .then (res => {
       setPrograms(res.data);
-      // localStorage.setItem('programs', JSON.stringify(res.data));
-    })
+      if (id) {
+        let temp_program = res.data.filter(p => p.id === parseInt(id));
+        setProgram(temp_program[0]);
+    }})
     .catch(res => console.log(res.message));
   };
 
-  const fetchProgram = () => {
-    const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
-    axios.get(existingProgramDB)
-    .then (res => {
-      setProgram(res.data);
-    })
-    .catch(err => console.log(err));
-  }
-
   const deleteProgram = (id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
-    let editedProgram = programs.filter(p => p.id === parseInt(id));
-    let index = programs.indexOf(editedProgram[0]);
     axios
     .delete(existingProgramDB)
     .then (() => {
-      let newPrograms = [...programs];
-      newPrograms.splice(index, 1);
-      setPrograms(newPrograms);
       navigate(programRoot);
     })
     .catch(res => {
@@ -49,16 +37,9 @@ const useProgramData = () => {
   const editProgram = (program, id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
     const programView = `/program/view/${id}`;
-    // let editedProgram = programs.filter(p => p.id === parseInt(id));
-    // let index = programs.indexOf(editedProgram[0]);
     axios
     .put(existingProgramDB, program)
-    .then(res => {
-      // setProgram(res.data);
-      // let newPrograms = [...programs];
-      // newPrograms.splice(index, 1, res.data);
-      // setPrograms(newPrograms);
-      // localStorage.setItem('programs', JSON.stringify(newPrograms));
+    .then(() => {
       navigate(programView);
     })
     .catch(err => {
@@ -71,10 +52,6 @@ const useProgramData = () => {
     axios
     .post(newProgramDB, program)
     .then(res => {
-      // let newPrograms = [...programs];
-      // newPrograms.push(res.data);
-      // setPrograms(newPrograms);
-      // localStorage.setItem('programs', JSON.stringify(newPrograms));
       const programView = `/program/view/${res.data.id}`;
       navigate(programView);
     })
@@ -86,7 +63,6 @@ const useProgramData = () => {
 
   useEffect(()=> { 
     fetchPrograms();
-    if (id) fetchProgram(id)
   },[]);
 
   return { programs, program, deleteProgram, createProgram, editProgram };

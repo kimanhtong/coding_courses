@@ -50,10 +50,6 @@ const ProgramForm = () => {
     }
   }
 
-  console.log(programs);
-  console.log('program: ', program);
-  console.log('values = ', values);
-
   useEffect(()=>setValues(program),[program]);
 
   return (
