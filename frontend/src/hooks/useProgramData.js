@@ -86,17 +86,10 @@ const useProgramData = () => {
     });
   };
 
-  const saveProgram = (program, id) => {
-    if (id) {
-      editProgram(id, program);
-    } else {
-      createProgram(program);
-  }};
-
   useEffect(fetchPrograms,[]);
   useEffect(()=> { if (id) fetchProgram(id) },[id]);
 
-  return { programs, program, deleteProgram, saveProgram };
+  return { programs, program, deleteProgram, createProgram, editProgram };
 };
 
 export { useProgramData };
