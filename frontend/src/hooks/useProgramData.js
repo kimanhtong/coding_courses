@@ -24,9 +24,12 @@ const useProgramData = () => {
 
   const deleteProgram = (id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
+    let index = programs.indexOf(programs.filter(p => p.id === id)[0]);
     axios
     .delete(existingProgramDB)
     .then (() => {
+      let newPrograms = programs.splice(index, 1);
+      setPrograms(newPrograms);
       navigate(programRoot);
     })
     .catch(res => {
@@ -61,9 +64,7 @@ const useProgramData = () => {
     });
   };
 
-  useEffect(()=> { 
-    fetchPrograms();
-  },[]);
+  useEffect(fetchPrograms,[id]);
 
   return { programs, program, deleteProgram, createProgram, editProgram };
 };
