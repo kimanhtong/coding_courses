@@ -1,7 +1,12 @@
 
 const useValidations = () => {
   const isRequired = (val) => {
-    return val !== null && val.toString().trim().length > 0;
+    console.log('type of val = ', val, 'is: ', typeof(val));
+    if (typeof(val) === 'number') {
+      return val !== null && val.toString().length > 0;
+    } else {
+      return val !== null && val.trim().length > 0;
+    }
   };
 
   const isNotExisted = (vals, val) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ const useProgramData = () => {
     axios.get(programListDB)
     .then (res => {
       setPrograms(res.data);
+      console.log(res.data);
       // localStorage.setItem('programs', JSON.stringify(res.data));
     })
     .catch(res => console.log(res.message));
@@ -31,6 +32,8 @@ const useProgramData = () => {
 
   const deleteProgram = (id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
+    let editedProgram = programs.filter(p => p.id === parseInt(id));
+    let index = programs.indexOf(editedProgram[0]);
     axios
     .delete(existingProgramDB)
     .then (() => {
@@ -88,6 +91,8 @@ const useProgramData = () => {
     } else {
       createProgram(program);
   }};
+
+  useEffect(fetchPrograms,[]);
 
   return { programs, fetchPrograms, program, fetchProgram, deleteProgram, saveProgram };
 };

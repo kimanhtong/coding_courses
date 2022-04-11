@@ -14,6 +14,8 @@ const ProgramForm = () => {
   const [image, setImage] = useState(program ? program.img_url : '');
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
+  console.log(programs);
+  console.log('program: ', program);
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
@@ -23,7 +25,8 @@ const ProgramForm = () => {
     ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
   ];
   // const initValues = program !== {} ? program :  {name: '', description: '', duration_days: 0};
-  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(program, validations, ()=>saveProgram(values, id ? id : null));
+  const initValues =  {name: '', description: '', duration_days: 0};
+  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initValues, validations, ()=>saveProgram(values, id ? id : null));
   
   const handleImageUpload = (evt) => {
     evt.preventDefault();
@@ -51,6 +54,7 @@ const ProgramForm = () => {
   
 
   console.log(programs);
+  console.log('program: ', program);
 
   return (
     <div> 
