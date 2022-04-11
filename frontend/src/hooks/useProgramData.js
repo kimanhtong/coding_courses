@@ -22,15 +22,29 @@ const useProgramData = () => {
     .catch(res => console.log(res.message));
   };
 
+  const deleteImageOnAPI= (url) => {
+    const formData = new FormData();
+    formData.append("file",image);
+    formData.append("upload_preset", "anhtest");
+    axios.destroy(url)
+    .then((response)=>{
+      console.log(response.data);
+    })
+    .catch (err => console.log(err));
+  };
+
   const deleteProgram = (id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
-    let index = programs.indexOf(programs.filter(p => p.id === id)[0]);
+    const deleted_program = programs.filter(p => p.id === id)[0]
+    let index = programs.indexOf(deleted_program);
+    let url = deleted_program.img_url;
     axios
     .delete(existingProgramDB)
     .then (() => {
       let newPrograms = [...programs];
       newPrograms.splice(index, 1);
       setPrograms(newPrograms);
+      deleteImageOnAPI(url);
       navigate(programRoot);
     })
     .catch(res => {
