@@ -45,7 +45,7 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     setErrors(errors);
     setTouched({...touched, img_url: true});
   };
-  return {values, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL};
+  return {values, setValues, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL};
 };
 
 export { useForm };

@@ -1,11 +1,13 @@
 
 const useValidations = () => {
   const isRequired = (val) => {
-    console.log('type of val = ', val, 'is: ', typeof(val));
     if (typeof(val) === 'number') {
       return val !== null && val.toString().length > 0;
-    } else {
+    } else if (typeof(val) === 'string') {
       return val !== null && val.trim().length > 0;
+    }
+    else {
+      return val !== null && val !== undefined;
     }
   };
 

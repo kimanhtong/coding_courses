@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const useProgramData = () => {
   const [programs, setPrograms] = useState([]);
-  const [program, setProgram] = useState({});
+  const [program, setProgram] = useState({name: '', description: '', duration_days: 0, img_url: ''});
   const { id } = useParams();
   const programRoot = "/program";
   const programListDB = "http://localhost:3000/api/v1/programs"
@@ -15,7 +15,6 @@ const useProgramData = () => {
     axios.get(programListDB)
     .then (res => {
       setPrograms(res.data);
-      console.log(res.data);
       // localStorage.setItem('programs', JSON.stringify(res.data));
     })
     .catch(res => console.log(res.message));
@@ -25,7 +24,6 @@ const useProgramData = () => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
     axios.get(existingProgramDB)
     .then (res => {
-      console.log(res.data);
       setProgram(res.data);
     })
     .catch(err => console.log(err));
@@ -86,8 +84,10 @@ const useProgramData = () => {
     });
   };
 
-  useEffect(fetchPrograms,[]);
-  useEffect(()=> { if (id) fetchProgram(id) },[id]);
+  useEffect(()=> { 
+    fetchPrograms();
+    if (id) fetchProgram(id)
+  },[]);
 
   return { programs, program, deleteProgram, createProgram, editProgram };
 };
