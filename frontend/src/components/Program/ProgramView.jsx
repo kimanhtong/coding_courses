@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 
@@ -7,16 +7,13 @@ Modal.setAppElement("#root");
 
 const ProgramView = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const { program, fetchProgram, deleteProgram } = useProgramData(id);
+  const { program, deleteProgram } = useProgramData();
   const programRoot = '/program';
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
-  }
-
-  useEffect(()=>fetchProgram(id),[id]);
+  };
 
   return (
     <div>

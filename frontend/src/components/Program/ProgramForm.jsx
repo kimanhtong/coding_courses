@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from '../../hooks/useForm';
@@ -9,7 +9,7 @@ import '../styles/program.css';
 const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { programs, fetchPrograms, program, fetchProgram, saveProgram } = useProgramData();
+  const { programs, program, saveProgram } = useProgramData();
   console.log(programs);
   console.log('program: ', program);
   const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
@@ -18,17 +18,17 @@ const ProgramForm = () => {
   let programView = id ? `/program/view/${id}` : '';
   console.log(programs);
   console.log('program: ', program);
-  const validations = [
-    ({name}) => isRequired(name) || {name: 'Name is required'},
-    ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
-    ({description}) => isRequired(description) || {description: 'Description is required'},
-    ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
-    ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
-    ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
-  ];
-  // const initValues = program !== {} ? program :  {name: '', description: '', duration_days: 0};
-  const initValues =  {name: '', description: '', duration_days: 0};
-  const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initValues, validations, ()=>saveProgram(values, id ? id : null));
+  // const validations = [
+  //   ({name}) => isRequired(name) || {name: 'Name is required'},
+  //   ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
+  //   ({description}) => isRequired(description) || {description: 'Description is required'},
+  //   ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
+  //   ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
+  //   ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
+  // ];
+  const values = program !== {} ? program :  {name: '', description: '', duration_days: 0};
+  // const initValues =  {name: '', description: '', duration_days: 0};
+  // const {values, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(initValues, validations, ()=>saveProgram(values, id ? id : null));
   
   const handleImageUpload = (evt) => {
     evt.preventDefault();
@@ -47,8 +47,6 @@ const ProgramForm = () => {
     }
   }
 
-  useEffect(fetchPrograms, []);
-  useEffect(() => fetchProgram(id), [id]);
   console.log(programs);
   console.log('program: ', program);
 

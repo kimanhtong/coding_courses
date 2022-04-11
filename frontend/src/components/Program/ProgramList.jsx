@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
@@ -9,7 +9,7 @@ const ProgramList = () => {
   const [ currentProgram, setCurrentProgram ] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { programs, fetchPrograms, deleteProgram } = useProgramData();
+  const { programs, deleteProgram } = useProgramData();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -54,8 +54,6 @@ const ProgramList = () => {
       </h4>
     </div>
   );
-
-  useEffect(fetchPrograms,[]);
 
   return (
     <div>

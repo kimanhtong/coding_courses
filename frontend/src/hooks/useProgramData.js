@@ -94,9 +94,9 @@ const useProgramData = () => {
   }};
 
   useEffect(fetchPrograms,[]);
-  useEffect(()=>fetchProgram(id),[]);
+  useEffect(()=> { if (id) fetchProgram(id) },[id]);
 
-  return { programs, fetchPrograms, program, fetchProgram, deleteProgram, saveProgram };
+  return { programs, program, deleteProgram, saveProgram };
 };
 
 export { useProgramData };
