@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const useProgramData = () => {
   const [programs, setPrograms] = useState([]);
   const [program, setProgram] = useState({});
+  const { id } = useParams();
   const programRoot = "/program";
   const programListDB = "http://localhost:3000/api/v1/programs"
   const newProgramDB = `http://localhost:3000/api/v1/programs`;
@@ -20,7 +21,7 @@ const useProgramData = () => {
     .catch(res => console.log(res.message));
   };
 
-  const fetchProgram = (id) => {
+  const fetchProgram = () => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
     axios.get(existingProgramDB)
     .then (res => {
@@ -93,6 +94,7 @@ const useProgramData = () => {
   }};
 
   useEffect(fetchPrograms,[]);
+  useEffect(()=>fetchProgram(id),[]);
 
   return { programs, fetchPrograms, program, fetchProgram, deleteProgram, saveProgram };
 };

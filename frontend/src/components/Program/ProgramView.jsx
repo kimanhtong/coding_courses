@@ -9,14 +9,14 @@ const ProgramView = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const { program, fetchProgram, deleteProgram } = useProgramData();
+  const { program, fetchProgram, deleteProgram } = useProgramData(id);
   const programRoot = '/program';
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   }
 
-  useEffect(()=>fetchProgram(id),[]);
+  useEffect(()=>fetchProgram(id),[id]);
 
   return (
     <div>

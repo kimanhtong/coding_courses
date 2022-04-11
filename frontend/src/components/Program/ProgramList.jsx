@@ -55,9 +55,7 @@ const ProgramList = () => {
     </div>
   );
 
-  useEffect(()=>{
-    fetchPrograms();
-  },[]);
+  useEffect(fetchPrograms,[]);
 
   return (
     <div>

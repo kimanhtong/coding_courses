@@ -10,6 +10,8 @@ const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { programs, fetchPrograms, program, fetchProgram, saveProgram } = useProgramData();
+  console.log(programs);
+  console.log('program: ', program);
   const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
   const [image, setImage] = useState(program ? program.img_url : '');
   const programRoot = '/program';
@@ -45,14 +47,8 @@ const ProgramForm = () => {
     }
   }
 
-  useEffect (() => {
-    fetchPrograms();
-    if (id) {
-      fetchProgram(id);
-    }
-  }, []);
-  
-
+  useEffect(fetchPrograms, []);
+  useEffect(() => fetchProgram(id), [id]);
   console.log(programs);
   console.log('program: ', program);
 
