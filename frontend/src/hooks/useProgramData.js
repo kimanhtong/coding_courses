@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
+//import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
 const useProgramData = () => {
+//  let cloudinary = require('cloudinary').v2
+
   const [programs, setPrograms] = useState([]);
   const [program, setProgram] = useState({name: '', description: '', duration_days: 0, img_url: ''});
   const { id } = useParams();
@@ -24,11 +28,12 @@ const useProgramData = () => {
 
   const deleteImageOnAPI= (url) => {
     const formData = new FormData();
-    formData.append("id",'rgkzh9utqtjs3zs28di');
-    formData.append("name",'anhtest');
-    formData.append("avatar", "https://res.cloudinary.com/de6puygvt/image/upload/v1649722570/rgkzh9utqtjs3zs28di.webp"); //url
-    formData.append("cloudinary_id", "rgkzh9utqtjs3zs28di");
-    formData.append("signature","ca27b5117f5d160e94f1f58f4610ad8071e054d1");
+    // formData.append("cloud_name",'de6puygvt');
+    // formData.append("api_key", "413224759358775");
+    // formData.append("api_secret", "0pc_QSbLGFujxShENPJ7cRpJ2");
+    // formData.append("asset_id", "a38a177997f534f3f56bd1ffd730b3f3");
+    formData.append("public_id",'a2klvmmjwqicr3onepgs');
+    formData.append("signature","ee5c440fbbec41a313ce3eef0fbaf4250d0407be");
     axios.post(
       "https://api.cloudinary.com/v1_1/de6puygvt/image/destroy"
       ,formData
@@ -36,7 +41,17 @@ const useProgramData = () => {
       console.log(response);
     })
     .catch (err => console.log(err));
-// xcpgjstlsmpku2eemoy8
+
+
+  //cloudinary.v2.uploader.destroy(public_id, options, callback);
+  // cloudinary.config({
+  //   cloud_name: 'cloudname',
+  //   api_key: 'apikey',
+  //   api_secret: 'secretkey'
+  // });
+  // cloudinary.v2.uploader.destroy('https://res.cloudinary.com/de6puygvt/image/upload/v1649735333/kh6t45lyosarafb4vkqh.webp', function(error,result) {
+  //   console.log(result, error) });
+
   };
 
   const deleteProgram = (id) => {
