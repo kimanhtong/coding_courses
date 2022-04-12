@@ -24,13 +24,19 @@ const useProgramData = () => {
 
   const deleteImageOnAPI= (url) => {
     const formData = new FormData();
-    formData.append("file",image);
-    formData.append("upload_preset", "anhtest");
-    axios.destroy(url)
-    .then((response)=>{
-      console.log(response.data);
+    formData.append("id",'rgkzh9utqtjs3zs28di');
+    formData.append("name",'anhtest');
+    formData.append("avatar", "https://res.cloudinary.com/de6puygvt/image/upload/v1649722570/rgkzh9utqtjs3zs28di.webp"); //url
+    formData.append("cloudinary_id", "rgkzh9utqtjs3zs28di");
+    formData.append("signature","ca27b5117f5d160e94f1f58f4610ad8071e054d1");
+    axios.post(
+      "https://api.cloudinary.com/v1_1/de6puygvt/image/destroy"
+      ,formData
+    ).then((response)=>{
+      console.log(response);
     })
     .catch (err => console.log(err));
+// xcpgjstlsmpku2eemoy8
   };
 
   const deleteProgram = (id) => {

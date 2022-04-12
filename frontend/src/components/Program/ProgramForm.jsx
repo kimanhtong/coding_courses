@@ -43,6 +43,7 @@ const ProgramForm = () => {
         "https://api.cloudinary.com/v1_1/de6puygvt/image/upload"
         ,formData
       ).then((response)=>{
+        console.log(response.data);
         setImage(response.data.url);
         updateImageURL(response.data.url);
       })
