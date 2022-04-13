@@ -15,8 +15,12 @@ class Api::V1::ProgramsController < ApplicationController
   # POST /programs
   def create
     @program = Program.new(program_params)
-
+    require 'cloudinary'
+    file = @program.img_url
+    response = Cloudinary::Uploader.upload(file)
+    puts response;
     if @program.save
+      
       @programs = Program.all
       render json: @program
     else
@@ -37,7 +41,7 @@ class Api::V1::ProgramsController < ApplicationController
   # DELETE /programs/1
   def destroy
     require 'cloudinary'
-    Cloudinary::Uploader.destroy('a2klvmmjwqicr3onepgs', :signature => "ee5c440fbbec41a313ce3eef0fbaf4250d0407be", :resource_type => 'image')
+    Cloudinary::Uploader.destroy('a2klvmmjwqicr3onepgs')
     @program.destroy
     @programs = Program.all
     render body: nil, status: :no_content

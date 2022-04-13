@@ -90,7 +90,7 @@ const ProgramForm = () => {
         <div className="form-control">
           {(values.img_url) && (
             <div>
-              <img src={values.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
+              <img src={values.img_url} alt="cannot load!" /*width={"250px"} mode={"fit"}*//>
             </div>
           )}
           <br />
@@ -98,11 +98,11 @@ const ProgramForm = () => {
           <div className="form-control">
             <input
               type="file"
-              onChange={(event) => {
-                setImage(event.target.files[0]);
-              }}
+              name="img_url"
+              value={values.img_url}
+              onChange={changeHandler}
             />
-            <button onClick={handleImageUpload}> Upload </button>
+            {/* <button onClick={handleImageUpload}> Upload </button> */}
             {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
           </div> 
         </div>
