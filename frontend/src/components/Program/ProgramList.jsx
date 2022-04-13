@@ -19,7 +19,7 @@ const ProgramList = () => {
     <div key={program.id} className="col-sm-4">
       <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
       <img
-        src={program.img_url}
+        src={program.img_url || program.img_url.url}
         className="card-img"
         alt={program.name}
         width={"250px"}

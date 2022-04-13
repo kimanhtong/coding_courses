@@ -15,12 +15,7 @@ class Api::V1::ProgramsController < ApplicationController
   # POST /programs
   def create
     @program = Program.new(program_params)
-    require 'cloudinary'
-    file = @program.img_url
-    response = Cloudinary::Uploader.upload(file)
-    puts response;
     if @program.save
-      
       @programs = Program.all
       render json: @program
     else

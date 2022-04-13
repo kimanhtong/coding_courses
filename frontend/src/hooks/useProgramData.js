@@ -98,8 +98,12 @@ const useProgramData = () => {
   };
   
   const createProgram = (program) => {
+    const p = {...program, img_url: JSON.stringify(program.img_url)}
+    //const stringImageLink =  JSON.stringify(program.img_url);
+   // program.img_url = stringImageLink;
+    console.log('temp program: ', p);
     axios
-    .post(newProgramDB, program)
+    .post(newProgramDB, p)
     .then(res => {
       const programView = `/program/view/${res.data.id}`;
       navigate(programView);
