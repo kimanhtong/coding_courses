@@ -8,6 +8,8 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 
 gem 'rack-cors'
 
+gem 'cloudinary'
+
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 

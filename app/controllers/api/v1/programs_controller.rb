@@ -36,6 +36,8 @@ class Api::V1::ProgramsController < ApplicationController
 
   # DELETE /programs/1
   def destroy
+    require 'cloudinary'
+    Cloudinary::Uploader.destroy('a2klvmmjwqicr3onepgs', :signature => "ee5c440fbbec41a313ce3eef0fbaf4250d0407be", :resource_type => 'image')
     @program.destroy
     @programs = Program.all
     render body: nil, status: :no_content
