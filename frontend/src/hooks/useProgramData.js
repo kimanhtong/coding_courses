@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 
+cloudinary.config({ 
+  cloud_name: 'de6puygvt', 
+  api_key: '413224759358775', 
+  api_secret: '0pc_QSbLGFujxShENPJ7cRpJ2-4' 
+});
+
 
 const useProgramData = () => {
 

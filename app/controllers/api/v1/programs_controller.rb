@@ -35,8 +35,6 @@ class Api::V1::ProgramsController < ApplicationController
 
   # DELETE /programs/1
   def destroy
-    require 'cloudinary'
-    Cloudinary::Uploader.destroy('a2klvmmjwqicr3onepgs')
     @program.destroy
     @programs = Program.all
     render body: nil, status: :no_content
