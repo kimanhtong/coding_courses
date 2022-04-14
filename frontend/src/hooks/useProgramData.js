@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+// var cloudinary = require('cloudinary').v2;
 
-cloudinary.config({ 
-  cloud_name: 'de6puygvt', 
-  api_key: '413224759358775', 
-  api_secret: '0pc_QSbLGFujxShENPJ7cRpJ2-4' 
-});
+// cloudinary.config({ 
+//   cloud_name: 'de6puygvt', 
+//   api_key: '413224759358775', 
+//   api_secret: '0pc_QSbLGFujxShENPJ7cRpJ2-4' 
+// });
 
 
 const useProgramData = () => {
@@ -18,6 +21,13 @@ const useProgramData = () => {
   const programListDB = "http://localhost:3000/api/v1/programs"
   const newProgramDB = `http://localhost:3000/api/v1/programs`;
   const navigate = useNavigate();
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'de6puygvt', 
+      apiKey: '413224759358775', 
+      apiSecret: '0pc_QSbLGFujxShENPJ7cRpJ2-4' 
+    }
+  });
 
   const fetchPrograms = () => {
     axios.get(programListDB)
@@ -30,27 +40,10 @@ const useProgramData = () => {
     .catch(res => console.log(res.message));
   };
 
-  // const deleteImageOnAPI= (url) => {
+  const deleteImageOnAPI= () => {
+    cld.uploader.destroy('jps7gbprsgf7va2la33g', function(result) { console.log(result) });
   //   const formData = new FormData();
-
-  //   formData.append("file", file);
-  //   formData.append("api_key", "413224759358775");
   //   formData.append("public_id",'a2klvmmjwqicr3onepgs');
-  //   formData.append("timestamp", "2022-04-12T14:51:19Z");
-  //   formData.append("signature","ee5c440fbbec41a313ce3eef0fbaf4250d0407be");
-
-  //   fetch(
-  //     "https://api.cloudinary.com/v1_1/de6puygvt/image/destroy", {
-  //     method: "POST",
-  //     body: formData
-  //   })
-
-  //   formData.append("cloud_name",'de6puygvt');
-  //   formData.append("api_key", "413224759358775");
-  //   formData.append("api_secret", "0pc_QSbLGFujxShENPJ7cRpJ2");
-  //   formData.append("asset_id", "a38a177997f534f3f56bd1ffd730b3f3");
-  //   formData.append("public_id",'a2klvmmjwqicr3onepgs');
-  //   formData.append("signature","ee5c440fbbec41a313ce3eef0fbaf4250d0407be");
   //   axios.post(
   //     "https://api.cloudinary.com/v1_1/de6puygvt/image/destroy"
   //     ,formData
@@ -58,18 +51,8 @@ const useProgramData = () => {
   //     console.log(response);
   //   })
   //   .catch (err => console.log(err));
+  }
 
-
-  // cloudinary.v2.uploader.destroy(public_id, options, callback);
-  // cloudinary.config({
-  //   cloud_name: 'cloudname',
-  //   api_key: 'apikey',
-  //   api_secret: 'secretkey'
-  // });
-  // cloudinary.v2.uploader.destroy('https://res.cloudinary.com/de6puygvt/image/upload/v1649735333/kh6t45lyosarafb4vkqh.webp', function(error,result) {
-  //   console.log(result, error) });
-
-  // };
 
   const deleteProgram = (id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
@@ -82,6 +65,7 @@ const useProgramData = () => {
       let newPrograms = [...programs];
       newPrograms.splice(index, 1);
       setPrograms(newPrograms);
+      deleteImageOnAPI();
       navigate(programRoot);
     })
     .catch(res => {
