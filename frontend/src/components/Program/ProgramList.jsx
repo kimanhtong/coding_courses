@@ -19,7 +19,7 @@ const ProgramList = () => {
     <div key={program.id} className="col-sm-4">
       <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
       <img
-        src={program.img_url || program.img_url.url}
+        src={program.img_url.url}
         className="card-img"
         alt={program.name}
         width={"250px"}
@@ -54,17 +54,6 @@ const ProgramList = () => {
       </h4>
     </div>
   );
-
-  console.log('programs: ', programs);
-  programs.forEach(p => {
-    console.log('original img_url: ', p.img_url);
-    console.log('type of img_url: ', typeof(p.img_url));
-    let obj = eval(p.img_url);
-    console.log('eval: ', obj);
-    console.log('type of obj eval: ', typeof(obj));
-    // console.log('to json', p.img_url.to_JSON());
-  });
-  
 
   return (
     <div>

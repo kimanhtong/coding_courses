@@ -95,9 +95,9 @@ const ProgramForm = () => {
                 <img src={URL.createObjectURL(image)} alt="cannot load!" width={"250px"} mode={"fit"}/>
               </div>
             )}
-            {(id && values.img_url) && (
+            {(id && values.img_url.url) && (
               <div className="form-control">
-                <img src={values.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
+                <img src={values.img_url.url} alt="cannot load!" width={"250px"} mode={"fit"}/>
               </div>
             )}
             <br />

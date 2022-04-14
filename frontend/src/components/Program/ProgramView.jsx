@@ -22,7 +22,7 @@ const ProgramView = () => {
         <p> Description: {program.description}</p>
         <p> Duration: {program.duration_days} days.</p>
         <img
-          src={program.img_url}
+          src={program.img_url.url}
           className="card-img"
           alt={program.name}
           style={{ maxWidth: 350, maxHeight: 350 }}
