@@ -12,7 +12,7 @@ const ProgramForm = () => {
   const { programs, program, editProgram, createProgram } = useProgramData();
   const programRoot = '/program';
   let programView = id ? `/program/view/${id}` : '';
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
 
   // Declaration for input validation rules:
   const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
@@ -74,7 +74,6 @@ const ProgramForm = () => {
           <input type="text" className="form-control"
             placeholder='Enter the Description'
             name="description"
-            required
             value={values.description}
             onChange={changeHandler} />
             {touched.description && errors.description && <p className="error">{errors.description}</p>} 
@@ -88,24 +87,35 @@ const ProgramForm = () => {
             onChange={changeHandler} />
           {touched.duration_days && errors.duration_days && <p className="error">{errors.duration_days}</p>} 
         </div>
-        <div className="form-control">
-          {(values.img_url) && (
-            <div>
-              <img src={values.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
-            </div>
-          )}
-          <br />
-          <br />
+        <div className="form-group">
+          <label>Program Logo</label>
           <div className="form-control">
-            <input
-              type="file"
-              onChange={(event) => {
-                setImage(event.target.files[0]);
-              }}
-            />
-            <button onClick={handleImageUpload}> Upload </button>
-            {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
-          </div> 
+            {(!id && image) && (
+              <div className="form-control">
+                <img src={URL.createObjectURL(image)} alt="cannot load!" width={"250px"} mode={"fit"}/>
+              </div>
+            )}
+            {(id && values.img_url) && (
+              <div className="form-control">
+                <img src={values.img_url} alt="cannot load!" width={"250px"} mode={"fit"}/>
+              </div>
+            )}
+            <br />
+            <br />
+            <div className="form-control">
+              <input
+                type="file"
+                name="img_url"
+                onChange={(event)=>{
+                  setImage(event.target.files[0]);
+                  console.log(event.target.files[0]);
+                }}
+                
+              />
+              {/* <button onClick={handleImageUpload}> Upload </button> */}
+              {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
+            </div> 
+          </div>
         </div>
         <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
         <button type="button" onClick={()=>resetHandler(program)} className="btn btn-secondary">Reset</button>

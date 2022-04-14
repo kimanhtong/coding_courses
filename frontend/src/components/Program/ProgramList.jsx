@@ -55,6 +55,17 @@ const ProgramList = () => {
     </div>
   );
 
+  console.log('programs: ', programs);
+  programs.forEach(p => {
+    console.log('original img_url: ', p.img_url);
+    console.log('type of img_url: ', typeof(p.img_url));
+    let obj = eval(p.img_url);
+    console.log('eval: ', obj);
+    console.log('type of obj eval: ', typeof(obj));
+    // console.log('to json', p.img_url.to_JSON());
+  });
+  
+
   return (
     <div>
       <h1> Here is the list of all the current programs </h1>
