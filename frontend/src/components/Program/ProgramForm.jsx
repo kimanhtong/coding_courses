@@ -32,27 +32,11 @@ const ProgramForm = () => {
       createProgram(p);
   }};
 
-  const {values, setValues, changeHandler, errors, touched, submitHandler, resetHandler, updateImageURL} = useForm(program, validations, saveProgram);
+  const {values, setValues, changeHandler, errors, touched, submitHandler, resetHandler, updateImage} = useForm(program, validations, saveProgram);
 
-  const handleImageUpload = (evt) => {
-    evt.preventDefault();
-    if (image) {
-      const formData = new FormData();
-      formData.append("file",image);
-      formData.append("upload_preset", "anhtest");
-      axios.post(
-        "https://api.cloudinary.com/v1_1/de6puygvt/image/upload"
-        ,formData
-      ).then((response)=>{
-        console.log(response.data);
-        setImage(response.data.url);
-        updateImageURL(response.data);
-      })
-      .catch (err => console.log(err));
-    }
-  }
-
-  useEffect(()=>setValues(program),[program]);
+  useEffect(()=>{
+    setValues(program);
+  },[program]);
 
   return (
     <div> 
@@ -90,14 +74,14 @@ const ProgramForm = () => {
         <div className="form-group">
           <label>Program Logo</label>
           <div className="form-control">
-            {(!id && image) && (
+            {image && (
               <div className="form-control">
-                <img src={URL.createObjectURL(image)} alt="cannot load!" width={"250px"} mode={"fit"}/>
+                <img src={URL.createObjectURL(image)} alt="Cannot load!" width={"250px"} mode={"fit"}/>
               </div>
             )}
-            {(id && values.img_url.url) && (
+            {(!image && values.img_url.url) && (
               <div className="form-control">
-                <img src={values.img_url.url} alt="cannot load!" width={"250px"} mode={"fit"}/>
+                <img src={values.img_url.url} alt="Cannot load!" width={"250px"} mode={"fit"}/>
               </div>
             )}
             <br />
@@ -105,20 +89,25 @@ const ProgramForm = () => {
             <div className="form-control">
               <input
                 type="file"
-                name="img_url"
                 onChange={(event)=>{
                   setImage(event.target.files[0]);
-                  console.log(event.target.files[0]);
+                  updateImage(event.target.files[0]);
                 }}
-                
               />
               {/* <button onClick={handleImageUpload}> Upload </button> */}
               {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
             </div> 
           </div>
         </div>
-        <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
-        <button type="button" onClick={()=>resetHandler(program)} className="btn btn-secondary">Reset</button>
+        <button type="button" className="btn btn-primary" onClick={submitHandler} >Submit</button>
+        <button type="reset" className="btn btn-secondary"
+          onClick={()=>{
+            setImage(null);
+            resetHandler(program);
+          }}
+          >
+            Reset
+        </button>
         <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
         {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}
       </form>

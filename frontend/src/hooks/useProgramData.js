@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const useProgramData = () => {
 
   const [programs, setPrograms] = useState([]);
-  const [program, setProgram] = useState({name: '', description: '', duration_days: 0, img_url: ''});
+  const [program, setProgram] = useState({name: '', description: '', duration_days: 0, img_url: {}});
   const { id } = useParams();
   const programRoot = "/program";
   const programListDB = "http://localhost:3000/api/v1/programs"
@@ -55,21 +55,44 @@ const useProgramData = () => {
       navigate(programRoot);
     });
   };
+
+  const uploadImage = (program, image) => {
+    //evt.preventDefault();
+    const formData = new FormData();
+    formData.append("file",image);
+    formData.append("upload_preset", "anhtest");
+    const uploadCloud = axios
+    .post(
+      "https://api.cloudinary.com/v1_1/de6puygvt/image/upload"
+      ,formData
+    ).then((response)=>{
+      console.log(response.data);
+      program.img_url = {"key": response.data.public_id, "url": response.data.url, "name": response.data.original_filename};
+      console.log(program);
+      return Promise.resolve('Uploaded!');
+    })
+    .catch (err => {
+      console.log(err);
+      return Promise.reject('Error Uploading!');
+    });
+    return uploadCloud;
+  }
   
   const createProgram = (program) => {
-    const p = {...program, img_url: JSON.stringify(program.img_url)}
-    console.log('temp program: ', p);
-    axios
-    .post(newProgramDB, p)
-    .then(res => {
-      const programView = `/program/view/${res.data.id}`;
-      navigate(programView);
-    })
-    .catch(err => {
-      console.log(err.message);
-      navigate(programRoot);
-    });
-  };
+    uploadImage(program, program.img_url)
+    .then (() => {
+      console.log(program)
+      axios
+      .post(newProgramDB, program)
+      .then(res => {
+        const programView = `/program/view/${res.data.id}`;
+        navigate(programView);
+      })
+      .catch(err => {
+        console.log(err.message);
+        navigate(programRoot);
+      });
+  })};
 
   useEffect(fetchPrograms,[id]);
 

@@ -22,8 +22,6 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     setValid(isValid);
     setErrors(errors);
     setTouched({...touched, [event.target.name]: true});
-    console.log(event.target.name,' : ', event.target.value);
-    console.log('type of event value: ', typeof(event.target.value));
   }; 
   const submitHandler = event => {
     event.preventDefault();
@@ -39,7 +37,7 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
   const resetHandler = (vals) => {
     setValues(vals);
   };
-  const updateImageURL = val => {
+  const updateImage = val => {
     const newValues = {...values, img_url: val};
     const {isValid, errors} = validate(validations, newValues);
     setValues(newValues);
@@ -47,7 +45,8 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     setErrors(errors);
     setTouched({...touched, img_url: true});
   };
-  return {values, setValues, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImageURL};
+  console.log(values);
+  return {values, setValues, changeHandler, isValid, errors, touched, submitHandler, resetHandler, updateImage};
 };
 
 export { useForm };
