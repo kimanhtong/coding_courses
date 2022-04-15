@@ -21,6 +21,7 @@ const useProgramData = () => {
         if (typeof(p.img_url) === "string") {
           let t = JSON.parse(p.img_url);
           p.img_url = t;
+          console.log('img_url is a string here');
         };
         return p;
       });
@@ -60,7 +61,6 @@ const useProgramData = () => {
       ,formData
     ).then((response)=>{
       console.log(response.data);
-      // program.img_url = JSON.stringify({"key": response.data.public_id, "url": response.data.url});
       program.img_url = {"key": response.data.public_id, "url": response.data.url};
       return Promise.resolve('Uploaded!');
     })

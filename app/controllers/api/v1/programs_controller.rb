@@ -26,7 +26,6 @@ class Api::V1::ProgramsController < ApplicationController
   def update
     puts program_params
     require 'json'
-    # image = JSON.parse(@program.img_url)
     image = @program.img_url
     puts image.class
     if @program.update(program_params)
@@ -43,7 +42,7 @@ class Api::V1::ProgramsController < ApplicationController
   # DELETE /programs/1
   def destroy
     require 'json'
-    image = JSON.parse(@program.img_url)
+    image = @program.img_url
     temp_pro = @program
     puts image.class
 
@@ -65,6 +64,6 @@ class Api::V1::ProgramsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def program_params
-      params.require(:program).permit(:id, :name, :description, :duration_days, :created_at, :updated_at, :img_url)
+      params.require(:program).permit(:id, :name, :description, :duration_days, :created_at, :updated_at, img_url: [:key, :url])
     end
 end
