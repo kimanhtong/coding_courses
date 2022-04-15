@@ -16,9 +16,20 @@ const useProgramData = () => {
   const fetchPrograms = () => {
     axios.get(programListDB)
     .then (res => {
-      setPrograms(res.data);
+      console.log(res.data);
+      let temp_programs = res.data.map(p => {
+        console.log(p);
+        if (typeof(p.img_url) === "string") {
+          let t = JSON.parse(p.img_url);
+          p.img_url = t;
+          console.log(p);
+        };
+        return p;
+      });
+      console.log(temp_programs);
+      setPrograms(temp_programs);
       if (id) {
-        let temp_program = res.data.filter(p => p.id === parseInt(id));
+        let temp_program = temp_programs.filter(p => p.id === parseInt(id));
         setProgram(temp_program[0]);
     }})
     .catch(res => console.log(res.message));
@@ -67,6 +78,7 @@ const useProgramData = () => {
       ,formData
     ).then((response)=>{
       console.log(response.data);
+      // program.img_url = JSON.stringify({"key": response.data.public_id, "url": response.data.url, "name": response.data.original_filename});
       program.img_url = {"key": response.data.public_id, "url": response.data.url, "name": response.data.original_filename};
       console.log(program);
       return Promise.resolve('Uploaded!');
