@@ -23,15 +23,16 @@ class Api::V1::ProgramsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /programs/1
   def update
+    puts program_params
     require 'json'
-    image = JSON.parse(@program.img_url)
+    # image = JSON.parse(@program.img_url)
+    image = @program.img_url
     puts image.class
     if @program.update(program_params)
       if @program.id > 5
         require 'cloudinary'
-        Cloudinary::Uploader.destroy(image[:key])
+        Cloudinary::Uploader.destroy(image["key"])
       end
       render json: @program
     else
@@ -43,12 +44,15 @@ class Api::V1::ProgramsController < ApplicationController
   def destroy
     require 'json'
     image = JSON.parse(@program.img_url)
+    temp_pro = @program
     puts image.class
-    if @program.id > 5
+
+    @program.destroy
+    if temp_pro.id > 5
       require 'cloudinary'
       Cloudinary::Uploader.destroy(image["key"])
     end
-    @program.destroy
+
     @programs = Program.all
     render body: nil, status: :no_content
   end
@@ -61,6 +65,6 @@ class Api::V1::ProgramsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def program_params
-      params.require(:program).permit(:id, :name, :description, :duration_days, :img_url, :created_at, :updated_at)
+      params.require(:program).permit(:id, :name, :description, :duration_days, :created_at, :updated_at, :img_url)
     end
 end
