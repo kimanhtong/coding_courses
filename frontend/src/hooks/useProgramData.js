@@ -18,11 +18,9 @@ const useProgramData = () => {
     .then (res => {
       console.log(res.data);
       let temp_programs = res.data.map(p => {
-        console.log(p);
         if (typeof(p.img_url) === "string") {
           let t = JSON.parse(p.img_url);
           p.img_url = t;
-          console.log(p);
         };
         return p;
       });
@@ -39,7 +37,6 @@ const useProgramData = () => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
     const deleted_program = programs.filter(p => p.id === id)[0]
     let index = programs.indexOf(deleted_program);
-    let url = deleted_program.img_url;
     axios
     .delete(existingProgramDB)
     .then (() => {
@@ -52,23 +49,8 @@ const useProgramData = () => {
       console.log(res.message);
     });
   };
-  
-  const editProgram = (program, id) => {
-    const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
-    const programView = `/program/view/${id}`;
-    axios
-    .put(existingProgramDB, program)
-    .then(() => {
-      navigate(programView);
-    })
-    .catch(err => {
-      console.log(err.message);
-      navigate(programRoot);
-    });
-  };
 
   const uploadImage = (program, image) => {
-    //evt.preventDefault();
     const formData = new FormData();
     formData.append("file",image);
     formData.append("upload_preset", "anhtest");
@@ -78,9 +60,7 @@ const useProgramData = () => {
       ,formData
     ).then((response)=>{
       console.log(response.data);
-      // program.img_url = JSON.stringify({"key": response.data.public_id, "url": response.data.url, "name": response.data.original_filename});
-      program.img_url = {"key": response.data.public_id, "url": response.data.url, "name": response.data.original_filename};
-      console.log(program);
+      program.img_url = JSON.stringify({"key": response.data.public_id, "url": response.data.url});
       return Promise.resolve('Uploaded!');
     })
     .catch (err => {
@@ -90,6 +70,24 @@ const useProgramData = () => {
     return uploadCloud;
   }
   
+  const editProgram = (program, id) => {
+    const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
+    const programView = `/program/view/${id}`;
+  
+    uploadImage(program, program.img_url)
+    .then (() => {
+      axios
+      .put(existingProgramDB, program)
+      .then(() => {
+        navigate(programView);
+      })
+      .catch(err => {
+        console.log(err.message);
+        navigate(programRoot);
+    });})
+    .catch (err => console.log(err.message))
+  };
+
   const createProgram = (program) => {
     uploadImage(program, program.img_url)
     .then (() => {
@@ -103,8 +101,9 @@ const useProgramData = () => {
       .catch(err => {
         console.log(err.message);
         navigate(programRoot);
-      });
-  })};
+      });})
+    .catch (err => console.log(err.message))
+  };
 
   useEffect(fetchPrograms,[id]);
 

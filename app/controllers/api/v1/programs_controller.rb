@@ -25,8 +25,14 @@ class Api::V1::ProgramsController < ApplicationController
 
   # PATCH/PUT /programs/1
   def update
+    require 'json'
+    image = JSON.parse(@program.img_url)
+    puts image.class
     if @program.update(program_params)
-      @programs = Program.all
+      if @program.id > 5
+        require 'cloudinary'
+        Cloudinary::Uploader.destroy(image[:key])
+      end
       render json: @program
     else
       render json: @program.errors, status: :unprocessable_entity
@@ -35,9 +41,14 @@ class Api::V1::ProgramsController < ApplicationController
 
   # DELETE /programs/1
   def destroy
+    require 'json'
+    image = JSON.parse(@program.img_url)
+    puts image.class
+    if @program.id > 5
+      require 'cloudinary'
+      Cloudinary::Uploader.destroy(image["key"])
+    end
     @program.destroy
-    require 'cloudinary'
-    Cloudinary::Uploader.destroy('jps7gbprsgf7va2la33g')
     @programs = Program.all
     render body: nil, status: :no_content
   end
