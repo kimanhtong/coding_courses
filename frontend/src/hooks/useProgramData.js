@@ -17,15 +17,15 @@ const useProgramData = () => {
     axios.get(programListDB)
     .then (res => {
       console.log(res.data);
-      let temp_programs = res.data.map(p => {
-        if (typeof(p.img_url) === "string") {
-          let t = JSON.parse(p.img_url);
-          p.img_url = t;
-          console.log('img_url is a string here');
-        };
-        return p;
-      });
-      console.log(temp_programs);
+      let temp_programs = res.data;
+      // let temp_programs = res.data.map(p => {
+      //   if (typeof(p.img_url) === "string") {
+      //     let t = JSON.parse(p.img_url);
+      //     p.img_url = t;
+      //     console.log('img_url is a string here');
+      //   };
+      //   return p;
+      // });
       setPrograms(temp_programs);
       if (id) {
         let temp_program = temp_programs.filter(p => p.id === parseInt(id));
@@ -74,9 +74,7 @@ const useProgramData = () => {
   const editProgram = (program, id) => {
     const existingProgramDB = `http://localhost:3000/api/v1/programs/${id}`;
     const programView = `/program/view/${id}`;
-  
-    uploadImage(program, program.img_url)
-    .then (() => {
+    if (program.img_url.key && program.img_url.url) {
       axios
       .put(existingProgramDB, program)
       .then(() => {
@@ -85,8 +83,20 @@ const useProgramData = () => {
       .catch(err => {
         console.log(err.message);
         navigate(programRoot);
-    });})
-    .catch (err => console.log(err.message))
+    })} else {
+      uploadImage(program, program.img_url)
+      .then (() => {
+        axios
+        .put(existingProgramDB, program)
+        .then(() => {
+          navigate(programView);
+        })
+        .catch(err => {
+          console.log(err.message);
+          navigate(programRoot);
+      });})
+      .catch (err => console.log(err.message))
+    }
   };
 
   const createProgram = (program) => {

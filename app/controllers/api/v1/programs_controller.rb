@@ -44,7 +44,6 @@ class Api::V1::ProgramsController < ApplicationController
     require 'json'
     image = @program.img_url
     temp_pro = @program
-    puts image.class
 
     @program.destroy
     if temp_pro.id > 5
