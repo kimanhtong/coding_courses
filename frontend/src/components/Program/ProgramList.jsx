@@ -17,32 +17,34 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <div key={program.id} className="card">
-      <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
-      <img
-        src={program.img_url.url}
-        className="card-img"
-        alt={program.name}
-        width={"250px"}
-        mode={"fit"}
-      />
-      <div className="card-body">
-        <div className="card-actions" style={{ marginBottom: 20 }} >
-          <button type="button" className="btn btn-primary" 
-            onClick={()=>navigate(`/program/view/${program.id}`)}>
-            View
-          </button>
-          <button type="button" className="btn btn-secondary" 
-            onClick={()=>navigate(`/program/edit/${program.id}`)}>
-            Edit
-          </button>
-          <button type="button" className="btn btn-danger"
-            onClick={() => {
-              setCurrentProgram(program);
-              toggleModal();
-          }}>
-            Delete
-          </button>
+    <div key={program.id} className="column">
+      <div className='card'>
+        <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
+        <img
+          src={program.img_url.url}
+          className="card-img"
+          alt={program.name}
+          width={"250px"}
+          mode={"fit"}
+        />
+        <div className="card-body">
+          <div className="card-actions" style={{ marginBottom: 20 }} >
+            <button type="button" className="btn btn-primary" 
+              onClick={()=>navigate(`/program/view/${program.id}`)}>
+              View
+            </button>
+            <button type="button" className="btn btn-secondary" 
+              onClick={()=>navigate(`/program/edit/${program.id}`)}>
+              Edit
+            </button>
+            <button type="button" className="btn btn-danger"
+              onClick={() => {
+                setCurrentProgram(program);
+                toggleModal();
+            }}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -62,7 +64,7 @@ const ProgramList = () => {
       <button onClick={()=>navigate("/program/new")}>
         Add a new program
       </button>
-      <div className='cards'>
+      <div className='row'>
         {programs.length > 0 ? allPrograms : noProgram}
       </div>
      <Modal
