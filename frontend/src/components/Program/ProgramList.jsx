@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
+import '../styles/program.css';
 
 Modal.setAppElement("#root");
 
@@ -16,7 +17,7 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <div key={program.id} className="col-sm-4">
+    <div key={program.id} className="card">
       <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
       <img
         src={program.img_url.url}
@@ -61,7 +62,9 @@ const ProgramList = () => {
       <button onClick={()=>navigate("/program/new")}>
         Add a new program
       </button>
+      <div className='cards'>
         {programs.length > 0 ? allPrograms : noProgram}
+      </div>
      <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
