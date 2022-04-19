@@ -19,15 +19,14 @@ const ProgramList = () => {
   const allPrograms = programs.map(program => (
     <div key={program.id} className="column">
       <div className='card'>
-        <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
         <img
           src={program.img_url.url}
           className="card-img"
           alt={program.name}
-          width={"250px"}
-          mode={"fit"}
         />
+        <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
         <div className="card-body">
+          <p> {program.description}</p>
           <div className="card-actions" style={{ marginBottom: 20 }} >
             <button type="button" className="btn btn-primary" 
               onClick={()=>navigate(`/program/view/${program.id}`)}>

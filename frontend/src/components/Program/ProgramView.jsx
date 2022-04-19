@@ -20,6 +20,7 @@ const ProgramView = () => {
       <form>
         <h3> Welcome to the program: {program.name}! </h3>
         <p> Description: {program.description}</p>
+        <p> Languages: HTML, CSS, JavaScript, SQL... </p>
         <p> Duration: {program.duration_days} days.</p>
         <img
           src={program.img_url.url}
