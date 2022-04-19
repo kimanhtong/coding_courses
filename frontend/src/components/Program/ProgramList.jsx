@@ -21,36 +21,33 @@ const ProgramList = () => {
       <div className='card'>
         <img
           src={program.img_url.url}
-          className="card-img"
           alt={program.name}
         />
-        <h5 className="card-header" style={{ marginBottom: 20 }}>Course: {program.name}</h5>
-        <div className="card-body">
-          <p> {program.description}</p>
-          <div className="card-actions" style={{ marginBottom: 20 }} >
-            <button type="button" className="btn btn-primary" 
-              onClick={()=>navigate(`/program/view/${program.id}`)}>
-              View
-            </button>
-            <button type="button" className="btn btn-secondary" 
-              onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              Edit
-            </button>
-            <button type="button" className="btn btn-danger"
-              onClick={() => {
-                setCurrentProgram(program);
-                toggleModal();
-            }}>
-              Delete
-            </button>
-          </div>
+        <h3>Course: {program.name}</h3>
+        <p className="desc"> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description}</p>
+        <div className="card-actions" style={{ marginBottom: 20 }} >
+          <button type="button" className="btn btn-primary" 
+            onClick={()=>navigate(`/program/view/${program.id}`)}>
+            View
+          </button>
+          <button type="button" className="btn btn-secondary" 
+            onClick={()=>navigate(`/program/edit/${program.id}`)}>
+            Edit
+          </button>
+          <button type="button" className="btn btn-danger"
+            onClick={() => {
+              setCurrentProgram(program);
+              toggleModal();
+          }}>
+            Delete
+          </button>
         </div>
       </div>
     </div>
   ));
 
   const noProgram = (
-    <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+    <div className="empty-list">
       <h4>
         No programs yet. Why not <Link to={"/program/new"}>create one?</Link>
       </h4>
@@ -58,8 +55,9 @@ const ProgramList = () => {
   );
 
   return (
-    <div>
-      <h1> Here is the list of all the current programs </h1>
+    <div className='page'>
+      <h1> Welcome to the Program List page!</h1>
+      <h3> You can find all the currently available programs here.</h3>
       <button onClick={()=>navigate("/program/new")}>
         Add a new program
       </button>
