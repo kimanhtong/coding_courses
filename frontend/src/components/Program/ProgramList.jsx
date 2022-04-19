@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
-import '../styles/program.css';
+import '../styles/list.css';
 
 Modal.setAppElement("#root");
 
@@ -23,24 +23,26 @@ const ProgramList = () => {
           src={program.img_url.url}
           alt={program.name}
         />
-        <h3>Course: {program.name}</h3>
-        <p className="desc"> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description}</p>
-        <div className="card-actions" style={{ marginBottom: 20 }} >
-          <button type="button" className="btn btn-primary" 
-            onClick={()=>navigate(`/program/view/${program.id}`)}>
-            View
-          </button>
-          <button type="button" className="btn btn-secondary" 
-            onClick={()=>navigate(`/program/edit/${program.id}`)}>
-            Edit
-          </button>
-          <button type="button" className="btn btn-danger"
-            onClick={() => {
-              setCurrentProgram(program);
-              toggleModal();
-          }}>
-            Delete
-          </button>
+        <div className='card-info'>
+          <h3>Course: {program.name}</h3>
+          <p> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</p>
+          <div className="card-actions">
+            <button type="button" className="btn btn-primary" 
+              onClick={()=>navigate(`/program/view/${program.id}`)}>
+              View
+            </button>
+            <button type="button" className="btn btn-secondary" 
+              onClick={()=>navigate(`/program/edit/${program.id}`)}>
+              Edit
+            </button>
+            <button type="button" className="btn btn-danger"
+              onClick={() => {
+                setCurrentProgram(program);
+                toggleModal();
+            }}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>

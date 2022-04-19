@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { useValidations } from '../../hooks/useValidations';
 import { useProgramData } from '../../hooks/useProgramData';
-import '../styles/program.css';
+import '../styles/list.css';
 
 const ProgramForm = () => {
   const { id } = useParams();
