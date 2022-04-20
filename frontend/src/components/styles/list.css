@@ -2,6 +2,11 @@
   color: red;
 }
 
+h1, h3 {
+  margin: 15px;
+  text-align: center;
+}
+
 /* .page {
   display: flex;
   flex-direction: column;
@@ -11,6 +16,7 @@
 
 h3 {
   margin: 10px;
+  text-align: center;
 }
 .btn-add {
   width: 60px;

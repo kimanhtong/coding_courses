@@ -31,24 +31,24 @@ const ProgramList = () => {
          <Card.Body>
           <Card.Title> {program.name} </Card.Title>
           <Card.Text> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</Card.Text>
-          <ButtonGroup style={{display: "flex", flexDirection: "row"}}>
-            <Button type="button" className="btn btn-primary" 
-              onClick={()=>navigate(`/program/view/${program.id}`)}>
-              <FaSearchPlus/>
-            </Button>
-            <Button type="button" className="btn btn-secondary" 
-              onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              <FaEdit />
-            </Button>
-            <Button type="button" className="btn btn-danger"
-              onClick={() => {
-                setCurrentProgram(program);
-                toggleModal();
-            }}>
-              <FaTrash/>
-            </Button>
-          </ButtonGroup>
         </Card.Body>
+        <Card.Footer>
+          <Button type="button" className="btn btn-primary" 
+            onClick={()=>navigate(`/program/view/${program.id}`)}>
+            <FaSearchPlus/>
+          </Button>
+          <Button type="button" className="btn btn-secondary" 
+            onClick={()=>navigate(`/program/edit/${program.id}`)}>
+            <FaEdit />
+          </Button>
+          <Button type="button" className="btn btn-danger"
+            onClick={() => {
+              setCurrentProgram(program);
+              toggleModal();
+          }}>
+            <FaTrash/>
+          </Button>
+        </Card.Footer>
       </Card>
     </Col>
   ));
@@ -62,11 +62,12 @@ const ProgramList = () => {
   );
 
   return (
-    <Container fluid="md">
+    <Container fluid="md" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
-      <Button onClick={()=>navigate("/program/new")}>
-        <FaPlusCircle variant="primary"/>
+      <Button onClick={()=>navigate("/program/new")} variant={"primary"}
+        style={{margin: "20px", width: "60px", border: "none"}}>
+        Add New
       </Button>
       <Row fluid="md">
         {programs.length > 0 ? allPrograms : noProgram}
