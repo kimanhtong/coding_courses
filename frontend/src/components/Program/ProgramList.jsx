@@ -4,7 +4,8 @@ import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/list.css';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+//import ThemeProvider from 'react-bootstrap/ThemeProvider'
 
 
 Modal.setAppElement("#root");
@@ -20,8 +21,8 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <div key={program.id} className="column">
-      <div className='card'>
+    <div key={program.id} className="Row">
+      <div className='Col'>
         <img
           src={program.img_url.url}
           alt={program.name}
@@ -66,7 +67,7 @@ const ProgramList = () => {
       <button className="btn-add" onClick={()=>navigate("/program/new")}>
         <FaPlusCircle size='lg'/>
       </button>
-      <div className='row'>
+      <div className='Container'>
         {programs.length > 0 ? allPrograms : noProgram}
       </div>
      <Modal
