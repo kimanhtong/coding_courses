@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/list.css';
+import { FcAddImage, FcViewDetails, FcEditImage, FcEmptyTrash} from "react-icons/fc";
 
 Modal.setAppElement("#root");
 
@@ -29,18 +30,18 @@ const ProgramList = () => {
           <div className="card-actions">
             <button type="button" className="btn btn-primary" 
               onClick={()=>navigate(`/program/view/${program.id}`)}>
-              View
+              <FcViewDetails />
             </button>
             <button type="button" className="btn btn-secondary" 
               onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              Edit
+              <FcEditImage />
             </button>
             <button type="button" className="btn btn-danger"
               onClick={() => {
                 setCurrentProgram(program);
                 toggleModal();
             }}>
-              Delete
+              <FcEmptyTrash />
             </button>
           </div>
         </div>
@@ -61,7 +62,7 @@ const ProgramList = () => {
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
       <button className="btn-add" onClick={()=>navigate("/program/new")}>
-        Add a new program
+        <FcAddImage />
       </button>
       <div className='row'>
         {programs.length > 0 ? allPrograms : noProgram}
