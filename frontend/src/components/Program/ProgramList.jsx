@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/list.css';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 Modal.setAppElement("#root");
@@ -26,7 +27,7 @@ const ProgramList = () => {
           alt={program.name}
         />
         <div className='card-info'>
-          <h3> {program.name}</h3>
+          <h5> {program.name}</h5>
           <p> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</p>
           <div className="card-actions">
             <button type="button" className="btn btn-primary" 
