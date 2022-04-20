@@ -30,18 +30,18 @@ const ProgramList = () => {
           <div className="card-actions">
             <button type="button" className="btn btn-primary" 
               onClick={()=>navigate(`/program/view/${program.id}`)}>
-              <FcViewDetails />
+              <FcViewDetails size='sm'/>
             </button>
             <button type="button" className="btn btn-secondary" 
               onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              <FcEditImage />
+              <FcEditImage size='sm' />
             </button>
             <button type="button" className="btn btn-danger"
               onClick={() => {
                 setCurrentProgram(program);
                 toggleModal();
             }}>
-              <FcEmptyTrash />
+              <FcEmptyTrash size='sm'/>
             </button>
           </div>
         </div>
@@ -62,7 +62,7 @@ const ProgramList = () => {
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
       <button className="btn-add" onClick={()=>navigate("/program/new")}>
-        <FcAddImage />
+        <FcAddImage size='lg'/>
       </button>
       <div className='row'>
         {programs.length > 0 ? allPrograms : noProgram}

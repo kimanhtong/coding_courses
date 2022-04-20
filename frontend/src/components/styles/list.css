@@ -11,13 +11,15 @@ h1 {
   margin-bottom: 10px;
 }
 .btn {
-  width: 100x;
+  width: 40px;
+  margin: 5px;
 }
+
 h3 {
   margin: 10px;
 }
 .btn-add {
-  width: 200px;
+  width: 60px;
   margin: 20px;
 }
 .row {
@@ -43,16 +45,15 @@ div.card img {
 }
 
 div.card-info {
-  margin: 10px;
   text-align: center;
 }
 
 div.card-info p {
+  margin: 10px;
   text-align: left;
 }
 
 .card-actions {
-  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
