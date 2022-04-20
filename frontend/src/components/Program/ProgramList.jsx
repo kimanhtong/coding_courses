@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/list.css';
-import { FcAddImage, FcViewDetails, FcEditImage, FcEmptyTrash} from "react-icons/fc";
+import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
+
 
 Modal.setAppElement("#root");
 
@@ -30,18 +31,18 @@ const ProgramList = () => {
           <div className="card-actions">
             <button type="button" className="btn btn-primary" 
               onClick={()=>navigate(`/program/view/${program.id}`)}>
-              <FcViewDetails size='sm'/>
+              <FaSearchPlus size='sm'/>
             </button>
             <button type="button" className="btn btn-secondary" 
               onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              <FcEditImage size='sm' />
+              <FaEdit size='sm' />
             </button>
             <button type="button" className="btn btn-danger"
               onClick={() => {
                 setCurrentProgram(program);
                 toggleModal();
             }}>
-              <FcEmptyTrash size='sm'/>
+              <FaTrash size='sm'/>
             </button>
           </div>
         </div>
@@ -61,8 +62,8 @@ const ProgramList = () => {
     <div className='page'>
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
-      <button className="btn-add" onClick={()=>navigate("/program/new")}>
-        <FcAddImage size='lg'/>
+      <button className="btn btn-add" onClick={()=>navigate("/program/new")}>
+        <FaPlusCircle size='lg'/>
       </button>
       <div className='row'>
         {programs.length > 0 ? allPrograms : noProgram}
