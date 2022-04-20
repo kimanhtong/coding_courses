@@ -24,7 +24,7 @@ const ProgramList = () => {
           alt={program.name}
         />
         <div className='card-info'>
-          <h3>Course: {program.name}</h3>
+          <h3> {program.name}</h3>
           <p> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</p>
           <div className="card-actions">
             <button type="button" className="btn btn-primary" 
@@ -60,7 +60,7 @@ const ProgramList = () => {
     <div className='page'>
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
-      <button onClick={()=>navigate("/program/new")}>
+      <button className="btn-add" onClick={()=>navigate("/program/new")}>
         Add a new program
       </button>
       <div className='row'>
