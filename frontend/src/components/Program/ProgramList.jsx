@@ -4,8 +4,7 @@ import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/list.css';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-//import ThemeProvider from 'react-bootstrap/ThemeProvider'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 
 
 Modal.setAppElement("#root");
@@ -21,35 +20,36 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <div key={program.id} className="Row">
-      <div className='Col'>
-        <img
+    <Col key={program.id}>
+      <Card>
+        <Card.Img
           src={program.img_url.url}
           alt={program.name}
+          variant="top"
         />
-        <div className='card-info'>
-          <h5> {program.name}</h5>
-          <p> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</p>
+         <Card.Body>
+          <Card.Title> {program.name} </Card.Title>
+          <Card.Text> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</Card.Text>
           <div className="card-actions">
-            <button type="button" className="btn btn-primary" 
+            <Button type="button" className="btn btn-primary" 
               onClick={()=>navigate(`/program/view/${program.id}`)}>
-              <FaSearchPlus size='sm'/>
-            </button>
-            <button type="button" className="btn btn-secondary" 
+              <FaSearchPlus/>
+            </Button>
+            <Button type="button" className="btn btn-secondary" 
               onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              <FaEdit size='sm' />
-            </button>
-            <button type="button" className="btn btn-danger"
+              <FaEdit />
+            </Button>
+            <Button type="button" className="btn btn-danger"
               onClick={() => {
                 setCurrentProgram(program);
                 toggleModal();
             }}>
-              <FaTrash size='sm'/>
-            </button>
+              <FaTrash/>
+            </Button>
           </div>
-        </div>
-      </div>
-    </div>
+        </Card.Body>
+      </Card>
+    </Col>
   ));
 
   const noProgram = (
@@ -61,15 +61,15 @@ const ProgramList = () => {
   );
 
   return (
-    <div className='page'>
+    <Container>
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
-      <button className="btn-add" onClick={()=>navigate("/program/new")}>
-        <FaPlusCircle size='lg'/>
-      </button>
-      <div className='Container'>
+      <Button variant="primary" size='lg' onClick={()=>navigate("/program/new")}>
+        <FaPlusCircle/>
+      </Button>
+      <Row>
         {programs.length > 0 ? allPrograms : noProgram}
-      </div>
+      </Row>
      <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
@@ -93,13 +93,13 @@ const ProgramList = () => {
         }}
       >
         <div>Are you sure?</div>
-        <button onClick={() => {
+        <Button onClick={() => {
           deleteProgram(currentProgram.id);
           toggleModal();
-        }}>Yes</button>
-        <button onClick={toggleModal}>No</button>
+        }}>Yes</Button>
+        <Button onClick={toggleModal}>No</Button>
       </Modal>
-    </div>
+    </Container>
   )
 };
 export default ProgramList;
