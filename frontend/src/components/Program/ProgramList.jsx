@@ -62,7 +62,7 @@ const ProgramList = () => {
     <div className='page'>
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
-      <button className="btn btn-add" onClick={()=>navigate("/program/new")}>
+      <button className="btn-add" onClick={()=>navigate("/program/new")}>
         <FaPlusCircle size='lg'/>
       </button>
       <div className='row'>

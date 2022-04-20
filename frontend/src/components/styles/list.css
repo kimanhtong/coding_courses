@@ -18,6 +18,8 @@ h3 {
   width: 60px;
   margin: 20px;
   color: green;
+  background-color: inherit;
+  border: none;
 }
 .row {
   display: flex;
@@ -61,8 +63,17 @@ div.card-info p {
   background-color: inherit;
   border: none;
 }
-.btn:hover {
-  color:rgb(60, 126, 60);
+.btn-primary {
+  color: blue;
+}
+.btn-secondary {
+  color: gray;
+}
+.btn-danger {
+  color: rgb(221, 35, 14);
+}
+.btn:hover, .btn-add:hover {
+  color:rgb(214, 128, 28);
 }
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
