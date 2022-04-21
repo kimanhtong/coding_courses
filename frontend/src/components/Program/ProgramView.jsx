@@ -18,14 +18,14 @@ const ProgramView = () => {
 
   return (
     <>
-      <Container fluid="md">
+      <Container fluid="md" margin={'50px'}>
         <Row>
           <Col>
             <h1> Welcome to {program.name} program! </h1>
             <p> {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
             <p> Duration: {program.duration_days} days.</p>
-            <ButtonGroup>
+            {/* <ButtonGroup> */}
               <Button variant={"primary"} style={{margin: "10px"}}
                 onClick={()=>navigate(`/program/edit/${program.id}`)}>
                 <FaEdit /> Edit Program
@@ -39,10 +39,10 @@ const ProgramView = () => {
               <Button onClick={()=>navigate(programRoot)} variant={"info"} style={{margin: "10px"}}>
                 View All Programs
               </Button>
-            </ButtonGroup>
+            {/* </ButtonGroup> */}
           </Col>
           <Col>
-            <Image
+            <image
               src={program.img_url.url}
               alt={program.name}
               fluid
