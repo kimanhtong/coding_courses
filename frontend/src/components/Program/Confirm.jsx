@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Button } from 'react-bootstrap';
 
 const Confirm = (props) => {
-  const deleteProgram = () => props.deleteProgram();
+  const confirmAction = () => props.confirmAction();
   const toggleModal = () => props.toggleModal();
   const isOpen = props.isOpen;
   const title = props.title;
@@ -18,10 +18,10 @@ const Confirm = (props) => {
         <Button variant="secondary" onClick={toggleModal}>Cancel</Button>
         <Button variant="danger" 
           onClick={() => {
-            deleteProgram();
+            confirmAction();
             toggleModal();
           }}
-        > Delete!</Button>
+        > Yes</Button>
       </Modal.Footer>
     </Modal>
   );

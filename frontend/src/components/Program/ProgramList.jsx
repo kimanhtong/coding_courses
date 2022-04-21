@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-//import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
@@ -72,7 +71,7 @@ const ProgramList = () => {
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
-        deleteProgram={()=>deleteProgram(currentProgram.id)}
+        confirmAction={()=>deleteProgram(currentProgram.id)}
         title={"Confirm Deletion"}
         message={"Are you sure?"}
       />
