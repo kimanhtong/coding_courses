@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useProgramData } from '../../hooks/useProgramData';
 import { FaPlusCircle, FaTrash, FaEdit} from "react-icons/fa";
 import { Container, Row, Col, Button, Image, ButtonGroup } from 'react-bootstrap'
@@ -20,34 +20,31 @@ const ProgramView = () => {
     <>
       <Container fluid="md">
         <Row>
-          <Col style={{ width: '350px', height: '500px' }}>
-          <h1> Welcome to {program.name} program! </h1>
+          <Col>
+            <h1> Welcome to {program.name} program! </h1>
             <p> {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
             <p> Duration: {program.duration_days} days.</p>
             <ButtonGroup>
-              <Button variant="primary" 
+              <Button variant={"primary"} style={{margin: "10px"}}
                 onClick={()=>navigate(`/program/edit/${program.id}`)}>
                 <FaEdit /> Edit Program
               </Button>
-              <Button variant="danger" onClick={toggleModal}>
+              <Button variant={"danger"} onClick={toggleModal} style={{margin: "10px"}}>
                 <FaTrash/> Delete Program
               </Button>
+              <Button onClick={()=>navigate("/program/new")} variant={"secondary"} style={{margin: "10px"}}>
+                <FaPlusCircle/> Add a New Program
+              </Button>
+              <Button onClick={()=>navigate(programRoot)} variant={"info"} style={{margin: "10px"}}>
+                View All Programs
+              </Button>
             </ButtonGroup>
-          <ButtonGroup>
-            <Button onClick={()=>navigate("/program/new")} variant={"secondary"} style={{margin: "20px"}}>
-              <FaPlusCircle/> Add a New Program
-            </Button>
-            <Button onClick={()=>navigate(programRoot)} variant={"link"} style={{margin: "20px"}}>
-              View All Programs
-            </Button>
-          </ButtonGroup>
           </Col>
           <Col>
             <Image
               src={program.img_url.url}
               alt={program.name}
-              style={{ width: '350px', height: '500px' }}
               fluid
             />
           </Col>
