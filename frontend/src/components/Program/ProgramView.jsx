@@ -19,9 +19,9 @@ const ProgramView = () => {
   return (
     <>
       {/* <Container > */}
-        <Row>
-          <Col margin={'10px'}>
-            <h2> Welcome to {program.name} program! </h2>
+        <Row margin={'40px'}>
+          <Col>
+            <h3> Welcome to {program.name} program! </h3>
             <p> {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
             <p> Duration: {program.duration_days} days.</p>
