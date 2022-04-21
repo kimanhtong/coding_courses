@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useProgramData } from '../../hooks/useProgramData';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
 import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap'
-import '../styles/list.css'
+import '../styles/program.css';
 
 const ProgramList = () => {
   const [ currentProgram, setCurrentProgram ] = useState({});
@@ -18,7 +18,7 @@ const ProgramList = () => {
 
   const allPrograms = programs.map(program => (
     <Col key={program.id} md={3} >
-      <Card>
+      <Card style={{minWidth: '200px', height: '400px', margin: '10px'}}>
         <Card.Img
           src={program.img_url.url}
           alt={program.name}

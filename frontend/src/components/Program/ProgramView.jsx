@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
+import '../styles/program.css';
 
 Modal.setAppElement("#root");
 
