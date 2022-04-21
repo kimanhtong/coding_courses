@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/program.css';
+import Confirm from './Confirm';
 
 Modal.setAppElement("#root");
 
@@ -35,34 +35,13 @@ const ProgramView = () => {
         </div>
       </form>
       <Link to={programRoot}> Back to All Programs </Link>
-      <Modal
+      <Confirm 
         isOpen={isOpen}
-        onRequestClose={toggleModal}
-        contentLabel="Confirm Deletion"
-        ariaHideApp={false}
-        shouldFocusAfterRender={true}
-        className={"ReactModal__Content"}
-        style={{
-          overlay: { position: 'fixed', 
-            top: 0,left: 0,right: 0,bottom: 0,
-            backgroundColor: 'rgba(255, 255, 255, 0.75)'
-          },
-          content: {
-            position: 'absolute',
-            top: '180px', left: '180px', right: '200px', bottom: '400px',
-            border: '2px solid #ccc',
-            background: '#fff',
-            borderRadius: '4px',
-            padding: '20px'
-          }
-        }}>
-        <div>Are you sure?</div>
-        <button type="button" onClick={() => {
-          toggleModal();
-          deleteProgram(program.id);
-        }}>Yes</button>
-        <button type="button" onClick={toggleModal}>No</button>
-      </Modal>
+        toggleModal={toggleModal}
+        deleteProgram={()=>deleteProgram(program.id)}
+        title={"Confirm Deletion"}
+        message={"Are you sure?"}
+      />
     </div>
 )};
 

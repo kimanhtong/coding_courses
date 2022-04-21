@@ -3,8 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 //import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
-import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import '../styles/program.css';
+import Confirm from './Confirm';
 
 const ProgramList = () => {
   const [ currentProgram, setCurrentProgram ] = useState({});
@@ -68,23 +69,13 @@ const ProgramList = () => {
       <Row fluid="md">
         {programs.length > 0 ? allPrograms : noProgram}
       </Row>
-      <Modal show={isOpen} onHide={toggleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Deletion</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Are you sure?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={toggleModal}>Cancel</Button>
-          <Button variant="danger" 
-            onClick={() => {
-              deleteProgram(currentProgram.id);
-              toggleModal();
-            }}
-          > Delete!</Button>
-        </Modal.Footer>
-      </Modal>
+      <Confirm 
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        deleteProgram={()=>deleteProgram(currentProgram.id)}
+        title={"Confirm Deletion"}
+        message={"Are you sure?"}
+      />
     </Container>
   )
 };
