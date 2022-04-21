@@ -18,38 +18,38 @@ const ProgramView = () => {
 
   return (
     <>
-      <Container fluid="md" margin={'50px'}>
+      {/* <Container > */}
         <Row>
-          <Col>
-            <h1> Welcome to {program.name} program! </h1>
+          <Col margin={'10px'}>
+            <h2> Welcome to {program.name} program! </h2>
             <p> {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
             <p> Duration: {program.duration_days} days.</p>
-            {/* <ButtonGroup> */}
-              <Button variant={"primary"} style={{margin: "10px"}}
+            <ButtonGroup>
+              <Button variant={"primary"} style={{margin: "5px"}}
                 onClick={()=>navigate(`/program/edit/${program.id}`)}>
                 <FaEdit /> Edit Program
               </Button>
-              <Button variant={"danger"} onClick={toggleModal} style={{margin: "10px"}}>
+              <Button variant={"danger"} onClick={toggleModal} style={{margin: "5px"}}>
                 <FaTrash/> Delete Program
               </Button>
-              <Button onClick={()=>navigate("/program/new")} variant={"secondary"} style={{margin: "10px"}}>
+              <Button onClick={()=>navigate("/program/new")} variant={"secondary"} style={{margin: "5px"}}>
                 <FaPlusCircle/> Add a New Program
               </Button>
-              <Button onClick={()=>navigate(programRoot)} variant={"info"} style={{margin: "10px"}}>
+              <Button onClick={()=>navigate(programRoot)} variant={"info"} style={{margin: "5px"}}>
                 View All Programs
               </Button>
-            {/* </ButtonGroup> */}
+            </ButtonGroup>
           </Col>
-          <Col>
-            <image
+          <Col style={{maxHeight: '600px'}}>
+            <Image
               src={program.img_url.url}
               alt={program.name}
-              fluid
+              height={'100%'}
             />
           </Col>
         </Row>
-      </Container>
+      {/* </Container> */}
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
