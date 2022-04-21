@@ -1,86 +1,9 @@
-.App {
-  background-color: gainsboro;
-}
-.error {
-  color: red;
-}
-
-h1, h3 {
-  margin: 15px;
-  text-align: center;
-}
-
 .card:hover {
   border: 1px solid #777;
 }
 
-/* .page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-h3 {
-  margin: 10px;
-  text-align: center;
-}
-.btn-add {
-  width: 60px;
-  margin: 20px;
-  color: green;
-  background-color: inherit;
-  border: none;
-}
-.row {
-  display: flex !important;
-  flex-flow: row wrap !important;
-  justify-content: center !important;
-  align-items: center;
-}
-div.card {
-  border: 1px solid #ccc;
-  width: 300px;
+.card {
+  min-Width: "200px";
   height: 400px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin: 20px;
 }
-
-div.card:hover {
-  border: 1px solid #777;
-}
-
-img {
-  width: 100%;
-  height: 200px;
-}
-
-div.card-info {
-  text-align: center;
-}
-div.card-info p {
-  margin: 10px;
-  text-align: left;
-}
-
-.card-actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-.btn {
-  width: 40px;
-  margin: 5px;
-  background-color: inherit;
-  border: none;
-}
-.btn:hover, .btn-add:hover {
-  color:rgb(214, 128, 28);
-}*/
-/* Responsive columns - one column layout (vertical) on small screens */
-/*@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-} */
