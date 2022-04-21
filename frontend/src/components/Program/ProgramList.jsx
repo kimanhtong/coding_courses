@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/list.css';
 import { FaPlusCircle, FaTrash, FaSearchPlus, FaEdit} from "react-icons/fa";
-import { Container, Row, Col, Card, Button, ButtonGroup } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 
 
 Modal.setAppElement("#root");
@@ -21,18 +21,18 @@ const ProgramList = () => {
 
   const allPrograms = programs.map(program => (
     <Col key={program.id} md={4} >
-      <Card style={{height: '400px', marginRight: '20px', marginBottom: '20px'}}>
+      <Card style={{height: '450px', marginRight: '20px', marginBottom: '20px'}} class="card">
         <Card.Img
           src={program.img_url.url}
           alt={program.name}
           variant="top"
-          height={'200px'}
+          height={'320px'}
         />
          <Card.Body>
           <Card.Title> {program.name} </Card.Title>
           <Card.Text> {program.description.length > 100 ? program.description.substring(0,100) + "..." : program.description + "\n".repeat(2)}</Card.Text>
         </Card.Body>
-        <Card.Footer>
+        <Card.Footer style={{display: "flex", flexDirection: "row", justifyContent: "right"}}>
           <Button type="button" className="btn btn-primary" 
             onClick={()=>navigate(`/program/view/${program.id}`)}>
             <FaSearchPlus/>
@@ -65,9 +65,8 @@ const ProgramList = () => {
     <Container fluid="md" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
       <h1> Welcome to the Program List page!</h1>
       <h3> You can find all the currently available programs here.</h3>
-      <Button onClick={()=>navigate("/program/new")} variant={"primary"}
-        style={{margin: "20px", width: "60px", border: "none"}}>
-        Add New
+      <Button onClick={()=>navigate("/program/new")} variant={"primary"} style={{margin: "20px"}}>
+        <FaPlusCircle/> Add a New Program
       </Button>
       <Row fluid="md">
         {programs.length > 0 ? allPrograms : noProgram}
