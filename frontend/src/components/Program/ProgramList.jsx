@@ -17,15 +17,14 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <Col key={program.id} md={4} >
-      <Card style={{ margin: '10px', height:'400px'}}>
+    <Col key={program.id} md={3} >
+      <Card style={{ margin: '10px', height:'380px'}}>
         <Card.Img
           src={program.img_url.url}
           alt={program.name}
           variant="top"
-          height={'auto'}
-          width={'100%'}
-          max-height={"120px"}
+          height={'40%'}
+          width={"auto"}
         />
         <Card.Body>
           <Card.Title> {program.name} </Card.Title>

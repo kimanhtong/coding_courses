@@ -4,6 +4,7 @@ import { useForm } from '../../hooks/useForm';
 import { useValidations } from '../../hooks/useValidations';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/program.css';
+import Confirm from './Confirm';
 
 const ProgramForm = () => {
   const { id } = useParams();
@@ -32,6 +33,22 @@ const ProgramForm = () => {
   }};
 
   const {values, setValues, changeHandler, errors, touched, submitHandler, resetHandler, updateImage} = useForm(program, validations, saveProgram);
+
+  const isSameObj = (obj1, obj2) => {
+    const arr1 = Object.keys(obj1);
+    const arr2 = Object.keys(obj2);
+    let check = true;
+    if (arr1.length !== arr2.length) {
+      check = false;
+    } else {
+      arr1.forEach((val, index) => {
+        if (arr2[index] !== val) {
+          return check = false;
+        }
+      });
+    }
+    return check;
+  };
 
   useEffect(()=>{
     setValues(program);
