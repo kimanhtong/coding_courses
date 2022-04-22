@@ -2,7 +2,7 @@
   border: 1px solid #777;
 }
 
-/* .programView {
+.test {
   display: flex;
   flex-direction: row;
 }
@@ -10,6 +10,10 @@
 .buttonGroup {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items:flex-start;
-} */
+}
+
+.programview .btn {
+  width: 200px;
+}

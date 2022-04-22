@@ -17,23 +17,21 @@ const ProgramView = () => {
   };
 
   return (
-    <div className='programView'>
-      <Stack direction="horizontal" gap={3}>
-        <div>
+    <div className="programview">
+      <Stack direction="horizontal" gap={3} style={{margin: "50px"}}>
+        <Stack gap={4}>
           <h3> Welcome to {program.name} program! </h3>
           <p> {program.description}</p>
           <p> Languages: HTML, CSS, JavaScript, SQL... </p>
           <p> Duration: {program.duration_days} days.</p>
-        </div>
-        <div>
-          <img
-            src={program.img_url.url}
-            alt={program.name}
-            max-height={"100%"}
-            max-width={"200px"}
-            />
-        </div>
-        <Stack gap={4}>
+        </Stack>
+        <Image
+          src={program.img_url.url}
+          alt={program.name}
+          height={"300px"}
+          width={"300px"}
+        />
+        <Stack gap={4} style={{width: "200px"}}>
           <Button variant={"primary"}
             onClick={()=>navigate(`/program/edit/${program.id}`)}>
             <FaEdit /> Edit Program
@@ -62,11 +60,11 @@ const ProgramView = () => {
             <Image
               src={program.img_url.url}
               alt={program.name}
-              max-height={"100%"}
-              max-width={"200px"}
+              height={"300px"}
+              width={"300px"}
             />
           </Col>
-          <Col>
+          <Col className='buttonGroup'>
             <Button variant={"primary"}
             onClick={()=>navigate(`/program/edit/${program.id}`)}>
             <FaEdit /> Edit Program
@@ -83,33 +81,6 @@ const ProgramView = () => {
           </Col>
         </Row>
       </Container>
-      <div>
-        <h3> Welcome to {program.name} program! </h3>
-        <p> {program.description}</p>
-        <p> Languages: HTML, CSS, JavaScript, SQL... </p>
-        <p> Duration: {program.duration_days} days.</p>
-      </div>
-      <div>
-        <img
-          src={program.img_url.url}
-          alt={program.name}
-          />
-      </div>
-      <div>
-        <Button variant={"primary"}
-          onClick={()=>navigate(`/program/edit/${program.id}`)}>
-          <FaEdit /> Edit Program
-        </Button>
-        <Button variant={"danger"} onClick={toggleModal}>
-          <FaTrash/> Delete Program
-        </Button>
-        <Button onClick={()=>navigate("/program/new")} variant={"secondary"}>
-          <FaPlusCircle/> Add a New Program
-        </Button>
-        <Button onClick={()=>navigate(programRoot)} variant={"info"}>
-          View All Programs
-        </Button>
-      </div>
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
