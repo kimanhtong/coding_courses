@@ -17,39 +17,37 @@ const ProgramView = () => {
   };
 
   return (
-    <>
-      <Row style={{margin:'10px'}}>
-        <Col md={4}>
-          <h3> Welcome to {program.name} program! </h3>
-          <p> {program.description}</p>
-          <p> Languages: HTML, CSS, JavaScript, SQL... </p>
-          <p> Duration: {program.duration_days} days.</p>
-        </Col>
-        <Col md={3} style={{maxHeight: '600px'}}>
-          <Image
-            src={program.img_url.url}
-            alt={program.name}
-            height={'100%'}
+    <div className='programView'>
+      <div>
+        <h3> Welcome to {program.name} program! </h3>
+        <p> {program.description}</p>
+        <p> Languages: HTML, CSS, JavaScript, SQL... </p>
+        <p> Duration: {program.duration_days} days.</p>
+      </div>
+      <div>
+        <Image
+          src={program.img_url.url}
+          alt={program.name}
+          height={'100%'}
           />
-        </Col>
-        <Col md={2} style={{maxHeight: '600px'}}>
-          <ButtonGroup style={{display: "flex", flexDirection: "column", alignItems: "left"}}>
-            <Button variant={"primary"}
-              onClick={()=>navigate(`/program/edit/${program.id}`)}>
-              <FaEdit /> Edit Program
-            </Button>
-            <Button variant={"danger"} onClick={toggleModal}>
-              <FaTrash/> Delete Program
-            </Button>
-            <Button onClick={()=>navigate("/program/new")} variant={"secondary"}>
-              <FaPlusCircle/> Add a New Program
-            </Button>
-            <Button onClick={()=>navigate(programRoot)} variant={"info"}>
-              View All Programs
-            </Button>
-          </ButtonGroup>
-        </Col>
-      </Row>
+      </div>
+      <div className="buttonGroup">
+
+        <Button variant={"primary"}
+          onClick={()=>navigate(`/program/edit/${program.id}`)}>
+          <FaEdit /> Edit Program
+        </Button>
+        <Button variant={"danger"} onClick={toggleModal}>
+          <FaTrash/> Delete Program
+        </Button>
+        <Button onClick={()=>navigate("/program/new")} variant={"secondary"}>
+          <FaPlusCircle/> Add a New Program
+        </Button>
+        <Button onClick={()=>navigate(programRoot)} variant={"info"}>
+          View All Programs
+        </Button>
+
+      </div>
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
@@ -57,7 +55,7 @@ const ProgramView = () => {
         title={"Confirm Deletion"}
         message={"Are you sure?"}
       />
-    </>
-)};
+    </div>
+  )};
 
 export default ProgramView;
