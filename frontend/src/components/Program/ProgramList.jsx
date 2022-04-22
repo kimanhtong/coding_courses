@@ -24,7 +24,6 @@ const ProgramList = () => {
           alt={program.name}
           variant="top"
           height={"40%"}
-          fluid
         />
         <Card.Body>
           <Card.Title> {program.name} </Card.Title>

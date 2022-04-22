@@ -18,8 +18,8 @@ const ProgramView = () => {
 
   return (
     <>
-      {/* <Container > */}
-        <Row margin={'40px'}>
+      <Container style={{margin:'40px'}}>
+        <Row >
           <Col>
             <h3> Welcome to {program.name} program! </h3>
             <p> {program.description}</p>
@@ -49,7 +49,7 @@ const ProgramView = () => {
             />
           </Col>
         </Row>
-      {/* </Container> */}
+      </Container>
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
