@@ -93,7 +93,6 @@ const ProgramForm = () => {
                   updateImage(event.target.files[0]);
                 }}
               />
-              {/* <button onClick={handleImageUpload}> Upload </button> */}
               {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
             </div> 
           </div>

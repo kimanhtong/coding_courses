@@ -18,12 +18,13 @@ const ProgramList = () => {
 
   const allPrograms = programs.map(program => (
     <Col key={program.id} md={3} >
-      <Card style={{minWidth: '200px', height: '400px', margin: '10px'}}>
+      <Card style={{ margin: '10px', height:'400px', minWidth: '100px'}}>
         <Card.Img
           src={program.img_url.url}
           alt={program.name}
           variant="top"
-          height={"40%"}
+          height={'auto'}
+          width={'100%'}
         />
         <Card.Body>
           <Card.Title> {program.name} </Card.Title>
