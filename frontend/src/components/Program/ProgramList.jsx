@@ -17,8 +17,8 @@ const ProgramList = () => {
   };
 
   const allPrograms = programs.map(program => (
-    <Col key={program.id} md={3} >
-      <Card style={{ margin: '10px', height:'400px', minWidth: '100px'}}>
+    <Col key={program.id} md={4} >
+      <Card style={{ margin: '10px', height:'400px'}}>
         <Card.Img
           src={program.img_url.url}
           alt={program.name}
