@@ -25,6 +25,7 @@ const ProgramList = () => {
           variant="top"
           height={'auto'}
           width={'100%'}
+          max-height={"120px"}
         />
         <Card.Body>
           <Card.Title> {program.name} </Card.Title>

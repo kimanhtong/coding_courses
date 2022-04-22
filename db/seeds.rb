@@ -9,18 +9,8 @@
 Program.create([{
   name: "Intro of Coding",
   description: "Have you ever wished you know how to program, but have no idea where to start from?
-
-  This course will teach you how to program in Scratch, an easy to use visual programming language. More importantly, it will introduce you to the fundamental principles of computing and it will help you think like a software engineer.
-  
-  SKILLS YOU WILL GAIN
-  
-  Computer Programming
-  
-  Algorithms
-  
-  Programming Language
-  
-  Scratch (Programming Language)",
+  \nThis course will teach you how to program in Scratch, an easy to use visual programming language. More importantly, it will introduce you to the fundamental principles of computing and it will help you think like a software engineer.
+  \nSKILLS YOU WILL GAIN:\nComputer Programming\nAlgorithms\nProgramming Language\nScratch (Programming Language)",
   duration_days: 90,
   img_url: {key:"1", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"
   }}, {
@@ -51,7 +41,7 @@ Program.create([{
   duration_days: 120,
   img_url: {key:"4", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091836/coding%20courses/Napa-Data-Engineering-Image_nxqm9i.jpg"
   }}, {
-  name: "Introduction to Data Science",
+  name: "Intro of Data Science",
   description: "The Introduction to Data Science class will survey the foundational topics in data science, namely:
   Data Manipulation
   Data Analysis with Statistics and Machine Learning

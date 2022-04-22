@@ -23,7 +23,7 @@ const ProgramView = () => {
       <Container fluid>
         <Row>
           <Col md={5}>     
-            <p> {program.description}</p>
+            <p> Introduction: {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
             <p> Duration: {program.duration_days} days.</p>
           </Col>
