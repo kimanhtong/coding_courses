@@ -2,11 +2,9 @@
   border: 1px solid #777;
 }
 
-.programView {
+/* .programView {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
 }
 
 .buttonGroup {
@@ -14,4 +12,4 @@
   flex-direction: column;
   justify-content: space-between;
   align-items:flex-start;
-}
+} */
