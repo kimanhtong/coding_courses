@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProgramData } from '../../hooks/useProgramData';
 import { FaPlusCircle, FaTrash, FaEdit} from "react-icons/fa";
-import { Container, Row, Col, Button, Image, ButtonGroup } from 'react-bootstrap'
+import { Row, Col, Button, Image, ButtonGroup } from 'react-bootstrap'
 import '../styles/program.css';
 import Confirm from './Confirm';
 
@@ -18,38 +18,38 @@ const ProgramView = () => {
 
   return (
     <>
-      <Container style={{margin:'40px'}}>
-        <Row >
-          <Col>
-            <h3> Welcome to {program.name} program! </h3>
-            <p> {program.description}</p>
-            <p> Languages: HTML, CSS, JavaScript, SQL... </p>
-            <p> Duration: {program.duration_days} days.</p>
-            <ButtonGroup>
-              <Button variant={"primary"} style={{margin: "5px"}}
-                onClick={()=>navigate(`/program/edit/${program.id}`)}>
-                <FaEdit /> Edit Program
-              </Button>
-              <Button variant={"danger"} onClick={toggleModal} style={{margin: "5px"}}>
-                <FaTrash/> Delete Program
-              </Button>
-              <Button onClick={()=>navigate("/program/new")} variant={"secondary"} style={{margin: "5px"}}>
-                <FaPlusCircle/> Add a New Program
-              </Button>
-              <Button onClick={()=>navigate(programRoot)} variant={"info"} style={{margin: "5px"}}>
-                View All Programs
-              </Button>
-            </ButtonGroup>
-          </Col>
-          <Col style={{maxHeight: '600px'}}>
-            <Image
-              src={program.img_url.url}
-              alt={program.name}
-              height={'100%'}
-            />
-          </Col>
-        </Row>
-      </Container>
+      <Row style={{margin:'10px'}}>
+        <Col md={4}>
+          <h3> Welcome to {program.name} program! </h3>
+          <p> {program.description}</p>
+          <p> Languages: HTML, CSS, JavaScript, SQL... </p>
+          <p> Duration: {program.duration_days} days.</p>
+        </Col>
+        <Col md={3} style={{maxHeight: '600px'}}>
+          <Image
+            src={program.img_url.url}
+            alt={program.name}
+            height={'100%'}
+          />
+        </Col>
+        <Col md={2} style={{maxHeight: '600px'}}>
+          <ButtonGroup style={{display: "flex", flexDirection: "column", alignItems: "left"}}>
+            <Button variant={"primary"}
+              onClick={()=>navigate(`/program/edit/${program.id}`)}>
+              <FaEdit /> Edit Program
+            </Button>
+            <Button variant={"danger"} onClick={toggleModal}>
+              <FaTrash/> Delete Program
+            </Button>
+            <Button onClick={()=>navigate("/program/new")} variant={"secondary"}>
+              <FaPlusCircle/> Add a New Program
+            </Button>
+            <Button onClick={()=>navigate(programRoot)} variant={"info"}>
+              View All Programs
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
