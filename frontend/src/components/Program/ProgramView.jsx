@@ -17,11 +17,11 @@ const ProgramView = () => {
   };
 
   return (
-    <div className="programview">
+    <div className="programview" height="100%">
       <h1> Welcome to {program.name} program! </h1>
       <br />
       <Container fluid>
-        <Row>
+        <Row style={{height:'auto',width:'100%', margin: "auto"}}>
           <Col md={5}>     
             <p> Introduction: {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
@@ -34,7 +34,7 @@ const ProgramView = () => {
             />
           </Col>
           <Col md={2}>
-            <Stack gap={4} style={{minWidth: "200px"}}>
+            <Stack gap={4} style={{height:'auto',width:'100%'}}>
               <Button variant={"primary"}
                 onClick={()=>navigate(`/program/edit/${program.id}`)}>
                 <FaEdit /> Edit Program

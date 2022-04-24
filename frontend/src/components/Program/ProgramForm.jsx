@@ -5,14 +5,21 @@ import { useValidations } from '../../hooks/useValidations';
 import { useProgramData } from '../../hooks/useProgramData';
 import '../styles/program.css';
 import Confirm from './Confirm';
+import isSameObj from '../../helpers/comparison';
 
 const ProgramForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { programs, program, editProgram, createProgram } = useProgramData();
   const programRoot = '/program';
-  let programView = id ? `/program/view/${id}` : '';
+  const programView = id ? `/program/view/${id}` : '';
   const [image, setImage] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [toRoot, setToRoot] = useState(true);
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
 
   // Declaration for input validation rules:
   const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
@@ -33,22 +40,6 @@ const ProgramForm = () => {
   }};
 
   const {values, setValues, changeHandler, errors, touched, submitHandler, resetHandler, updateImage} = useForm(program, validations, saveProgram);
-
-  const isSameObj = (obj1, obj2) => {
-    const arr1 = Object.keys(obj1);
-    const arr2 = Object.keys(obj2);
-    let check = true;
-    if (arr1.length !== arr2.length) {
-      check = false;
-    } else {
-      arr1.forEach((val, index) => {
-        if (arr2[index] !== val) {
-          return check = false;
-        }
-      });
-    }
-    return check;
-  };
 
   useEffect(()=>{
     setValues(program);
@@ -123,9 +114,35 @@ const ProgramForm = () => {
           >
             Reset
         </button>
-        <button type="button" onClick={()=>navigate(programRoot)} className="btn btn-secondary">Back to View All</button>
-        {id ? <button type="button" onClick={()=>navigate(programView)} className="btn btn-secondary">Back to View Detail</button> : null}
+        <button type="button" className="btn btn-secondary" onClick={()=>{
+          if (isSameObj(values, program)) {
+            navigate(programRoot)
+          } else {
+            setToRoot(true);
+            toggleModal();
+          }}}> Back to View All</button>
+        {id ? 
+          <button type="button" className="btn btn-secondary" onClick={()=>{
+              if (isSameObj(values, program)) {
+                navigate(programView)
+              } else {
+                setToRoot(false);
+                toggleModal();
+              }}}
+            >Back to View Detail
+          </button>
+        : null}
       </form>
+      <Confirm 
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        confirmAction={() => {
+          submitHandler();
+          toRoot ? navigate(programRoot) : navigate(programView);
+        }}
+        title={"Changes not saved"}
+        message={"You have made some changes. Would you like to save them before leaving?"}
+      />
     </div>
 )};
 
