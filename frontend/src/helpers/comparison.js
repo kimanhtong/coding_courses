@@ -6,7 +6,7 @@ const isSameObj = (obj1, obj2) => {
     check = false;
   } else {
     arr1.forEach((val, index) => {
-      if (arr2[index] !== val) {
+      if ((arr2[index] !== val) || (obj1[val] !== obj2[val])) {
         return check = false;
       }
     });

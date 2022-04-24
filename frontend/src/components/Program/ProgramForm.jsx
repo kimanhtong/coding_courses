@@ -116,30 +116,27 @@ const ProgramForm = () => {
         </button>
         <button type="button" className="btn btn-secondary" onClick={()=>{
           if (isSameObj(values, program)) {
-            navigate(programRoot)
+            navigate(programRoot);
           } else {
             setToRoot(true);
             toggleModal();
           }}}> Back to View All</button>
         {id ? 
           <button type="button" className="btn btn-secondary" onClick={()=>{
-              if (isSameObj(values, program)) {
-                navigate(programView)
-              } else {
-                setToRoot(false);
-                toggleModal();
-              }}}
-            >Back to View Detail
+            if (isSameObj(values, program)) {
+              navigate(programView);
+            } else {
+              setToRoot(false);
+              toggleModal();
+          }}}>Back to View Detail
           </button>
         : null}
       </form>
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
-        confirmAction={() => {
-          submitHandler();
-          toRoot ? navigate(programRoot) : navigate(programView);
-        }}
+        rejectAction={toRoot ? ()=>navigate(programRoot) : ()=>navigate(programView)}
+        confirmAction={submitHandler}
         title={"Changes not saved"}
         message={"You have made some changes. Would you like to save them before leaving?"}
       />

@@ -21,20 +21,21 @@ const ProgramView = () => {
       <h1> Welcome to {program.name} program! </h1>
       <br />
       <Container fluid>
-        <Row >
-          <Col md={5} style={{height:'auto',width:'100%', margin: "auto"}}>     
+        <Row>
+          <Col md={5}>     
             <p> Introduction: {program.description}</p>
             <p> Languages: HTML, CSS, JavaScript, SQL... </p>
             <p> Duration: {program.duration_days} days.</p>
           </Col>
-          <Col md={5} style={{height:'auto',width:'100%', margin: "auto"}}>
+          <Col md={5}>
             <Image
               src={program.img_url.url}
               alt={program.name}
+              style={{height:'auto',width:'100%'}}
             />
           </Col>
-          <Col md={2} style={{height:'auto',width:'100%', margin: "auto"}}>
-            <Stack gap={4}>
+          <Col md={2}>
+            <Stack gap={4} style={{height:'auto',width:'100%'}}>
               <Button variant={"primary"}
                 onClick={()=>navigate(`/program/edit/${program.id}`)}>
                 <FaEdit /> Edit Program
