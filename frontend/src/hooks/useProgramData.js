@@ -18,14 +18,6 @@ const useProgramData = () => {
     .then (res => {
       console.log(res.data);
       let temp_programs = res.data;
-      // let temp_programs = res.data.map(p => {
-      //   if (typeof(p.img_url) === "string") {
-      //     let t = JSON.parse(p.img_url);
-      //     p.img_url = t;
-      //     console.log('img_url is a string here');
-      //   };
-      //   return p;
-      // });
       setPrograms(temp_programs);
       if (id) {
         let temp_program = temp_programs.filter(p => p.id === parseInt(id));

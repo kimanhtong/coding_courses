@@ -66,7 +66,7 @@ const ProgramList = () => {
         {programs.length > 0 &&
           <>
             <h4> You can find all the currently available programs here.</h4>
-            <Button onClick={()=>navigate("/program/new")} variant={"primary"} style={{margin: "20px"}}>
+            <Button onClick={()=>navigate("/program/new")} variant={"primary"} style={{margin: "20px", maxWidth: "20px"}}>
               <FaPlusCircle/> Add a New Program
             </Button>
           </>}

@@ -7,7 +7,7 @@ const useValidations = () => {
       return val !== null && val.trim().length > 0;
     }
     else {
-      return val !== null && val.name !== undefined;
+      return val !== null && val.name !== undefined; //object or array should have "name" key
     }
   };
 

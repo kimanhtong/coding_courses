@@ -45,6 +45,8 @@ const ProgramForm = () => {
     setValues(program);
   },[program]);
 
+  console.log('initial values: ', values);
+
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
