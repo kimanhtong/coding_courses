@@ -7,7 +7,7 @@ const useValidations = () => {
       return val !== null && val.trim().length > 0;
     }
     else {
-      return val !== null && val !== undefined && val !== {};
+      return val !== null && val.name !== undefined;
     }
   };
 

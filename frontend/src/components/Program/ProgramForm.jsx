@@ -45,10 +45,8 @@ const ProgramForm = () => {
     setValues(program);
   },[program]);
 
-  console.log('touched: ', touched.img_url);
-  console.log('errors: ', errors.img_url);
-  console.log('values: ', values.img_url);
-  console.log('logic result: ', values.img_url === {} && touched.img_url && errors.img_url);
+  console.log('values object: ', values);
+  console.log('logic result: ', touched.img_url && errors.img_url);
 
   return (
     <div> 
@@ -106,7 +104,7 @@ const ProgramForm = () => {
                   updateImage(event.target.files[0]);
                 }}
               />
-              {(program.img_url === {} && values.img_url === {}) && touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
+              {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
             </div> 
           </div>
         </div>
