@@ -12,7 +12,7 @@ Program.create([{
   \nThis course will teach you how to program in Scratch, an easy to use visual programming language. More importantly, it will introduce you to the fundamental principles of computing and it will help you think like a software engineer.
   \nSKILLS YOU WILL GAIN:\nComputer Programming\nAlgorithms\nProgramming Language\nScratch (Programming Language)",
   duration_days: 90,
-  img_url: {key:"1", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"
+  img_url: {name: "Intro of Coding", key:"1", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1648695665/coding%20courses/ykdltfnsiqpegevzz2j4.jpg"
   }}, {
   name: "Web Development",
   description: "This Web Development course is probably one of the most complete and comprehensive online courses you will ever get to see covering web development from top to bottom. In more than 30 hours of content, this course will cover all you need to know about how to become a top skilled web developer even if you never programmed before. In this course we will be covering the following subjects:
@@ -21,7 +21,7 @@ Program.create([{
   This course will give you all the insights on how the Internet works and after you've completed the course, you will have the breadth of knowledge to be able to create your own websites and apps with the latest technology.
   Note: This course is regularly updated with new lectures, guides and projects.",
   duration_days: 210,
-  img_url: {key:"2", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091594/coding%20courses/jfnvfcbdea1r3mw5at9s.jpg"
+  img_url: { name: "Web Development", key:"2", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091594/coding%20courses/jfnvfcbdea1r3mw5at9s.jpg"
   }}, {
   name: "Mobile App",
   description: "This class teaches how to make a mobile application using X-Code and Titanium. This class requires no programming background. We have taught this class in San Francisco to individuals from all backgrounds. It is an ideal starting point for anyone interested in making mobile apps or working with someone who will make mobile apps. Taking this class will lay the foundation necessary for future app development.
@@ -30,7 +30,7 @@ Program.create([{
   Take advantage of the extremely valuable information taught in this class for better achievement of your goals. If you are a programmer and would like to learn Objective-C then this class offers the founding blocks of the language.
   Students who complete this class should be able to do more complicated X-Code exercises.",
   duration_days: 120,
-  img_url: {key:"3", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091941/coding%20courses/App-development-process-Feature-image_inm219.jpg"
+  img_url: {  name: "Mobile App", key:"3", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091941/coding%20courses/App-development-process-Feature-image_inm219.jpg"
   }}, {
   name: "Data Engineering",
   description: "This course introduces you to the core concepts, processes, and tools you need to know in order to get a foundational knowledge of data engineering. You will gain an understanding of the modern data ecosystem and the role Data Engineers, Data Scientists, and Data Analysts play in this ecosystem. 
@@ -39,7 +39,7 @@ Program.create([{
   Data Engineering is recognized as one of the fastest-growing fields today. The career opportunities available in the field and the different paths you can take to enter this field are discussed in the course. 
   The course also includes hands-on labs that guide you to create your IBM Cloud Lite account, provision a database instance, load data into the database instance, and perform some basic querying operations that help you understand your dataset.",
   duration_days: 120,
-  img_url: {key:"4", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091836/coding%20courses/Napa-Data-Engineering-Image_nxqm9i.jpg"
+  img_url: {name: "Data Engineering", key:"4", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091836/coding%20courses/Napa-Data-Engineering-Image_nxqm9i.jpg"
   }}, {
   name: "Intro of Data Science",
   description: "The Introduction to Data Science class will survey the foundational topics in data science, namely:
@@ -50,5 +50,5 @@ Program.create([{
   The class will focus on breadth and present the topics briefly instead of focusing on a single topic in depth. This will give you the opportunity to sample and apply the basic techniques of data science.
   This course is also a part of our Data Analyst Nanodegree.",
   duration_days: 120,
-  img_url: {key:"5", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091491/coding%20courses/blo55iz7tli3sa0glzjb.png"
+  img_url: {  name: "Intro of Data Science", key:"5", url:"https://res.cloudinary.com/de6puygvt/image/upload/v1649091491/coding%20courses/blo55iz7tli3sa0glzjb.png"
   }}]);

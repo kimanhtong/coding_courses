@@ -61,7 +61,7 @@ const useProgramData = () => {
       ,formData
     ).then((response)=>{
       console.log(response.data);
-      program.img_url = {"key": response.data.public_id, "url": response.data.url};
+      program.img_url = {"name": response.data.original_filename, "key": response.data.public_id, "url": response.data.url};
       return Promise.resolve('Uploaded!');
     })
     .catch (err => {

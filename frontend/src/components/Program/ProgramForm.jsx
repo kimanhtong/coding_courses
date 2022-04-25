@@ -45,9 +45,6 @@ const ProgramForm = () => {
     setValues(program);
   },[program]);
 
-  console.log('values object: ', values);
-  console.log('logic result: ', touched.img_url && errors.img_url);
-
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>

@@ -63,6 +63,6 @@ class Api::V1::ProgramsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def program_params
-      params.require(:program).permit(:id, :name, :description, :duration_days, :created_at, :updated_at, img_url: [:key, :url])
+      params.require(:program).permit(:id, :name, :description, :duration_days, :created_at, :updated_at, img_url: [:key, :name, :url])
     end
 end
