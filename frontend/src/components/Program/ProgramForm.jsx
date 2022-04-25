@@ -45,6 +45,11 @@ const ProgramForm = () => {
     setValues(program);
   },[program]);
 
+  console.log('touched: ', touched.img_url);
+  console.log('errors: ', errors.img_url);
+  console.log('values: ', values.img_url);
+  console.log('logic result: ', values.img_url === {} && touched.img_url && errors.img_url);
+
   return (
     <div> 
       <h1> {id && `Edit the Program ${id}`} </h1>
@@ -101,18 +106,19 @@ const ProgramForm = () => {
                   updateImage(event.target.files[0]);
                 }}
               />
-              {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
+              {(program.img_url === {} && values.img_url === {}) && touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
             </div> 
           </div>
         </div>
-        <button type="button" className="btn btn-primary" onClick={submitHandler} >Submit</button>
+        <button type="button" className="btn btn-primary" onClick={(event) => {
+          event.preventDefault();
+          submitHandler();
+          }}> Submit </button>
         <button type="reset" className="btn btn-secondary"
           onClick={()=>{
             setImage(null);
             resetHandler(program);
-          }}
-          >
-            Reset
+          }}> Reset
         </button>
         <button type="button" className="btn btn-secondary" onClick={()=>{
           if (isSameObj(values, program)) {

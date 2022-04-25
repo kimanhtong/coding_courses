@@ -72,6 +72,7 @@ const ProgramList = () => {
       <Confirm 
         isOpen={isOpen}
         toggleModal={toggleModal}
+        rejectAction={()=>console.log('data not saved!')}
         confirmAction={()=>deleteProgram(currentProgram.id)}
         title={"Confirm Deletion"}
         message={"Are you sure?"}

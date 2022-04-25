@@ -23,8 +23,7 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
     setErrors(errors);
     setTouched({...touched, [event.target.name]: true});
   }; 
-  const submitHandler = event => {
-    //event.preventDefault();
+  const submitHandler = () => {
     const {isValid, errors} = validate(validations, values);
     setValid(isValid);
     setErrors(errors);
