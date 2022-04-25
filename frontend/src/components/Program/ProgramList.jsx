@@ -62,14 +62,14 @@ const ProgramList = () => {
   return (
     <Container fluid="md" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
       <h1> Welcome to the Program List page!</h1>
+      {programs.length > 0 &&
+        <>
+          <h4> You can find all the currently available programs here.</h4>
+          <Button onClick={()=>navigate("/program/new")} variant={"primary"} style={{margin: "20px"}}>
+            <FaPlusCircle/> Add a New Program
+          </Button>
+        </>}
       <Row fluid="md">
-        {programs.length > 0 &&
-          <>
-            <h4> You can find all the currently available programs here.</h4>
-            <Button onClick={()=>navigate("/program/new")} variant={"primary"} style={{margin: "20px", maxWidth: "20px"}}>
-              <FaPlusCircle/> Add a New Program
-            </Button>
-          </>}
         {programs.length > 0 ? allPrograms : noProgram}
       </Row>
       <Confirm 
