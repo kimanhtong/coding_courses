@@ -48,7 +48,7 @@ const ProgramForm = () => {
   console.log('initial values: ', values);
 
   return (
-    <div> 
+    <div className='programForm'> 
       <h1> {id && `Edit ${values.name} program`} </h1>
       <h1> {!id && `Create ${values.name} program`} </h1>
       <form>
@@ -63,8 +63,6 @@ const ProgramForm = () => {
             />
             {touched.name && errors.name && <p className="error">{errors.name}</p>} 
           </div>
-        </div>
-        <div className="form-group">
           <label>Duration in Days</label>
           <div className='form-input'>
             <input type="number" className="form-control"

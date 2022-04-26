@@ -2,7 +2,12 @@
   border: 1px solid #777;
 }
 /* Below is CSS for program form*/
-form {
+.programForm {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+/* form {
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -16,9 +21,6 @@ form {
   margin: 10px
 }
 
-.form-group label, input {
-  min-width: 200px;
-}
 
 .form-actions button {
   margin: 5px;
@@ -36,4 +38,4 @@ form {
   display: flex;
   flex-direction: column;
   align-items: left;
-}
+} */
