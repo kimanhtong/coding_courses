@@ -1,3 +1,39 @@
 .card:hover {
   border: 1px solid #777;
 }
+/* Below is CSS for program form*/
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px
+}
+
+.form-group label, input {
+  min-width: 200px;
+}
+
+.form-actions button {
+  margin: 5px;
+} 
+
+
+.form-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}

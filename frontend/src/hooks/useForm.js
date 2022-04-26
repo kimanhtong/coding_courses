@@ -35,6 +35,10 @@ const useForm = (initialState = {}, validations = [], onSubmit = () => {}) => {
   };
   const resetHandler = (vals) => {
     setValues(vals);
+    let fieldNames = Object.keys(values);
+    let newTouched = {};
+    fieldNames.forEach(val => newTouched[val]=false);
+    setTouched(newTouched);
   };
   const updateImage = val => {
     const newValues = {...values, img_url: val};

@@ -49,91 +49,98 @@ const ProgramForm = () => {
 
   return (
     <div> 
-      <h1> {id && `Edit the Program ${id}`} </h1>
-      <h1> {!id && `Create a new Program`} </h1>
+      <h1> {id && `Edit ${values.name} program`} </h1>
+      <h1> {!id && `Create ${values.name} program`} </h1>
       <form>
         <div className="form-group">
           <label>Program Name:</label>
-          <input type="text" className="form-control"
-            placeholder='Enter the Name'
-            name="name"
-            value={values.name}
-            onChange={changeHandler}
-          />
-          {touched.name && errors.name && <p className="error">{errors.name}</p>} 
-        </div>
-        <div className="form-group">
-          <label>Program Description</label>
-          <input type="text" className="form-control"
-            placeholder='Enter the Description'
-            name="description"
-            value={values.description}
-            onChange={changeHandler} />
-            {touched.description && errors.description && <p className="error">{errors.description}</p>} 
+          <div className='form-input'>
+            <input type="text" className="form-control"
+              placeholder='Enter the Name'
+              name="name"
+              value={values.name}
+              onChange={changeHandler}
+            />
+            {touched.name && errors.name && <p className="error">{errors.name}</p>} 
+          </div>
         </div>
         <div className="form-group">
           <label>Duration in Days</label>
-          <input type="number" className="form-control"
-            placeholder='Enter the Duration in Days'
-            name="duration_days"
-            value={values.duration_days}
-            onChange={changeHandler} />
-          {touched.duration_days && errors.duration_days && <p className="error">{errors.duration_days}</p>} 
+          <div className='form-input'>
+            <input type="number" className="form-control"
+              placeholder='Enter the Duration in Days'
+              name="duration_days"
+              value={values.duration_days}
+              onChange={changeHandler} />  
+            {touched.duration_days && errors.duration_days && <p className="error">{errors.duration_days}</p>}     
+          </div>
         </div>
         <div className="form-group">
+          <label>Program Description</label>
+          <div className='form-input'>
+            <input type="text" className="form-control"
+              placeholder='Enter the Description'
+              name="description"
+              value={values.description}
+              onChange={changeHandler} />
+            {touched.description && errors.description && <p className="error">{errors.description}</p>} 
+          </div>
+        </div>
+       
+        <div className="form-group">
           <label>Program Logo</label>
-          <div className="form-control">
-            {image && (
-              <div className="form-control">
-                <img src={URL.createObjectURL(image)} alt="Cannot load!" width={"250px"} mode={"fit"}/>
-              </div>
-            )}
-            {(!image && values.img_url.url) && (
-              <div className="form-control">
-                <img src={values.img_url.url} alt="Cannot load!" width={"250px"} mode={"fit"}/>
-              </div>
-            )}
-            <br />
-            <br />
+          <div className='form-input'>
             <div className="form-control">
-              <input
+              {image && (
+                <div className="form-control">
+                  <img src={URL.createObjectURL(image)} alt="Cannot load!" width={"250px"} mode={"fit"}/>
+                </div>
+              )}
+              {(!image && values.img_url.url) && (
+                <div className="form-control">
+                  <img src={values.img_url.url} alt="Cannot load!" width={"250px"} mode={"fit"}/>
+                </div>
+              )}
+              <input className="form-control"
                 type="file"
                 onChange={(event)=>{
                   setImage(event.target.files[0]);
                   updateImage(event.target.files[0]);
                 }}
               />
-              {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>} 
-            </div> 
+            </div>
+            {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>}
           </div>
         </div>
-        <button type="button" className="btn btn-primary" onClick={(event) => {
-          event.preventDefault();
-          submitHandler();
-          }}> Submit </button>
-        <button type="reset" className="btn btn-secondary"
-          onClick={()=>{
-            setImage(null);
-            resetHandler(program);
-          }}> Reset
-        </button>
-        <button type="button" className="btn btn-secondary" onClick={()=>{
-          if (isSameObj(values, program)) {
-            navigate(programRoot);
-          } else {
-            setToRoot(true);
-            toggleModal();
-          }}}> Back to View All</button>
-        {id ? 
+        <div className='form-actions'>
+          <button type="button" className="btn btn-primary" onClick={(event) => {
+            event.preventDefault();
+            submitHandler();
+            }}> Submit </button>
+          <button type="reset" className="btn btn-secondary"
+            onClick={()=>{
+              setImage(null);
+              resetHandler(program);
+            }}> Reset
+          </button>
           <button type="button" className="btn btn-secondary" onClick={()=>{
             if (isSameObj(values, program)) {
-              navigate(programView);
+              navigate(programRoot);
             } else {
-              setToRoot(false);
+              setToRoot(true);
               toggleModal();
-          }}}>Back to View Detail
-          </button>
-        : null}
+            }}}> Back to View All</button>
+          {id ? 
+            <button type="button" className="btn btn-secondary" onClick={()=>{
+              if (isSameObj(values, program)) {
+                navigate(programView);
+              } else {
+                setToRoot(false);
+                toggleModal();
+            }}}>Back to View Detail
+            </button>
+          : null}
+        </div>
       </form>
       <Confirm 
         isOpen={isOpen}
