@@ -22,14 +22,14 @@ const ProgramForm = () => {
   };
 
   // Declaration for input validation rules:
-  const { isRequired, isNotExisted, isGreaterThan0 } = useValidations();
+  const { isRequired, isNotExisted, isLimited } = useValidations();
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
     ({name}) => isNotExisted(programs, name) || {name: "Name already exists"},
     ({description}) => isRequired(description) || {description: 'Description is required'},
     ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
     ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
-    ({duration_days}) => isGreaterThan0(duration_days) || {duration_days: 'Duration should be greater than 0 days'}
+    ({duration_days}) => isLimited(duration_days) || {duration_days: 'Duration should be between 1 and 4000 days'}
   ];
   const saveProgram = (p) => {
     console.log('program to be saved: ', p);
@@ -49,8 +49,10 @@ const ProgramForm = () => {
 
   return (
     <div className='programForm'> 
-      <h1> {id && `Edit existing program: "${values.name}"`} </h1>
-      <h1> {!id && `Create new program: "${values.name}"`} </h1>
+      <h3> {id && `Edit existing program`} </h3>
+      <h1> {id && `${values.name}`} </h1>
+      <h3> {!id && `Create new program`} </h3>
+      <h1> {!id && `${values.name}`} </h1>
       <form>
         <div className="form-group">
           <label>Program Name:</label>
@@ -78,7 +80,7 @@ const ProgramForm = () => {
         <div className="form-group">
           <label>Program Description</label>
           <div className='form-input'>
-            <input type="text" className="form-control"
+            <textarea type="text" className="form-control"
               placeholder='Enter the Description'
               name="description"
               value={values.description}
@@ -90,25 +92,23 @@ const ProgramForm = () => {
         <div className="form-group">
           <label>Program Logo</label>
           <div className='form-input'>
-            <div className="form-control">
-              {image && (
-                <div className="form-control">
-                  <img src={URL.createObjectURL(image)} alt="Cannot load!" width={"250px"} mode={"fit"}/>
-                </div>
-              )}
-              {(!image && values.img_url.url) && (
-                <div className="form-control">
-                  <img src={values.img_url.url} alt="Cannot load!" width={"250px"} mode={"fit"}/>
-                </div>
-              )}
-              <input className="form-control"
-                type="file"
-                onChange={(event)=>{
-                  setImage(event.target.files[0]);
-                  updateImage(event.target.files[0]);
-                }}
-              />
-            </div>
+            {image && (
+              <div className="form-control">
+                <img src={URL.createObjectURL(image)} alt="Cannot load!" width={"250px"} mode={"fit"}/>
+              </div>
+            )}
+            {(!image && values.img_url.url) && (
+              <div className="form-control">
+                <img src={values.img_url.url} alt="Cannot load!" width={"250px"} mode={"fit"}/>
+              </div>
+            )}
+            <input className="form-control"
+              type="file"
+              onChange={(event)=>{
+                setImage(event.target.files[0]);
+                updateImage(event.target.files[0]);
+              }}
+            />
             {touched.img_url && errors.img_url && <p className="error">{errors.img_url}</p>}
           </div>
         </div>

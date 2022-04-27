@@ -3,56 +3,39 @@
 }
 /* Below is CSS for program form*/
 .programForm {
-  margin: auto;
+  margin: 10px auto;
   width: 100%;
 }
 
-.programForm label {
-  width: 210px;
-  min-width: 100px;
+.programForm h1 {
+  color: rgb(46, 78, 46)
 }
 
-.programForm input {
-  max-width: 1000px;
-}
-
-.programForm .form-control {
-  max-width: 900px;
-}
-
-form {
+.programForm form {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   text-align: left;
-  /* width: 50%; */
 }
 
-.form-group {
+.programForm .form-group {
   display: flex;
   flex-direction: row;
   margin: 10px
 }
+.programForm label {
+  width: 160px;
+  min-width: 100px;
+}
 
-.form-actions button {
+.programForm input, textarea {
+  max-width: 2000px;
+  min-width: 400px;
+}
+
+.programForm button {
   margin: 5px;
 } 
-/*
-
-.form-actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}*/
-
-/* .form-input {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  width: 50%;
-} */
 
 /* Above is CSS for program form*/
 

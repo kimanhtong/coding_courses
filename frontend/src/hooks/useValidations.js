@@ -16,11 +16,11 @@ const useValidations = () => {
     return pro.length === 0 || (pro.length === 1 && pro[0].id);
   };
 
-  const isGreaterThan0 = (val) => {
-    return parseInt(val) > 0;
+  const isLimited = (val) => {
+    return parseInt(val) > 0 && parseInt(val) <= 4000;
   };
 
-  return {isRequired, isNotExisted, isGreaterThan0};
+  return {isRequired, isNotExisted, isLimited};
 }
 
 export { useValidations };
