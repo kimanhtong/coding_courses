@@ -49,14 +49,15 @@ const ProgramForm = () => {
 
   return (
     <div className='programForm'> 
-      <h1> {id && `Edit ${values.name} program`} </h1>
-      <h1> {!id && `Create ${values.name} program`} </h1>
+      <h1> {id && `Edit existing program: "${values.name}"`} </h1>
+      <h1> {!id && `Create new program: "${values.name}"`} </h1>
       <form>
         <div className="form-group">
           <label>Program Name:</label>
           <div className='form-input'>
             <input type="text" className="form-control"
               placeholder='Enter the Name'
+              width={"50px"}
               name="name"
               value={values.name}
               onChange={changeHandler}
@@ -67,6 +68,7 @@ const ProgramForm = () => {
           <div className='form-input'>
             <input type="number" className="form-control"
               placeholder='Enter the Duration in Days'
+              width={"4px"}
               name="duration_days"
               value={values.duration_days}
               onChange={changeHandler} />  
@@ -78,6 +80,7 @@ const ProgramForm = () => {
           <div className='form-input'>
             <input type="text" className="form-control"
               placeholder='Enter the Description'
+              width={"100px"}
               name="description"
               value={values.description}
               onChange={changeHandler} />

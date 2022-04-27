@@ -4,20 +4,7 @@
 /* Below is CSS for program form*/
 .programForm {
   margin: auto;
-  width: 50%;
-}
-
-/* Create columns that float next to each other */
-.column {
-  float: left;
-}
-
-.column.left {
-  width: 25%;
-}
-
-.column.right {
-  width: 50%;
+  width: 100%;
 }
 
 
