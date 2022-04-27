@@ -94,12 +94,12 @@ const ProgramForm = () => {
           <div className='form-input'>
             {image && (
               <div className="form-control">
-                <img src={URL.createObjectURL(image)} alt="Cannot load!" width={"250px"} mode={"fit"}/>
+                <img src={URL.createObjectURL(image)} alt="Cannot load!" mode={"fit"}/>
               </div>
             )}
             {(!image && values.img_url.url) && (
               <div className="form-control">
-                <img src={values.img_url.url} alt="Cannot load!" width={"250px"} mode={"fit"}/>
+                <img src={values.img_url.url} alt="Cannot load!"/>
               </div>
             )}
             <input className="form-control"

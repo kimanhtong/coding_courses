@@ -6,18 +6,15 @@
   margin: 10px auto;
   width: 100%;
 }
-
 .programForm h1 {
   color: rgb(46, 78, 46)
 }
-
 .programForm form {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: left;
 }
-
 .programForm .form-group {
   display: flex;
   flex-direction: row;
@@ -27,21 +24,14 @@
   width: 160px;
   min-width: 100px;
 }
-
 .programForm input, textarea {
   max-width: 2000px;
   min-width: 400px;
 }
-
 .programForm button {
   margin: 5px;
-} 
-
-/* Above is CSS for program form*/
-
-/* Responsive layout - makes the columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
 }
+.programForm img {
+  width: 250px;
+}
+/* Above is CSS for program form*/
