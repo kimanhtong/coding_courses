@@ -57,18 +57,18 @@ const ProgramForm = () => {
           <div className='form-input'>
             <input type="text" className="form-control"
               placeholder='Enter the Name'
-              width={"50px"}
               name="name"
               value={values.name}
               onChange={changeHandler}
             />
             {touched.name && errors.name && <p className="error">{errors.name}</p>} 
           </div>
+        </div>
+        <div className="form-group">
           <label>Duration in Days</label>
           <div className='form-input'>
             <input type="number" className="form-control"
               placeholder='Enter the Duration in Days'
-              width={"4px"}
               name="duration_days"
               value={values.duration_days}
               onChange={changeHandler} />  
@@ -80,7 +80,6 @@ const ProgramForm = () => {
           <div className='form-input'>
             <input type="text" className="form-control"
               placeholder='Enter the Description'
-              width={"100px"}
               name="description"
               value={values.description}
               onChange={changeHandler} />

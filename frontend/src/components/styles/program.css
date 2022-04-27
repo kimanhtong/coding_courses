@@ -7,21 +7,32 @@
   width: 100%;
 }
 
+.programForm label {
+  width: 210px;
+  min-width: 100px;
+}
 
-/* form {
+.programForm input {
+  max-width: 1000px;
+}
+
+.programForm .form-control {
+  max-width: 900px;
+}
+
+form {
   display: flex;
   flex-direction: column;
   align-items: left;
   text-align: left;
-}*/
+  /* width: 50%; */
+}
 
 .form-group {
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
   margin: 10px
 }
-
 
 .form-actions button {
   margin: 5px;
@@ -35,15 +46,17 @@
   align-items: center;
 }*/
 
-.form-input {
+/* .form-input {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: auto;
   width: 50%;
-}
+} */
 
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
+/* Above is CSS for program form*/
+
+/* Responsive layout - makes the columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
 @media screen and (max-width: 600px) {
   .column {
     width: 100%;
