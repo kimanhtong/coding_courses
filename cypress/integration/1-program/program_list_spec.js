@@ -1,15 +1,15 @@
 describe('The Program Page', () => {
-  it('Program List page loaded', () => {
-    cy.visit('/program') // change URL to match your dev URL
+  beforeEach(function () {
+    cy.visit('/program')
+  })
+  it('Program List page loaded successfully', () => {
     cy.contains('Welcome to the Program List page!').should('be.visible')
   })
-  it('Program Create page loaded', () => {
-    cy.visit('/program')
+  it('Program Create page loaded successfully', () => {
     cy.contains('Add a New Program').click()
     cy.contains('Create new program').should('be.visible')
   })
   it('Add a new Program successfully', () => {
-    cy.visit('/program')
     cy.contains('Add a New Program').click()
     cy.get('input[name=name]').type('Lighthouse Labs')
     cy.get('input[name=duration_days]').type('180')
@@ -17,5 +17,17 @@ describe('The Program Page', () => {
     cy.get('input[type=file]').selectFile('LHLpic1.png')
     cy.contains('Submit').click()
     cy.contains('Welcome to Lighthouse Labs program!').should('be.visible')
+  })
+  it('View an existent Program successfully', () => 
+    cy.wrap(program)
+    .then((list) =>
+      // from every object in the list, pick the "name" property
+      Cypress._.map(list, (o) => Cypress._.pick(o, 'name')),
+    )
+    .should('deep.include', { name: 'Lighthouse Labs' })
+
+  )
+  it('Delete an existent Program successfully', () => {
+    
   })
 })

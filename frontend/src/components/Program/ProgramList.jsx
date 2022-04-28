@@ -35,7 +35,7 @@ const ProgramList = () => {
             onClick={()=>navigate(`/program/view/${program.id}`)}>
             <FaSearchPlus/>
           </Button>
-          <Button variant="secondary" 
+          <Button variant="secondary"
             onClick={()=>navigate(`/program/edit/${program.id}`)}>
             <FaEdit />
           </Button>
