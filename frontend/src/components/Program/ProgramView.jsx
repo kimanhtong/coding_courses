@@ -57,6 +57,7 @@ const ProgramView = () => {
         isOpen={isOpen}
         toggleModal={toggleModal}
         confirmAction={()=>deleteProgram(program.id)}
+        rejectAction={()=>console.log('delete confirmation dialog')}
         title={"Confirm Deletion"}
         message={"Are you sure?"}
       />
