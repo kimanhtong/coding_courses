@@ -39,7 +39,7 @@ const ProgramList = () => {
             onClick={()=>navigate(`/program/edit/${program.id}`)}>
             <FaEdit />
           </Button>
-          <Button variant="danger"
+          <Button variant="danger" className='delete'
             onClick={() => {
               setCurrentProgram(program);
               toggleModal();

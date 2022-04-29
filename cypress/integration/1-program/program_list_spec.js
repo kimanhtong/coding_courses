@@ -18,16 +18,21 @@ describe('The Program Page', () => {
     cy.contains('Submit').click()
     cy.contains('Welcome to Lighthouse Labs program!').should('be.visible')
   })
-  it('View an existent Program successfully', () => 
-    cy.wrap(program)
-    .then((list) =>
-      // from every object in the list, pick the "name" property
-      Cypress._.map(list, (o) => Cypress._.pick(o, 'name')),
-    )
-    .should('deep.include', { name: 'Lighthouse Labs' })
-
-  )
+  it('View an existent Program successfully', () => {
+    cy.contains('.card', 'Lighthouse Labs') 
+      .children('.card-footer')
+      .children('button.btn.btn-info')
+      .click()
+    cy.contains('Welcome to Lighthouse Labs program!').should('be.visible')
+    cy.contains('Lighthouse Labs').should('be.visible')
+    cy.contains('180').should('be.visible')
+    cy.contains('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.').should('be.visible')
+    cy.get('img').should('be.visible')
+  })
   it('Delete an existent Program successfully', () => {
-    
+    cy.contains('.card', 'Lighthouse Labs') 
+    .children('.card-footer')
+    .children('button.btn.btn-danger')
+    .click()
   })
 })
