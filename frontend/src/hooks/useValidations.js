@@ -13,7 +13,7 @@ const useValidations = () => {
 
   const isNotExisted = (vals, val) => {
     let pro = vals.filter(p => p.name === val.trim());
-    return pro.length === 0 || (pro.length === 1 && pro[0].id);
+    return pro.length === 0;
   };
 
   const isLimited = (val) => {
