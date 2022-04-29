@@ -34,5 +34,7 @@ describe('The Program Page', () => {
     .children('.card-footer')
     .children('button.btn.btn-danger')
     .click()
+    cy.contains('Yes').click()
+    cy.get('.card-title').contains('Lighthouse Labs').should('not.exist')
   })
 })
