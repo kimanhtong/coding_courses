@@ -107,7 +107,7 @@ describe('Program pages - Basic CRUD actions', () => {
     cy.get('input[name=name]').type('Lighthouse Labs')
     cy.get('input[name=duration_days]').type('180')
     cy.get('textarea[name=description]').type('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.')
-    cy.get('input[type=file]').selectFile('LHLpic1.png')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
     cy.contains('Submit').click()
     cy.contains('Welcome to Lighthouse Labs program!').should('be.visible')
     cy.contains('View All Programs').click()
@@ -132,7 +132,7 @@ describe('Program pages - Basic CRUD actions', () => {
     cy.get('input[name=name]').clear().type('Web Flex Bootcamp')
     cy.get('input[name=duration_days]').clear().type('270')
     cy.get('textarea[name=description]').clear().type('Every test you write will include selectors for elements. To save yourself a lot of headaches, you should write selectors that are resilient to changes by: \nDon\'t target elements based on CSS attributes such as: id, class, tag \nDon\'t target elements that may change their textContent \nAdd data-* attributes to make it easier to target elements')
-    cy.get('input[type=file]').selectFile('LHLpic2.jpeg')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic2.jpeg')
     cy.contains('Submit').click()
     cy.contains('Welcome to Web Flex Bootcamp program!').should('be.visible')
     cy.get('h1').contains('Lighthouse Labs').should('not.exist')
@@ -148,5 +148,15 @@ describe('Program pages - Basic CRUD actions', () => {
 })
 
 describe('Program Form - Validations', () => {
-  
+  beforeEach (() => {
+    cy.visit('/program')
+  })
+  it('Show errors on required fields for no data', () => {
+    cy.contains('Add a New Program').click()
+    cy.contains('Submit').click()
+    cy.contains('Name is required').should('be.visible')
+    cy.contains('Duration should be between 1 and 4000 days').should('be.visible')
+    cy.contains('Description is required').should('be.visible')
+    cy.contains('Picture is required').should('be.visible')
+  })
 })
