@@ -147,7 +147,7 @@
 //   })
 // })
 
-describe('Program Form - Validations', () => {
+describe('Program Form - Reset and Validations', () => {
   beforeEach (() => {
     cy.visit('/program')
   })
@@ -206,6 +206,55 @@ describe('Program Form - Validations', () => {
     })
     cy.contains('Back to View Detail').click()
     cy.contains('Delete Program').click()
+    cy.contains('Yes').click()
+  })
+  it("Name should be unique", () => {
+    cy.contains('Add a New Program').click()
+    cy.get('input[name=name]').type('Lighthouse Labs')
+    cy.get('input[name=duration_days]').type('180')
+    cy.get('textarea[name=description]').type('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
+    cy.contains('Submit').click()
+    cy.contains('Add a New Program').click()
+    cy.get('input[name=name]').type('Lighthouse Labs')
+    cy.contains('Name already exists').should('be.visible')
+    cy.get('input[name=duration_days]').type('180')
+    cy.get('textarea[name=description]').type('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
+    cy.contains('Submit').click()
+    cy.contains('Name already exists').should('be.visible')
+  })
+  it("Name should not be just spaces", () => {
+    cy.contains('Add a New Program').click()
+    cy.get('input[name=name]').type('          ') // 10 spaces
+    cy.get('input[name=duration_days]').type('180')
+    cy.get('textarea[name=description]').type('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
+    cy.contains('Submit').click()
+    cy.contains('Name is required').should('be.visible')
+  })
+  it("Duration should be between 1 and 4000 days", () => {
+    cy.contains('Add a New Program').click()
+    cy.get('input[name=name]').type('  Web Flex        ')
+    cy.get('input[name=duration_days]').type('5000') // error???
+    cy.contains('Duration should be between 1 and 4000 days').should('be.visible')
+    cy.get('textarea[name=description]').type('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
+    cy.contains('Submit').click()
+    cy.contains('Duration should be between 1 and 4000 days').should('be.visible')
+    cy.get('input[name=duration_days]').type('1')
+    cy.contains('Duration should be between 1 and 4000 days').should('not.exist')
+    cy.get('input[name=duration_days]').type('4001')
+    cy.contains('Duration should be between 1 and 4000 days').should('be.visible')
+    cy.get('input[name=duration_days]').type('4000')
+    cy.contains('Duration should be between 1 and 4000 days').should('not.exist')
+  })
+  after(() => {
+    cy.visit('/program')
+    cy.contains('.card', 'Lighthouse Labs') 
+    .children('.card-footer') // error??
+    .children('button.btn.btn-danger')
+    .click()
     cy.contains('Yes').click()
   })
 })
