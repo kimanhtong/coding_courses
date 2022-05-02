@@ -187,15 +187,10 @@ describe('Program Form - Validations', () => {
     cy.get('textarea[name=description]').type('The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.')
     cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
     cy.contains('Submit').click()
-    cy.contains('View All Programs').click()
-    cy.contains('.card', 'Lighthouse Labs') 
-    .children('.card-footer')
-    .children('button.btn.btn-secondary')
-    .click()
+    cy.contains('Edit Program').click()
     let image_source1 = ""
-    let image_source2 = ""
-    cy.get('form img').invoke('attr', 'src').then(($src) => {
-      image_source1 = $src
+    cy.get('form img').invoke('attr', 'src').then((src) => {
+      image_source1 = src
     })
     cy.get('input[name=name]').clear().type('Web Flex Bootcamp')
     cy.get('input[name=duration_days]').clear().type('270')
@@ -206,9 +201,11 @@ describe('Program Form - Validations', () => {
     cy.get('input[name=duration_days]').should('have.value', '180');
     cy.get('textarea[name=description]').should('have.value', 'The Cypress team prides itself on the ease of its install process. Remember that we need to make the right things easy. If it is hard to install the test framework, then it is less likely developers will go through all of the trouble.');
     cy.get('input[type=file]').should('have.value', '');
-    cy.get('form img').invoke('attr', 'src').then(($src) => {
-      image_source2 = $src;
-      expect(image_source2).equal(image_source1);
+    cy.get('form img').invoke('attr', 'src').then((src) => {
+      expect(src).equal(image_source1);
     })
+    cy.contains('Back to View Detail').click()
+    cy.contains('Delete Program').click()
+    cy.contains('Yes').click()
   })
 })
