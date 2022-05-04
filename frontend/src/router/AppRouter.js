@@ -15,7 +15,6 @@ const AppRouter = () => {
               <Route element={<ProgramForm/>} path="/program/edit/:id"/>
               <Route element={<ProgramForm/>} path="/program/new"/>
               <Route element={<ProgramView/>} path="/program/view/:id"/>
-              <Route element={() => <Link to="/program" />} />
             </Routes>
         </div>
       </div>
