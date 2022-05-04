@@ -198,7 +198,7 @@ describe('Program Form - Reset and Validations', () => {
     cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
     cy.contains('Submit').click()
     cy.clock()
-    cy.tick(100)
+    cy.tick(1000)
     cy.contains('Edit Program').click()
     let image_source1 = ""
     cy.get('form img').invoke('attr', 'src').then((src) => {
@@ -235,6 +235,13 @@ describe('Program Form - Reset and Validations', () => {
     cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
     cy.contains('Submit').click()
     cy.contains('Name already exists').should('be.visible')
+    cy.contains('Back to View All').click()
+    cy.contains('No').click()
+    cy.contains('.card', 'Lighthouse Labs') 
+    .children('.card-footer')
+    .children('button.btn.btn-danger')
+    .click()
+    cy.contains('Yes').click()
   })
   it("Name should not be just spaces", () => {
     cy.contains('Add a New Program').click()
@@ -260,13 +267,5 @@ describe('Program Form - Reset and Validations', () => {
     cy.contains('Duration should be between 1 and 4000 days').should('be.visible')
     cy.get('input[name=duration_days]').clear().type('4000')
     cy.contains('Duration should be between 1 and 4000 days').should('not.exist')
-  })
-  after(() => {
-    cy.visit('/program')
-    cy.contains('.card', 'Lighthouse Labs') 
-    .children('.card-footer')
-    .children('button.btn.btn-danger')
-    .click()
-    cy.contains('Yes').click()
   })
 })
