@@ -109,9 +109,7 @@ describe('Program pages - Basic CRUD actions', () => {
     cy.get('textarea[name=description]').type('Cypress also provides hooks (borrowed from Mocha).These are helpful to set conditions that you want to run before a set of tests or before each test. They\'re also helpful to clean up conditions after a set of tests or after each test.')
     cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic2.jpeg')
     cy.contains('Submit').click()
-  })
-  beforeEach(() => {
-    cy.visit('/program')
+    cy.contains('View All Programs').click()
   })
   it('Add and Delete a new Program successfully', () => {
     cy.contains('Welcome to the Program List page!').should('be.visible')
@@ -156,11 +154,11 @@ describe('Program pages - Basic CRUD actions', () => {
     // edit an existent program without picture updated
     cy.contains('Edit Program').click()
     cy.contains('Cypress Auto Test').should('be.visible')
-    cy.contains('Cypress Auto Test').clear().type('E2E Auto Test with Cypress')
+    cy.get('input[name=name]').clear().type('E2E Auto Test with Cypress')
     cy.contains('Submit').click()
     cy.contains('View All Programs').click()
-    cy.contains('Cypress Auto Test program').should('not.exist')
-    cy.contains('Welcome to Cypress Auto Test program!').should('not.exist')
+    cy.contains('Cypress Auto Test').should('not.exist')
+    cy.contains('Web Flex Bootcamp').should('not.exist')
     cy.contains('E2E Auto Test with Cypress').should('be.visible')
 
   })

@@ -33,9 +33,9 @@ const useProgramData = () => {
     axios
     .delete(existingProgramDB)
     .then (() => {
-      let newPrograms = [...programs];
-      newPrograms.splice(index, 1);
-      setPrograms(newPrograms);
+      // let newPrograms = [...programs];
+      // newPrograms.splice(index, 1);
+      // setPrograms(newPrograms);
       navigate(programRoot);
     })
     .catch(res => {
