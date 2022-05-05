@@ -2,35 +2,35 @@ describe('Program List - Page Load per action button', () => {
   beforeEach(function () {
     cy.visit('/program')
   })
-//   it('Program List page loaded successfully', () => {
-//     cy.contains('Welcome to the Program List page!').should('be.visible')
-//   })
-//   it('Program Create page loaded successfully', () => {
-//     cy.contains('Add a New Program').click()
-//     cy.contains('Create new program').should('be.visible')
-//   })
-//   it('Program View page loaded successfully', () => {
-//     cy.get(".card").first()
-//     .children('.card-footer')
-//     .children('button.btn.btn-info')
-//     .click()
-//     cy.contains('Welcome to Intro of Coding program').should('be.visible')
-//     cy.contains('Edit Program').should('be.visible')
-//     cy.contains('Delete Program').should('be.visible')
-//     cy.contains('Add a New Program').should('be.visible')
-//     cy.contains('View All Programs').should('be.visible')
-//   })
-//   it('Program Edit page loaded successfully', () => {
-//     cy.get(".card").first()
-//     .children('.card-footer')
-//     .children('button.btn.btn-secondary')
-//     .click()
-//     cy.contains('Edit existing program').should('be.visible')
-//     cy.contains('Submit').should('be.visible')
-//     cy.contains('Reset').should('be.visible')
-//     cy.contains('Back to View Detail').should('be.visible')
-//     cy.contains('Back to View All').should('be.visible')
-//   })
+  it('Program List page loaded successfully', () => {
+    cy.contains('Welcome to the Program List page!').should('be.visible')
+  })
+  it('Program Create page loaded successfully', () => {
+    cy.contains('Add a New Program').click()
+    cy.contains('Create new program').should('be.visible')
+  })
+  it('Program View page loaded successfully', () => {
+    cy.get(".card").first()
+    .children('.card-footer')
+    .children('button.btn.btn-info')
+    .click()
+    cy.contains('Welcome to Intro of Coding program').should('be.visible')
+    cy.contains('Edit Program').should('be.visible')
+    cy.contains('Delete Program').should('be.visible')
+    cy.contains('Add a New Program').should('be.visible')
+    cy.contains('View All Programs').should('be.visible')
+  })
+  it('Program Edit page loaded successfully', () => {
+    cy.get(".card").first()
+    .children('.card-footer')
+    .children('button.btn.btn-secondary')
+    .click()
+    cy.contains('Edit existing program').should('be.visible')
+    cy.contains('Submit').should('be.visible')
+    cy.contains('Reset').should('be.visible')
+    cy.contains('Back to View Detail').should('be.visible')
+    cy.contains('Back to View All').should('be.visible')
+  })
   it('Program Delete dialog loaded successfully', () => {
     cy.get(".card").first()
     .children('.card-footer')
@@ -52,16 +52,16 @@ describe('Program View - Page Load per action button', () => {
     .children('button.btn.btn-info')
     .click()
   })
-//   it('Program Create page loaded successfully', () => {
-//     cy.contains('Add a New Program').should('be.visible')
-//     cy.contains('Add a New Program').click()
-//     cy.contains('Create new program').should('be.visible')
-//   })
-  // it('Program Edit page loaded successfully', () => {
-  //   cy.contains('Edit Program').should('be.visible')
-  //   cy.contains('Edit Program').click()
-  //   cy.contains('Edit existing program').should('be.visible')
-  // })
+  it('Program Create page loaded successfully', () => {
+    cy.contains('Add a New Program').should('be.visible')
+    cy.contains('Add a New Program').click()
+    cy.contains('Create new program').should('be.visible')
+  })
+  it('Program Edit page loaded successfully', () => {
+    cy.contains('Edit Program').should('be.visible')
+    cy.contains('Edit Program').click()
+    cy.contains('Edit existing program').should('be.visible')
+  })
   it('Program Delete dialog loaded successfully', () => {
     cy.contains('Delete Program').should('be.visible')
     cy.contains('Delete Program').click()
@@ -71,11 +71,11 @@ describe('Program View - Page Load per action button', () => {
     cy.contains('No').should('be.visible')
     cy.contains('No').click()
   })
-//   it('Back to Program list page successfully', () => {
-//     cy.contains('View All Programs').should('be.visible')
-//     cy.contains('View All Programs').click()
-//     cy.contains('Welcome to the Program List page!').should('be.visible')
-//   })
+  it('Back to Program list page successfully', () => {
+    cy.contains('View All Programs').should('be.visible')
+    cy.contains('View All Programs').click()
+    cy.contains('Welcome to the Program List page!').should('be.visible')
+  })
 })
 
 describe('Program Form - Page Load per action button', () => {
@@ -288,5 +288,50 @@ describe('Program Form - Reset and Validations', () => {
   })
   after(() => {
     cy.visit('/program')
+  })
+})
+describe('Error toleration', () => {
+  before (() => {
+    cy.visit("/program")
+  })
+  it ("Javascript injection 1", () => {
+    cy.contains('Add a New Program').click()
+    cy.get('input[name=name]').type('javascript:alert("Hello"); alert("World");')
+    cy.get('input[name=duration_days]').type('180')
+    cy.get('textarea[name=description]').type('javascript:alert(document.forms[0].to.value="something")')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
+    cy.contains('Submit').click()
+    cy.contains('Welcome to javascript:alert("Hello"); alert("World"); program!').should('be.visible')
+    cy.contains('View All Programs').click()
+    cy.contains('.card', 'javascript:alert("Hello"); alert("World");').should('be.visible')
+  })
+
+  it ("Javascript injection 2", () => {
+    cy.contains('Add a New Program').click()
+    cy.get('input[name=name]').type('javascript:R=0; x1=.1; y1=.05; x2=.25; y2=.24; x3=1.6; y3=.24; x4=300; y4=200; x5=300; y5=200; DI=document.images; DIL=DI.length; function A(){for(i=0; i-DIL; i++){DIS=DI[ i ].style; DIS.position="absolute"; DIS.left=Math.sin(R*x1+i*x2+x3)*x4+x5; DIS.top=Math.cos(R*y1+i*y2+y3)*y4+y5}R++}setInterval("A()",5); void(0);')
+    cy.get('input[name=duration_days]').type('180')
+    cy.get('textarea[name=description]').type('javascript:alert(document.forms[0].to.value="something")')
+    cy.get('input[type=file]').selectFile('cypress/fixtures/LHLpic1.png')
+    cy.contains('Submit').click()
+    cy.contains('Welcome to javascript:R=0; x1=.1; y1=.05; x2=.25; y2=.24; x3=1.6; y3=.24; x4=300; y4=200; x5=300; y5=200; DI=document.images; DIL=DI.length; function A(){for(i=0; i-DIL; i++){DIS=DI[ i ].style; DIS.position="absolute"; DIS.left=Math.sin(R*x1+i*x2+x3)*x4+x5; DIS.top=Math.cos(R*y1+i*y2+y3)*y4+y5}R++}setInterval("A()",5); void(0); program!').should('be.visible')
+    cy.contains('View All Programs').click()
+    cy.contains('.card', 'javascript:R=0; x1=.1; y1=.05; x2=.25; y2=.24; x3=1.6; y3=.24; x4=300; y4=200; x5=300; y5=200; DI=document.images; DIL=DI.length; function A(){for(i=0; i-DIL; i++){DIS=DI[ i ].style; DIS.position="absolute"; DIS.left=Math.sin(R*x1+i*x2+x3)*x4+x5; DIS.top=Math.cos(R*y1+i*y2+y3)*y4+y5}R++}setInterval("A()",5); void(0);').should('be.visible')
+  })
+
+  after (() => {
+    cy.visit("/program")
+
+    cy.contains('.card', 'javascript:alert("Hello"); alert("World");') 
+    .children('.card-footer')
+    .children('button.btn.btn-danger')
+    .click()
+    cy.contains('Yes').click()
+
+    cy.contains('.card', 'javascript:R=0; x1=.1; y1=.05; x2=.25; y2=.24; x3=1.6; y3=.24; x4=300; y4=200; x5=300; y5=200; DI=document.images; DIL=DI.length; function A(){for(i=0; i-DIL; i++){DIS=DI[ i ].style; DIS.position="absolute"; DIS.left=Math.sin(R*x1+i*x2+x3)*x4+x5; DIS.top=Math.cos(R*y1+i*y2+y3)*y4+y5}R++}setInterval("A()",5); void(0);') 
+    .children('.card-footer')
+    .children('button.btn.btn-danger')
+    .click()
+    cy.contains('Yes').click()
+
   })
 })
