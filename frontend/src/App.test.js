@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import ProgramList from "../src/components/Program/ProgramList"
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+test('renders Program List page', () => {
+  render(
+    <BrowserRouter>
+      <ProgramList />
+    </BrowserRouter>
+  )
+  const linkElement = screen.getByText("Welcome to the Program List page!");
   expect(linkElement).toBeInTheDocument();
 });
