@@ -11,8 +11,8 @@ const useValidations = () => {
     }
   };
 
-  const isNotExisted = (vals, val) => {
-    let pro = vals.filter(p => p.name === val.trim());
+  const isNotExisted = (vals, val, id) => {
+    let pro = vals.filter(p => p.name === val.trim() && (id === null || p.id !== id));
     return pro.length === 0;
   };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {render, screen, cleanup} from "@testing-library/react";
 import ProgramList from "../Program/ProgramList";
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Link} from 'react-router-dom';
 
 afterEach(cleanup);
 
@@ -18,6 +18,7 @@ describe("Program List - error cases", () => {
     expect(welcome_text).toBeInTheDocument();
     const program_null_text = screen.queryByText(/You can find all the currently available programs here./i);
     expect(program_null_text).not.toBeInTheDocument();
+    expect(screen.queryByText(`No programs yet. Why not`)).toBeInTheDocument();
   });
 
   it ("Cannot delete a Program from DB", () => {
