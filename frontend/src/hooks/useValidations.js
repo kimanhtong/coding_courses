@@ -12,7 +12,9 @@ const useValidations = () => {
   };
 
   const isNotExisted = (vals, val, id) => {
-    let pro = vals.filter(p => p.name === val.trim() && (id === null || p.id !== id));
+    let pro = id ? vals.filter(p => p.name === val.trim() && p.id !== parseInt(id)) : vals.filter(p => p.name === val.trim());
+    console.log('id value: ', id);
+    console.log('should be an empty array: ', pro);
     return pro.length === 0;
   };
 

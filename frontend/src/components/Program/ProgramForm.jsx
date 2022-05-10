@@ -25,7 +25,7 @@ const ProgramForm = () => {
   const { isRequired, isNotExisted, isLimited } = useValidations();
   const validations = [
     ({name}) => isRequired(name) || {name: 'Name is required'},
-    ({name}) => isNotExisted(programs, name, id) || {name: "Name already exists"},
+    ({name}) => isNotExisted(programs, name, id ? id : NaN) || {name: "Name already exists"},
     ({description}) => isRequired(description) || {description: 'Description is required'},
     ({img_url}) => isRequired(img_url) || {img_url: 'Picture is required'},
     ({duration_days}) => isRequired(duration_days) || {duration_days: 'Duration is required'},
