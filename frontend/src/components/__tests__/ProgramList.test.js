@@ -5,7 +5,7 @@ import { BrowserRouter} from 'react-router-dom';
 
 afterEach(cleanup);
 
-beforeEach(() => {
+beforeAll(() => {
   render(
     <BrowserRouter>
       <ProgramList />
@@ -13,15 +13,11 @@ beforeEach(() => {
   )})
 
 describe("Program List - error cases", () => {
-  it ("Cannot fetch Program List from DB", async () => {
+  it ("Cannot fetch Program List from DB", () => {
     const welcome_text = screen.queryByText(/Welcome to the Program List page!/i);
     expect(welcome_text).toBeInTheDocument();
     const program_null_text = screen.queryByText(/You can find all the currently available programs here./i);
     expect(program_null_text).not.toBeInTheDocument();
-    // await expect(console.log).toHaveBeenLastCalledWith('Network Error');
-    // expect(() => {
-    //   screen.queryByText(/You can find all the currently available programs here./i);
-    // }).toThrow('Network Error');
   });
 
   it ("Cannot delete a Program from DB", () => {
